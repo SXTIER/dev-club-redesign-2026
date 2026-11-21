@@ -12,6 +12,7 @@ import "@fontsource/jetbrains-mono/500.css";
 import "@fontsource/jetbrains-mono/600.css";
 import "@fontsource/jetbrains-mono/700.css";
 import "./globals.css";
+import { AppDataProvider } from "@/context/AppDataContext";
 
 export const metadata: Metadata = {
   title: "MUICT Dev Club — Your Career's Trial Run",
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-surface text-ink font-sans antialiased">
-        {children}
+        <AppDataProvider>{children}</AppDataProvider>
       </body>
     </html>
   );
