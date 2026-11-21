@@ -3,8 +3,68 @@
 import Link from "next/link";
 import { Badge, type BadgeTone } from "@/components/ui/Badge";
 import { useAppData } from "@/context/AppDataContext";
+import type { EventItem } from "@/lib/types/events";
 import type { InquiryStatus } from "@/lib/types/inquiries";
 import type { ApplicationStatus } from "@/lib/types/recruitment";
+
+const MONTH_NAME_TO_INDEX: Record<string, number> = {
+  jan: 0,
+  january: 0,
+  feb: 1,
+  february: 1,
+  mar: 2,
+  march: 2,
+  apr: 3,
+  april: 3,
+  may: 4,
+  jun: 5,
+  june: 5,
+  jul: 6,
+  july: 6,
+  aug: 7,
+  august: 7,
+  sep: 8,
+  sept: 8,
+  september: 8,
+  oct: 9,
+  october: 9,
+  nov: 10,
+  november: 10,
+  dec: 11,
+  december: 11,
+};
+
+function parseEventMonthYear(
+  event: Pick<EventItem, "dateLabel" | "updatedAt">,
+): { month: number; year: number } | null {
+  const monthYearMatch =
+    /\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b[\s,.-]*(\d{4})\b/i.exec(
+      event.dateLabel,
+    );
+  if (monthYearMatch) {
+    const month = MONTH_NAME_TO_INDEX[monthYearMatch[1].toLowerCase()];
+    const year = Number.parseInt(monthYearMatch[2], 10);
+    if (month !== undefined && Number.isFinite(year)) {
+      return { month, year };
+    }
+  }
+
+  const isoLabelMatch = /\b(\d{4})-(\d{2})(?:-\d{2})?\b/.exec(event.dateLabel);
+  if (isoLabelMatch) {
+    const year = Number.parseInt(isoLabelMatch[1], 10);
+    const month = Number.parseInt(isoLabelMatch[2], 10) - 1;
+    if (Number.isFinite(year) && month >= 0 && month <= 11) {
+      return { month, year };
+    }
+  }
+
+  const fallback = new Date(event.updatedAt);
+  if (!Number.isNaN(fallback.getTime())) {
+    return { month: fallback.getMonth(), year: fallback.getFullYear() };
+  }
+
+  return null;
+}
 
 function formatShortDate(iso: string): string {
   const date = new Date(iso);
@@ -39,9 +99,22 @@ export function OverviewDashboard() {
   ).length;
   const totalApplications = applications.length;
 
-  const publishedEvents = events.filter(
-    (evt) => evt.status === "Published",
-  ).length;
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  const currentMonthLabel = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    year: "numeric",
+  }).format(now);
+
+  const eventsInMonth = events.filter((evt) => {
+    const parsed = parseEventMonthYear(evt);
+    return (
+      parsed !== null &&
+      parsed.month === currentMonth &&
+      parsed.year === currentYear
+    );
+  }).length;
   const homeEvents = events.filter((evt) => evt.showOnHome).length;
   const totalEvents = events.length;
   const nextPublishedEvent = events.find((evt) => evt.status === "Published");
@@ -149,10 +222,10 @@ export function OverviewDashboard() {
             </h2>
             <div className="mt-5 flex items-baseline gap-3">
               <span className="text-5xl sm:text-[56px] font-medium leading-none text-[#1C1B1F]">
-                {publishedEvents}
+                {eventsInMonth}
               </span>
               <span className="text-lg sm:text-[22px] font-medium text-[#1C1B1F]">
-                published events
+                {`events in ${currentMonthLabel}`}
               </span>
             </div>
           </div>

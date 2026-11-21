@@ -248,9 +248,22 @@ describe("Admin Login, AdminShell (AuthGuard), and Overview Dashboard", () => {
         (app) => app.status === "Pending",
       ).length;
       const expectedTotalApps = adminSeedJson.applications.length;
-      const expectedPublishedEvents = eventsJson.filter(
-        (evt) => evt.status === "Published",
-      ).length;
+      const now = new Date();
+      const currentMonthLabel = new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        year: "numeric",
+      }).format(now);
+      const currentMonthShort = new Intl.DateTimeFormat("en-US", {
+        month: "short",
+      }).format(now);
+      const currentYear = String(now.getFullYear());
+      const expectedEventsInMonth = eventsJson.filter((evt) => {
+        const match = new RegExp(
+          `\\b${currentMonthShort}[a-z]*\\s+${currentYear}\\b`,
+          "i",
+        ).test(evt.dateLabel);
+        return match;
+      }).length;
       const expectedTotalEvents = eventsJson.length;
       const expectedUnreadInquiries = adminSeedJson.inquiries.filter(
         (inq) => inq.status === "Unanswered",
@@ -269,7 +282,10 @@ describe("Admin Login, AdminShell (AuthGuard), and Overview Dashboard", () => {
 
       const eventsCard = screen.getByTestId("kpi-events");
       expect(
-        within(eventsCard).getByText(String(expectedPublishedEvents)),
+        within(eventsCard).getByText(String(expectedEventsInMonth)),
+      ).toBeInTheDocument();
+      expect(
+        within(eventsCard).getByText(`events in ${currentMonthLabel}`),
       ).toBeInTheDocument();
       expect(
         within(eventsCard).getByText(
@@ -311,6 +327,81 @@ describe("Admin Login, AdminShell (AuthGuard), and Overview Dashboard", () => {
       expect(
         within(latestQuestions).getByRole("link", { name: /View all/i }),
       ).toHaveAttribute("href", "/admin/inquiries");
+    });
+
+    it("computes events in <Month YYYY> accurately for current month events vs other months", async () => {
+      const services = createMockServices();
+      const now = new Date();
+      const currentMonthUpper = new Intl.DateTimeFormat("en-US", {
+        month: "short",
+      })
+        .format(now)
+        .toUpperCase();
+      const currentYear = now.getFullYear();
+      const currentMonthLabel = new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        year: "numeric",
+      }).format(now);
+      const otherMonthDate = new Date(currentYear + 1, (now.getMonth() + 2) % 12, 15);
+      const otherMonthUpper = new Intl.DateTimeFormat("en-US", {
+        month: "short",
+      })
+        .format(otherMonthDate)
+        .toUpperCase();
+      const otherYear = otherMonthDate.getFullYear();
+
+      const initialMatching = eventsJson.filter((evt) =>
+        new RegExp(`\\b${currentMonthUpper}[a-z]*\\s+${currentYear}\\b`, "i").test(
+          evt.dateLabel,
+        ),
+      ).length;
+
+      await services.events.createEvent({
+        marker: "Workshop",
+        title: "Current Month Live Workshop",
+        subtitle: "Happening this month",
+        category: "Event",
+        dateLabel: `25 ${currentMonthUpper} ${currentYear} · 17:00`,
+        location: "IT-302",
+        description: "Test current month event counting.",
+        status: "Published",
+        showOnHome: false,
+        order: 99,
+      });
+
+      await services.events.createEvent({
+        marker: "Future",
+        title: "Other Month Showcase",
+        subtitle: "Happening later",
+        category: "News",
+        dateLabel: `15 ${otherMonthUpper} ${otherYear}`,
+        location: "IT-105",
+        description: "Should not increment current month KPI.",
+        status: "Published",
+        showOnHome: false,
+        order: 100,
+      });
+
+      render(
+        <AppDataProvider services={services} mode="mock">
+          <OverviewDashboard />
+        </AppDataProvider>,
+      );
+
+      const eventsCard = await screen.findByTestId("kpi-events");
+      await waitFor(() =>
+        expect(
+          within(eventsCard).getByText(String(initialMatching + 1)),
+        ).toBeInTheDocument(),
+      );
+      expect(
+        within(eventsCard).getByText(`events in ${currentMonthLabel}`),
+      ).toBeInTheDocument();
+      expect(
+        within(eventsCard).getByText(
+          new RegExp(`${eventsJson.length + 2}\\s+total events`, "i"),
+        ),
+      ).toBeInTheDocument();
     });
   });
 
