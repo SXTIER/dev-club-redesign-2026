@@ -225,6 +225,68 @@ describe("Recruitment page (/joining-information)", () => {
     });
   }, 15000);
 
+  it(
+    "allows dismissing CV error or submitting without CV after a rejected optional CV attempt",
+    async () => {
+      const user = userEvent.setup({ applyAccept: false });
+      const services = createMockServices();
+      render(
+        <AppDataProvider services={services}>
+          <RecruitmentOpenedForm content={recruitmentJson} />
+        </AppDataProvider>,
+      );
+
+      await user.type(screen.getByLabelText(/First Name/i), "Niran");
+      await user.type(screen.getByLabelText(/Last Name/i), "Sombat");
+      await user.type(screen.getByLabelText(/NickName/i), "Ran");
+      await user.type(screen.getByLabelText(/Student ID/i), "6988123");
+      await user.type(screen.getByLabelText(/^Email/i), "niran.som@student.mahidol.ac.th");
+      await user.type(screen.getByLabelText(/Phone/i), "0891234567");
+      await user.selectOptions(screen.getByLabelText(/Program/i), "DST");
+      await user.selectOptions(screen.getByLabelText(/Year/i), "2");
+      await user.click(screen.getByRole("radio", { name: /Back End Developer/i }));
+      await user.type(screen.getByLabelText(/Expectation/i), "Build scalable APIs");
+      await user.type(screen.getByLabelText(/Contribution/i), "Maintain services");
+      await user.type(screen.getByLabelText(/Project Idea/i), "Event check-in API");
+      await user.type(screen.getByLabelText(/Team Project Experience/i), "Database group project");
+
+      const fileInput = screen.getByLabelText(/Upload CV/i) as HTMLInputElement;
+      await user.upload(
+        fileInput,
+        new File(["bad"], "script.sh", { type: "text/x-shellscript" }),
+      );
+      expect(
+        screen.getByText(/Unsupported cv file extension\. Allowed: \.pdf, \.docx\./i),
+      ).toBeInTheDocument();
+
+      // Dismiss button clears the error cleanly
+      await user.click(screen.getByRole("button", { name: /Dismiss CV error/i }));
+      expect(
+        screen.queryByText(/Unsupported cv file extension/i),
+      ).not.toBeInTheDocument();
+
+      // Even if an invalid CV error is left displayed without attaching a file, submit succeeds without CV
+      await user.upload(
+        fileInput,
+        new File(["bad"], "script.sh", { type: "text/x-shellscript" }),
+      );
+      expect(
+        screen.getByText(/Unsupported cv file extension/i),
+      ).toBeInTheDocument();
+
+      for (const cb of screen.getAllByRole("checkbox")) {
+        await user.click(cb);
+      }
+      await user.click(screen.getByRole("button", { name: /Submit Application/i }));
+
+      await waitFor(() => expect(screen.getByText(/Pending/i)).toBeInTheDocument());
+      const stored = await services.recruitment.listApplications();
+      expect(stored[0].personal.firstName).toBe("Niran");
+      expect(stored[0].cv).toBeUndefined();
+    },
+    15000,
+  );
+
   it("supports ?preview=closed and ?preview=open overrides on /joining-information page", async () => {
     const services = createMockServices();
     await services.content.updateSection(

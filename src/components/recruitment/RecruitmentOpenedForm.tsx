@@ -268,12 +268,14 @@ export default function RecruitmentOpenedForm({
     const nextErrors = validateAll();
     const hasFieldErrors = Object.values(nextErrors).some(Boolean);
 
-    if (hasFieldErrors || cvError) {
+    if (!cvFile && cvError) {
+      setCvError(null);
+    }
+
+    if (hasFieldErrors) {
       setErrors(nextErrors);
       setSubmitError(
-        cvError
-          ? `Please resolve the highlighted errors and CV upload issue: ${cvError}`
-          : "Please review and fix the highlighted fields before submitting.",
+        "Please review and fix the highlighted fields before submitting.",
       );
       return;
     }
@@ -1361,13 +1363,23 @@ export default function RecruitmentOpenedForm({
                       </div>
 
                       {cvError ? (
-                        <p
-                          id={`${ids.cv}-err`}
-                          role="alert"
-                          className="text-xs sm:text-sm font-medium text-[#B41B00]"
-                        >
-                          {cvError}
-                        </p>
+                        <div className="flex items-center justify-between gap-3">
+                          <p
+                            id={`${ids.cv}-err`}
+                            role="alert"
+                            className="text-xs sm:text-sm font-medium text-[#B41B00]"
+                          >
+                            {cvError}
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => setCvError(null)}
+                            aria-label="Dismiss CV error"
+                            className="shrink-0 text-xs font-medium text-[#B41B00] underline underline-offset-4 hover:text-[#7A1200] cursor-pointer"
+                          >
+                            Dismiss
+                          </button>
+                        </div>
                       ) : null}
                     </div>
 
