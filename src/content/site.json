@@ -1,0 +1,42 @@
+{
+  "brandName": "MUICT Dev Club",
+  "slogan": "Your Career's Trial Run",
+  "logoDark": {
+    "id": "media-wordmark-black",
+    "src": "/images/figma/wordmark-devclub-black.svg",
+    "alt": "MUICT Dev Club wordmark"
+  },
+  "logoLight": {
+    "id": "media-logo-white",
+    "src": "/images/figma/logo-white.svg",
+    "alt": "MUICT Dev Club white logo"
+  },
+  "navbar": {
+    "links": [
+      { "label": "About Us", "href": "/#about" },
+      { "label": "Why MUICT Dev Club", "href": "/#why-us" },
+      { "label": "Teams", "href": "/#teams" },
+      { "label": "Timeline", "href": "/#timeline" },
+      { "label": "Location", "href": "/#location" },
+      { "label": "FAQ", "href": "/#faq" }
+    ],
+    "cta": {
+      "label": "Joining information",
+      "href": "/joining-information"
+    }
+  },
+  "footer": {
+    "organization": "MUICT Dev Club",
+    "addressLines": [
+      "MUICT Dev Club",
+      "Faculty of Information and Communication Technology, Mahidol University",
+      "999 Phuttamonthon 4 Road, Salaya, Nakhon Pathom 73170 THAILAND"
+    ],
+    "legalLinks": [
+      { "label": "Privacy Policy", "href": "/privacy-policy" },
+      { "label": "Terms of Use", "href": "/terms-of-use" },
+      { "label": "Acknowledgement", "href": "/acknowledgement" }
+    ],
+    "copyright": "Copyright © 2026. MUICT Dev Club. All rights reserved."
+  }
+}

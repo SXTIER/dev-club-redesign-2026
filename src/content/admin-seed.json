@@ -1,0 +1,267 @@
+{
+  "applications": [
+    {
+      "id": "APP-2026-0001",
+      "createdAt": "2026-11-14T09:15:00.000Z",
+      "status": "Pending",
+      "personal": {
+        "firstName": "Somchai",
+        "lastName": "Narin",
+        "nickname": "Chai",
+        "studentId": "6987777",
+        "email": "somchai.nar@student.mahidol.ac.th",
+        "phone": "0812345678",
+        "program": "DST",
+        "year": "1"
+      },
+      "team": "projects",
+      "roleId": "frontend-dev",
+      "roleLabel": "Front End Developer",
+      "motivation": {
+        "expectation": "Learn production React and Next.js workflows with senior peers.",
+        "contribution": "Build accessible UI components and responsive layouts for club sites.",
+        "projectIdea": "An interactive Mahidol Salaya shuttle and room-finder web app.",
+        "teamExperience": "Built a team course-planner prototype during DST orientation week."
+      },
+      "portfolioUrl": "https://github.com/somchai-nar",
+      "agreedRequirements": true,
+      "agreedPdpa": true
+    },
+    {
+      "id": "APP-2026-0002",
+      "createdAt": "2026-11-14T08:40:00.000Z",
+      "status": "Pending",
+      "personal": {
+        "firstName": "Pimchanok",
+        "lastName": "Suriya",
+        "nickname": "Pim",
+        "studentId": "6987012",
+        "email": "pimchanok.sur@student.mahidol.ac.th",
+        "phone": "0823456789",
+        "program": "ICT",
+        "year": "1"
+      },
+      "team": "projects",
+      "roleId": "ux-ui-designer",
+      "roleLabel": "UX/UI Designer",
+      "motivation": {
+        "expectation": "Collaborate closely with engineers from wireframes to shipped UI.",
+        "contribution": "Design clean Figma component libraries and conduct usability tests.",
+        "projectIdea": "A unified MUICT student events and peer tutoring portal.",
+        "teamExperience": "Designed mobile screens for a high-school science fair competition."
+      },
+      "portfolioUrl": "https://figma.com/@pimsuriya",
+      "agreedRequirements": true,
+      "agreedPdpa": true
+    },
+    {
+      "id": "APP-2026-0003",
+      "createdAt": "2026-11-13T16:20:00.000Z",
+      "status": "Accepted",
+      "personal": {
+        "firstName": "Napat",
+        "lastName": "Kittipong",
+        "nickname": "Pat",
+        "studentId": "6887041",
+        "email": "napat.kit@student.mahidol.ac.th",
+        "phone": "0834567890",
+        "program": "ICT",
+        "year": "2"
+      },
+      "team": "projects",
+      "roleId": "backend-dev",
+      "roleLabel": "Back End Developer",
+      "motivation": {
+        "expectation": "Deepen API architecture, Postgres schema, and deployment skills.",
+        "contribution": "Maintain FastAPI/Node services, database migrations, and tests.",
+        "projectIdea": "Automated hackathon team-matching and submission judging backend.",
+        "teamExperience": "Backend lead for our Year 2 database systems group project."
+      },
+      "portfolioUrl": "https://github.com/napat-kit",
+      "agreedRequirements": true,
+      "agreedPdpa": true
+    },
+    {
+      "id": "APP-2026-0004",
+      "createdAt": "2026-11-13T11:05:00.000Z",
+      "status": "Accepted",
+      "personal": {
+        "firstName": "Arisa",
+        "lastName": "Wongchai",
+        "nickname": "Ari",
+        "studentId": "6887098",
+        "email": "arisa.won@student.mahidol.ac.th",
+        "phone": "0845678901",
+        "program": "DST",
+        "year": "2"
+      },
+      "team": "projects",
+      "roleId": "mobile-dev",
+      "roleLabel": "Mobile Application Developer",
+      "motivation": {
+        "expectation": "Ship a cross-platform Flutter app with real student users.",
+        "contribution": "Build mobile UI flows, local caching, and push notifications.",
+        "projectIdea": "A Mahidol campus canteen queue-time estimator app.",
+        "teamExperience": "Built a Flutter habit tracker in a 2-person winter hackathon."
+      },
+      "portfolioUrl": "https://github.com/arisa-won",
+      "agreedRequirements": true,
+      "agreedPdpa": true
+    },
+    {
+      "id": "APP-2026-0005",
+      "createdAt": "2026-11-12T15:30:00.000Z",
+      "status": "Rejected",
+      "personal": {
+        "firstName": "Thanawat",
+        "lastName": "Srisuk",
+        "nickname": "Tan",
+        "studentId": "6787036",
+        "email": "thanawat.sri@student.mahidol.ac.th",
+        "phone": "0856789012",
+        "program": "ICT",
+        "year": "3"
+      },
+      "team": "projects",
+      "roleId": "fullstack-dev",
+      "roleLabel": "Full Stack Developer",
+      "motivation": {
+        "expectation": "Explore new full-stack frameworks and mentor junior students.",
+        "contribution": "Review pull requests and help architect shared web services.",
+        "projectIdea": "Open-source past-exam and study note indexing platform.",
+        "teamExperience": "Internship web developer working with TypeScript and PostgreSQL."
+      },
+      "portfolioUrl": "https://github.com/thanawat-sri",
+      "agreedRequirements": true,
+      "agreedPdpa": true
+    },
+    {
+      "id": "APP-2026-0006",
+      "createdAt": "2026-11-12T10:15:00.000Z",
+      "status": "Accepted",
+      "personal": {
+        "firstName": "Kanya",
+        "lastName": "Rattanakul",
+        "nickname": "Kan",
+        "studentId": "6987059",
+        "email": "kanya.rat@student.mahidol.ac.th",
+        "phone": "0867890123",
+        "program": "ICT",
+        "year": "1"
+      },
+      "team": "projects",
+      "roleId": "projects-other",
+      "roleLabel": "Other",
+      "customRole": "Quality Assurance",
+      "motivation": {
+        "expectation": "Learn automated E2E testing and structured bug reporting.",
+        "contribution": "Write Playwright test suites and verify releases across viewports.",
+        "projectIdea": "A lightweight visual regression checklist for club web apps.",
+        "teamExperience": "Organized test cases for an ICT freshman showcase project."
+      },
+      "portfolioUrl": "https://github.com/kanya-rat",
+      "agreedRequirements": true,
+      "agreedPdpa": true
+    }
+  ],
+  "inquiries": [
+    {
+      "id": "inq-2026-01",
+      "question": "What is this club and what kind of activities do you run?",
+      "senderEmail": "napat@example.com",
+      "category": "About the club",
+      "tags": ["About the club", "Home / FAQ"],
+      "status": "Unanswered",
+      "createdAt": "2026-11-14T09:12:00.000Z"
+    },
+    {
+      "id": "inq-2026-02",
+      "question": "Do I need coding experience before joining a project squad?",
+      "senderEmail": "pim@example.com",
+      "category": "Membership",
+      "tags": ["Membership", "Year 1"],
+      "status": "Unanswered",
+      "createdAt": "2026-11-14T07:10:00.000Z"
+    },
+    {
+      "id": "inq-2026-03",
+      "question": "Where is the next Next.js workshop taking place?",
+      "senderEmail": "korn@example.com",
+      "category": "Events",
+      "tags": ["Events"],
+      "status": "Answered",
+      "createdAt": "2026-11-13T14:30:00.000Z",
+      "reply": {
+        "body": "Our Modern Web & Next.js Workshop will be held at Lab IT-302, Faculty of ICT on 10 Dec 2026 at 16:30. Bring your laptop!",
+        "sentAt": "2026-11-13T15:15:00.000Z",
+        "sentBy": "admin@example.com"
+      }
+    },
+    {
+      "id": "inq-2026-04",
+      "question": "How do I apply for the Design & Art or UX/UI Designer role?",
+      "senderEmail": "mina@example.com",
+      "category": "Recruitment",
+      "tags": ["Recruitment", "Design"],
+      "status": "Answered",
+      "createdAt": "2026-11-13T10:05:00.000Z",
+      "reply": {
+        "body": "Open /joining-information, select UX/UI Designer under Projects Team (or Graphic Designer under Marketing Team), and attach your portfolio or Figma link.",
+        "sentAt": "2026-11-13T11:20:00.000Z",
+        "sentBy": "admin@example.com"
+      }
+    }
+  ],
+  "faqBank": [
+    {
+      "id": "faqb-01",
+      "question": "How many hours per week does a project squad require?",
+      "answer": "Most squads meet once a week for 1.5–2 hours and coordinate async tasks around exam periods.",
+      "category": "Membership",
+      "tags": ["Commitment", "Projects"],
+      "createdAt": "2026-11-05T10:00:00.000Z",
+      "updatedAt": "2026-11-05T10:00:00.000Z",
+      "promotedToHome": false
+    },
+    {
+      "id": "faqb-02",
+      "question": "Can DST students apply for Projects Team roles?",
+      "answer": "Yes! Both ICT and DST students from Years 1–4 are welcome across all engineering, design, QA, and marketing tracks.",
+      "category": "Recruitment",
+      "tags": ["DST", "Recruitment"],
+      "createdAt": "2026-11-06T12:00:00.000Z",
+      "updatedAt": "2026-11-06T12:00:00.000Z",
+      "promotedToHome": false
+    },
+    {
+      "id": "faqb-03",
+      "question": "Can I switch teams after joining for one semester?",
+      "answer": "Yes, members can rotate between tracks at the start of a new project cycle after talking with their squad lead.",
+      "category": "Membership",
+      "tags": ["Teams", "Rotation"],
+      "createdAt": "2026-11-08T09:30:00.000Z",
+      "updatedAt": "2026-11-08T09:30:00.000Z",
+      "promotedToHome": false
+    }
+  ],
+  "signinMemes": [
+    {
+      "id": "media-signin-meme-1",
+      "src": "/images/figma/signin-meme-1.png",
+      "alt": "MUICT Dev Club coding meme slide 1",
+      "caption": "When the build passes on the first try before Demo Day"
+    },
+    {
+      "id": "media-doge-typing",
+      "src": "/images/figma/doge-typing.png",
+      "alt": "Doge furiously typing code at midnight",
+      "caption": "Committee shipping hotfixes at 23:59 before recruitment opens"
+    },
+    {
+      "id": "media-signin-doge-avatar",
+      "src": "/images/figma/signin-doge-avatar.png",
+      "alt": "Admin Doge checking pull requests",
+      "caption": "Reviewing 60 recruitment applications with extra coffee"
+    }
+  ]
+}

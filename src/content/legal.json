@@ -1,0 +1,434 @@
+{
+  "backToHomeLabel": "← Back to Home",
+  "privacyPolicy": {
+    "en": {
+      "title": "Privacy Policy",
+      "subtitle": "MUICT Dev Club · Mahidol University",
+      "lastUpdated": "Last updated: Nov 2026",
+      "sections": [
+        {
+          "heading": "Overview",
+          "paragraphs": [
+            "Dev Club, Faculty of Information and Communication Technology, Mahidol University recognizes the importance of the protection of your personal data. This Privacy Policy explains our practices regarding the collection, use or disclosure of personal data including other rights of the Data Subjects in accordance with the Personal Data Protection Laws."
+          ]
+        },
+        {
+          "heading": "Collection of Personal Data",
+          "paragraphs": [
+            "We will collect your personal data that we receive directly from you as follows:"
+          ],
+          "bullets": [
+            "Email Address",
+            "Student ID"
+          ]
+        },
+        {
+          "heading": "Types of Data Collected",
+          "paragraphs": [
+            "Contact information such as address, telephone number, e-mail address, etc."
+          ]
+        },
+        {
+          "heading": "Children",
+          "paragraphs": [
+            "If you are under the age of 20 or having legal restrictions, we may collect, use, or disclose your personal data. We require your parents or guardian to be aware and provide consent to us or as allowed by applicable laws. If we become aware that we have collected personal data from children without verification of parental consent, we take steps to remove that information from our servers."
+          ]
+        },
+        {
+          "heading": "Storage of Data",
+          "paragraphs": [
+            "We store your personal data as hard copy and soft copy.",
+            "We store your personal data by using the following systems:"
+          ],
+          "bullets": [
+            "Third-party server service providers outside of Thailand"
+          ]
+        },
+        {
+          "heading": "Use of Data",
+          "paragraphs": [
+            "We use the collected data for various purposes:"
+          ],
+          "bullets": [
+            "To create and manage accounts",
+            "To share and manage information within organization",
+            "To provide after-sales services",
+            "To comply with our Terms and Conditions",
+            "To comply with laws, rules, and regulatory authorities"
+          ]
+        },
+        {
+          "heading": "Disclosure of Personal Data",
+          "paragraphs": [
+            "We may disclose your personal data to the following parties in certain circumstances:"
+          ]
+        },
+        {
+          "heading": "Organization",
+          "paragraphs": [
+            "We may disclose your personal data within our organization to provide and develop our products or services. We may combine information internally across the different products or services covered by this Privacy Policy to help us be more relevant and useful to you and others."
+          ]
+        },
+        {
+          "heading": "Data Retention",
+          "paragraphs": [
+            "We will retain your personal data for as long as necessary during the period you are a customer or under relationship with us, or for as long as necessary in connection with the purposes set out in this Privacy Policy, unless law requires or permits a longer retention period. We will erase, destroy or anonymize your personal data when it is no longer necessary or when the period lapses."
+          ]
+        },
+        {
+          "heading": "Data Subject Rights",
+          "paragraphs": [
+            "Subject to the Personal Data Protection Laws thereof, you may exercise any of these rights in the following:"
+          ],
+          "bullets": [
+            "Withdrawal of consent: If you have given consent to us to collect, use or disclose your personal data whether before or after the effective date of the Personal Data Protection Laws, you have the right to withdraw such consent at any time throughout the period your personal data is available to us, unless it is restricted by laws or you are still under beneficial contract.",
+            "Data access: You have the right to access your personal data that is under our responsibility; to request us to make a copy of such data for you; and to request us to reveal as to how we obtain your personal data.",
+            "Data portability: You have the right to obtain your personal data if we organize such personal data in automatic machine-readable or usable format and can be processed or disclosed by automatic means; to request us to send or transfer the personal data in such format directly to other data controllers if doable by automatic means; and to request to obtain the personal data in such format sent or transferred by us directly to other data controller unless not technically feasible.",
+            "Objection: You have the right to object to collection, use or disclosure of your personal data at any time if such doing is conducted for legitimate interests of us, corporation or individual which is within your reasonable expectation; or for carrying out public tasks.",
+            "Data erasure or destruction: You have the right to request us to erase, destroy or anonymize your personal data if you believe that the collection, use or disclosure of your personal data is against relevant laws; or retention of the data by us is no longer necessary in connection with related purposes under this Privacy Policy; or when you request to withdraw your consent or to object to the processing as earlier described.",
+            "Suspension: You have the right to request us to suspend processing your personal data during the period where we examine your rectification or objection request; or when it is no longer necessary and we must erase or destroy your personal data pursuant to relevant laws but you instead request us to suspend the processing.",
+            "Rectification: You have the right to rectify your personal data to be updated, complete and not misleading.",
+            "Complaint lodging: You have the right to complain to competent authorities pursuant to relevant laws if you believe that the collection, use or disclosure of your personal data is violating or not in compliance with relevant laws."
+          ]
+        },
+        {
+          "heading": "Exercising Your Rights",
+          "paragraphs": [
+            "You can exercise these rights as the Data Subject by contacting our Data Protection Officer as mentioned below. We will notify the result of your request within 30 days upon receipt of such request. If we deny the request, we will inform you of the reason via SMS, email address, telephone, registered mail (if applicable)."
+          ]
+        },
+        {
+          "heading": "Advertising and Marketing",
+          "paragraphs": [
+            "We may send certain information or newsletter for the purpose of utilizing your preference via your email. If you no longer want to receive the communications from us, you can contact us through our email."
+          ]
+        },
+        {
+          "heading": "Cookies",
+          "paragraphs": [
+            "To enrich and perfect your experience, we use cookies or similar technologies to display personalized content, appropriate advertising and store your preferences on your computer. We use cookies to identify and track visitors, their usage of our website and their website access preferences. If you do not wish to have cookies placed on your computer you should set their browsers to refuse cookies before using our website."
+          ]
+        },
+        {
+          "heading": "Data Security",
+          "paragraphs": [
+            "We endeavor to protect your personal data by establishing security measures in accordance with the principles of confidentiality, integrity, and availability to prevent loss, unauthorized or unlawful access, destruction, use, alteration, or disclosure including administrative safeguard, technical safeguard, physical safeguard and access controls."
+          ]
+        },
+        {
+          "heading": "Data Breach Notification",
+          "paragraphs": [
+            "We will notify the Office of the Personal Data Protection Committee without delay and, where feasible, within 72 hours after having become aware of it, unless such personal data breach is unlikely to result in a risk to the rights and freedoms of you. If the personal data breach is likely to result in a high risk to the rights and freedoms of you, we will also notify the personal data breach and the remedial measures to you without delay through our website, SMS, email address, telephone or registered mail (if applicable)."
+          ]
+        },
+        {
+          "heading": "Changes to this Privacy Policy",
+          "paragraphs": [
+            "We may change this Privacy Policy from time to time. Any changes of this Privacy Policy, we encourage you to frequently check on our website.",
+            "This Privacy Policy was last updated and effective on 29th June 2023."
+          ]
+        },
+        {
+          "heading": "Links to Other Sites",
+          "paragraphs": [
+            "The purpose of this Privacy Policy is to offer products or services and use of our website. Any websites from other domains found on our site is subject to their privacy policy which is not related to us."
+          ]
+        },
+        {
+          "heading": "Contact Information",
+          "paragraphs": [
+            "If you have any questions about this Privacy Policy or would like to exercise your rights, you can contact us by using the following details:",
+            "Data Controller: Dev Club, Faculty of Information and Communication Technology, Mahidol University — Faculty of ICT, Mahidol University, 999 Phutthamonthon Sai 4 Road, Salaya, Phutthamonthon, Nakhon Pathom, 73170 · poonyawatt.klu@student.mahidol.ac.th · Dev Club ICT Mahidol website (https://www.muictdev.club/) · 088-106-0571",
+            "Data Protection Officer: Dev Club, Faculty of Information and Communication Technology, Mahidol University — Faculty of ICT, Mahidol University, 999 Phutthamonthon Sai 4 Road, Salaya, Phutthamonthon, Nakhon Pathom, 73170 · poonyawatt.klu@student.mahidol.ac.th · 088-106-0571"
+          ]
+        }
+      ]
+    },
+    "th": {
+      "title": "นโยบายความเป็นส่วนตัวสำหรับลูกค้า",
+      "subtitle": "MUICT Dev Club · มหาวิทยาลัยมหิดล",
+      "lastUpdated": "Last updated: Nov 2026",
+      "sections": [
+        {
+          "heading": "บทนำ",
+          "paragraphs": [
+            "Dev Club คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดล ให้ความสำคัญกับการคุ้มครองข้อมูลส่วนบุคคลของคุณ โดยนโยบายความเป็นส่วนตัวฉบับนี้ได้อธิบายแนวปฏิบัติเกี่ยวกับการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคล รวมถึงสิทธิต่าง ๆ ของเจ้าของข้อมูลส่วนบุคคล ตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล"
+          ]
+        },
+        {
+          "heading": "การเก็บรวบรวมข้อมูลส่วนบุคคล",
+          "paragraphs": [
+            "เราจะเก็บรวบรวมข้อมูลส่วนบุคคลที่ได้รับโดยตรงจากคุณผ่านช่องทาง ดังต่อไปนี้"
+          ],
+          "bullets": [
+            "อีเมล",
+            "รหัสนักศึกษา"
+          ]
+        },
+        {
+          "heading": "ประเภทข้อมูลส่วนบุคคลที่เก็บรวบรวม",
+          "paragraphs": [
+            "ข้อมูลการติดต่อ เช่น ที่อยู่ หมายเลขโทรศัพท์ อีเมล เป็นต้น"
+          ]
+        },
+        {
+          "heading": "ผู้เยาว์",
+          "paragraphs": [
+            "หากคุณมีอายุต่ำกว่า 20 ปีหรือมีข้อจำกัดความสามารถตามกฎหมาย เราอาจเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของคุณ เราอาจจำเป็นต้องให้พ่อแม่หรือผู้ปกครองของคุณให้ความยินยอมหรือที่กฎหมายอนุญาตให้ทำได้ หากเราทราบว่ามีการเก็บรวบรวมข้อมูลส่วนบุคคลจากผู้เยาว์โดยไม่ได้รับความยินยอมจากพ่อแม่หรือผู้ปกครอง เราจะดำเนินการลบข้อมูลนั้นออกจากเซิร์ฟเวอร์ของเรา"
+          ]
+        },
+        {
+          "heading": "วิธีการเก็บรักษาข้อมูลส่วนบุคคล",
+          "paragraphs": [
+            "เราจะเก็บรักษาข้อมูลส่วนบุคคลของคุณในรูปแบบเอกสารและรูปแบบอิเล็กทรอนิกส์",
+            "เราเก็บรักษาข้อมูลส่วนบุคคลของคุณ ดังต่อไปนี้"
+          ],
+          "bullets": [
+            "ผู้ให้บริการเซิร์ฟเวอร์ในต่างประเทศ"
+          ]
+        },
+        {
+          "heading": "การประมวลผลข้อมูลส่วนบุคคล",
+          "paragraphs": [
+            "เราจะเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของคุณเพื่อวัตถุประสงค์ดังต่อไปนี้"
+          ],
+          "bullets": [
+            "เพื่อสร้างและจัดการบัญชีผู้ใช้งาน",
+            "เพื่อการบริหารจัดการภายในบริษัท",
+            "เพื่อการบริการหลังการขาย",
+            "เพื่อปฏิบัติตามข้อตกลงและเงื่อนไข (Terms and Conditions)",
+            "เพื่อปฏิบัติตามกฎหมายและกฎระเบียบของหน่วยงานราชการ"
+          ]
+        },
+        {
+          "heading": "การเปิดเผยข้อมูลส่วนบุคคล",
+          "paragraphs": [
+            "เราอาจเปิดเผยข้อมูลส่วนบุคคลของคุณให้แก่ผู้อื่นภายใต้ความยินยอมของคุณหรือที่กฎหมายอนุญาตให้เปิดเผยได้ ดังต่อไปนี้"
+          ]
+        },
+        {
+          "heading": "การบริหารจัดการภายในองค์กร",
+          "paragraphs": [
+            "เราอาจเปิดเผยข้อมูลส่วนบุคคลของคุณภายในบริษัทเท่าที่จำเป็นเพื่อปรับปรุงและพัฒนาสินค้าหรือบริการของเรา เราอาจรวบรวมข้อมูลภายในสำหรับสินค้าหรือบริการต่าง ๆ ภายใต้นโยบายนี้เพื่อประโยชน์ของคุณและผู้อื่นมากขึ้น"
+          ]
+        },
+        {
+          "heading": "ระยะเวลาจัดเก็บข้อมูลส่วนบุคคล",
+          "paragraphs": [
+            "เราจะเก็บรักษาข้อมูลส่วนบุคคลของคุณไว้ตามระยะเวลาที่จำเป็นในระหว่างที่คุณเป็นลูกค้าหรือมีความสัมพันธ์อยู่กับเราหรือตลอดระยะเวลาที่จำเป็นเพื่อให้บรรลุวัตถุประสงค์ที่เกี่ยวข้องกับนโยบายฉบับนี้ ซึ่งอาจจำเป็นต้องเก็บรักษาไว้ต่อไปภายหลังจากนั้น หากมีกฎหมายกำหนดไว้ เราจะลบ ทำลาย หรือทำให้เป็นข้อมูลที่ไม่สามารถระบุตัวตนของคุณได้ เมื่อหมดความจำเป็นหรือสิ้นสุดระยะเวลาดังกล่าว"
+          ]
+        },
+        {
+          "heading": "สิทธิของเจ้าของข้อมูลส่วนบุคคล",
+          "paragraphs": [
+            "ภายใต้กฎหมายคุ้มครองข้อมูลส่วนบุคคล คุณมีสิทธิในการดำเนินการดังต่อไปนี้"
+          ],
+          "bullets": [
+            "สิทธิขอถอนความยินยอม (right to withdraw consent): หากคุณได้ให้ความยินยอม เราจะเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของคุณ ไม่ว่าจะเป็นความยินยอมที่คุณให้ไว้ก่อนวันที่กฎหมายคุ้มครองข้อมูลส่วนบุคคลใช้บังคับหรือหลังจากนั้น คุณมีสิทธิที่จะถอนความยินยอมเมื่อใดก็ได้ตลอดเวลา",
+            "สิทธิขอเข้าถึงข้อมูล (right to access): คุณมีสิทธิขอเข้าถึงข้อมูลส่วนบุคคลของคุณที่อยู่ในความรับผิดชอบของเราและขอให้เราทำสำเนาข้อมูลดังกล่าวให้แก่คุณ รวมถึงขอให้เราเปิดเผยว่าเราได้ข้อมูลส่วนบุคคลของคุณมาได้อย่างไร",
+            "สิทธิขอถ่ายโอนข้อมูล (right to data portability): คุณมีสิทธิขอรับข้อมูลส่วนบุคคลของคุณในกรณีที่เราได้จัดทำข้อมูลส่วนบุคคลนั้นอยู่ในรูปแบบให้สามารถอ่านหรือใช้งานได้ด้วยเครื่องมือหรืออุปกรณ์ที่ทำงานได้โดยอัตโนมัติและสามารถใช้หรือเปิดเผยข้อมูลส่วนบุคคลได้ด้วยวิธีการอัตโนมัติ รวมทั้งมีสิทธิขอให้เราส่งหรือโอนข้อมูลส่วนบุคคลในรูปแบบดังกล่าวไปยังผู้ควบคุมข้อมูลส่วนบุคคลอื่นเมื่อสามารถทำได้ด้วยวิธีการอัตโนมัติ และมีสิทธิขอรับข้อมูลส่วนบุคคลที่เราส่งหรือโอนข้อมูลส่วนบุคคลในรูปแบบดังกล่าวไปยังผู้ควบคุมข้อมูลส่วนบุคคลอื่นโดยตรง เว้นแต่ไม่สามารถดำเนินการได้เพราะเหตุทางเทคนิค",
+            "สิทธิขอคัดค้าน (right to object): คุณมีสิทธิขอคัดค้านการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของคุณในเวลาใดก็ได้ หากการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของคุณที่ทำขึ้นเพื่อการดำเนินงานที่จำเป็นภายใต้ประโยชน์โดยชอบด้วยกฎหมายของเราหรือของบุคคลหรือนิติบุคคลอื่น โดยไม่เกินขอบเขตที่คุณสามารถคาดหมายได้อย่างสมเหตุสมผลหรือเพื่อดำเนินการตามภารกิจเพื่อสาธารณประโยชน์",
+            "สิทธิขอให้ลบหรือทำลายข้อมูล (right to erasure/destruction): คุณมีสิทธิขอลบหรือทำลายข้อมูลส่วนบุคคลของคุณหรือทำให้ข้อมูลส่วนบุคคลเป็นข้อมูลที่ไม่สามารถระบุตัวคุณได้ หากคุณเชื่อว่าข้อมูลส่วนบุคคลของคุณถูกเก็บรวบรวม ใช้ หรือเปิดเผยโดยไม่ชอบด้วยกฎหมายที่เกี่ยวข้องหรือเห็นว่าเราหมดความจำเป็นในการเก็บรักษาไว้ตามวัตถุประสงค์ที่เกี่ยวข้องในนโยบายฉบับนี้ หรือเมื่อคุณได้ใช้สิทธิขอถอนความยินยอมหรือใช้สิทธิขอคัดค้านตามที่แจ้งไว้ข้างต้นแล้ว",
+            "สิทธิขอให้ระงับการใช้ข้อมูล (right to restriction of processing): คุณมีสิทธิขอให้ระงับการใช้ข้อมูลส่วนบุคคลชั่วคราวในกรณีที่เราอยู่ระหว่างตรวจสอบตามคำร้องขอใช้สิทธิขอแก้ไขข้อมูลส่วนบุคคลหรือขอคัดค้านของคุณหรือกรณีอื่นใดที่เราหมดความจำเป็นและต้องลบหรือทำลายข้อมูลส่วนบุคคลของคุณตามกฎหมายที่เกี่ยวข้องแต่คุณขอให้เราระงับการใช้แทน",
+            "สิทธิขอให้แก้ไขข้อมูล (right to rectification): คุณมีสิทธิขอแก้ไขข้อมูลส่วนบุคคลของคุณให้ถูกต้อง เป็นปัจจุบัน สมบูรณ์ และไม่ก่อให้เกิดความเข้าใจผิด",
+            "สิทธิร้องเรียน (right to lodge a complaint): คุณมีสิทธิร้องเรียนต่อผู้มีอำนาจตามกฎหมายที่เกี่ยวข้อง หากคุณเชื่อว่าการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของคุณ เป็นการกระทำในลักษณะที่ฝ่าฝืนหรือไม่ปฏิบัติตามกฎหมายที่เกี่ยวข้อง"
+          ]
+        },
+        {
+          "heading": "การใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล",
+          "paragraphs": [
+            "คุณสามารถใช้สิทธิของคุณในฐานะเจ้าของข้อมูลส่วนบุคคลข้างต้นได้ โดยติดต่อมาที่เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลของเราตามรายละเอียดท้ายนโยบายนี้ เราจะแจ้งผลการดำเนินการภายในระยะเวลา 30 วัน นับแต่วันที่เราได้รับคำขอใช้สิทธิจากคุณ ตามแบบฟอร์มหรือวิธีการที่เรากำหนด ทั้งนี้ หากเราปฏิเสธคำขอเราจะแจ้งเหตุผลของการปฏิเสธให้คุณทราบผ่านช่องทางต่าง ๆ เช่น ข้อความ (SMS) อีเมล โทรศัพท์ จดหมาย เป็นต้น"
+          ]
+        },
+        {
+          "heading": "การโฆษณาและการตลาด",
+          "paragraphs": [
+            "เราอาจส่งข้อมูลหรือจดหมายข่าวไปยังอีเมลของคุณ โดยมีวัตถุประสงค์เพื่อเสนอสิ่งที่น่าสนกับคุณ หากคุณไม่ต้องการรับการติดต่อสื่อสารจากเราผ่านทางอีเมลอีกต่อไป คุณสามารถติดต่อมายังอีเมลของเราได้"
+          ]
+        },
+        {
+          "heading": "เทคโนโลยีติดตามตัวบุคคล (Cookies)",
+          "paragraphs": [
+            "เพื่อเพิ่มประสบการณ์การใช้งานของคุณให้สมบูรณ์และมีประสิทธิภาพมากขึ้น เราใช้คุกกี้ (Cookies) หรือเทคโนโลยีที่คล้ายคลึงกัน เพื่อพัฒนาการเข้าถึงสินค้าหรือบริการ โฆษณาที่เหมาะสม และติดตามการใช้งานของคุณ เราใช้คุกกี้เพื่อระบุและติดตามผู้ใช้งานเว็บไซต์และการเข้าถึงเว็บไซต์ของเรา หากคุณไม่ต้องการให้มีคุกกี้ไว้ในคอมพิวเตอร์ของคุณ คุณสามารถตั้งค่าบราวเซอร์เพื่อปฏิเสธคุกกี้ก่อนที่จะใช้เว็บไซต์ของเราได้"
+          ]
+        },
+        {
+          "heading": "การรักษาความมั่นคงปลอดภัยของข้อมูลส่วนบุคคล",
+          "paragraphs": [
+            "เราจะรักษาความมั่นคงปลอดภัยของข้อมูลส่วนบุคคลของคุณไว้ตามหลักการ การรักษาความลับ (confidentiality) ความถูกต้องครบถ้วน (integrity) และสภาพพร้อมใช้งาน (availability) ทั้งนี้ เพื่อป้องกันการสูญหาย เข้าถึง ใช้ เปลี่ยนแปลง แก้ไข หรือเปิดเผย นอกจากนี้เราจะจัดให้มีมาตรการรักษาความมั่นคงปลอดภัยของข้อมูลส่วนบุคคล ซึ่งครอบคลุมถึงมาตรการป้องกันด้านการบริหารจัดการ (administrative safeguard) มาตรการป้องกันด้านเทคนิค (technical safeguard) และมาตรการป้องกันทางกายภาพ (physical safeguard) ในเรื่องการเข้าถึงหรือควบคุมการใช้งานข้อมูลส่วนบุคคล (access control)"
+          ]
+        },
+        {
+          "heading": "การแจ้งเหตุละเมิดข้อมูลส่วนบุคคล",
+          "paragraphs": [
+            "ในกรณีที่มีเหตุละเมิดข้อมูลส่วนบุคคลของคุณเกิดขึ้น เราจะแจ้งให้สำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลทราบโดยไม่ชักช้าภายใน 72 ชั่วโมง นับแต่ทราบเหตุเท่าที่สามารถกระทำได้ ในกรณีที่การละเมิดมีความเสี่ยงสูงที่จะมีผลกระทบต่อสิทธิและเสรีภาพของคุณ เราจะแจ้งการละเมิดให้คุณทราบพร้อมกับแนวทางการเยียวยาโดยไม่ชักช้าผ่านช่องทางต่าง ๆ เช่น เว็บไซต์ ข้อความ (SMS) อีเมล โทรศัพท์ จดหมาย เป็นต้น"
+          ]
+        },
+        {
+          "heading": "การแก้ไขเปลี่ยนแปลงนโยบายความเป็นส่วนตัว",
+          "paragraphs": [
+            "เราอาจแก้ไขเปลี่ยนแปลงนโยบายนี้เป็นครั้งคราว โดยคุณสามารถทราบข้อกำหนดและเงื่อนไขนโยบายที่มีการแก้ไขเปลี่ยนแปลงนี้ได้ผ่านทางเว็บไซต์ของเรา",
+            "นโยบายนี้แก้ไขล่าสุดและมีผลใช้บังคับตั้งแต่วันที่ 29 มิถุนายน 2566"
+          ]
+        },
+        {
+          "heading": "นโยบายความเป็นส่วนตัวของเว็บไซต์อื่น",
+          "paragraphs": [
+            "นโยบายความเป็นส่วนตัวฉบับนี้ใช้สำหรับการเสนอสินค้า บริการ และการใช้งานบนเว็บไซต์สำหรับลูกค้าของเราเท่านั้น หากคุณเข้าชมเว็บไซต์อื่นแม้จะผ่านช่องทางเว็บไซต์ของเรา การคุ้มครองข้อมูลส่วนบุคคลต่าง ๆ จะเป็นไปตามนโยบายความเป็นส่วนตัวของเว็บไซต์นั้น ซึ่งเราไม่มีส่วนเกี่ยวข้องด้วย"
+          ]
+        },
+        {
+          "heading": "รายละเอียดการติดต่อ",
+          "paragraphs": [
+            "หากคุณต้องการสอบถามข้อมูลเกี่ยวกับนโยบายความเป็นส่วนตัวฉบับนี้ รวมถึงการขอใช้สิทธิต่าง ๆ คุณสามารถติดต่อเราหรือเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลของเราได้ ดังนี้",
+            "ผู้ควบคุมข้อมูลส่วนบุคคล: Dev Club คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดล — คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดล 999 ถนนพุทธมณฑลสาย 4 ศาลายา พุทธมณฑล นครปฐม 73170 · อีเมล poonyawatt.klu@student.mahidol.ac.th · เว็บไซต์ Dev Club ICT Mahidol · หมายเลขโทรศัพท์ 088-106-0571",
+            "เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล: Dev Club คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดล — คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดล 999 ถนนพุทธมณฑลสาย 4 ศาลายา พุทธมณฑล นครปฐม 73170 · อีเมล poonyawatt.klu@student.mahidol.ac.th · หมายเลขโทรศัพท์ 088-106-0571"
+          ]
+        }
+      ]
+    }
+  },
+  "termsOfUse": {
+    "en": {
+      "title": "Terms of Use",
+      "subtitle": "MUICT Dev Club Website Terms of Use",
+      "lastUpdated": "Last updated: Nov 2026",
+      "sections": [
+        {
+          "heading": "Agreement to Terms and Conditions of Use",
+          "paragraphs": [
+            "BY USING THE WEBSITE, YOU AGREE TO THESE TERMS AND CONDITIONS OF USE AND THE PRIVACY POLICY; IF YOU DO NOT AGREE, DO NOT USE THE WEBSITE."
+          ]
+        },
+        {
+          "heading": "Ownership of Website",
+          "paragraphs": [
+            "These Terms and Conditions of Use (\"Terms of Use\") apply to the MUICT Dev Club Website located at the MUICT Dev Club website, and all associated sites linked to the MUICT Dev Club website by Dev Club, Faculty of Information and Communication Technology, Mahidol University, its subsidiaries and affiliates, including MUICT Dev Club websites around the world (collectively, the \"Website\"). The Website is the property of Dev Club, Faculty of Information and Communication Technology, Mahidol University and Faculty of ICT, Mahidol University (collectively, “We” or “Us” or “Our”).",
+            "We reserves the right, at its sole discretion, to change, modify, add or remove portions of these Terms of Use, at any time. It is your responsibility to check these Terms of Use periodically for changes. Your continued use of the Site following the posting of changes will mean that you accept and agree to the changes. As long as you comply with these Terms of Use, We grants you a personal, non-exclusive, non-transferable, limited privilege to enter and use the Site.",
+            "We reserves the right, all rights made by Us or relatively to Us will be reserved including all text, graphics, user interfaces, visual interfaces, photographs, trademarks, logos, sounds, music, artwork and computer code (collectively, “Content”), including but not limited to the font, third-party tools, third-party photographs, design, structure, selection, coordination, expression, \"look and feel\" and arrangement of such Content, contained on the Site is owned, controlled or licensed by or to We at anywhere and anytime."
+          ]
+        },
+        {
+          "heading": "Your Use of Site",
+          "paragraphs": [
+            "You may not use any Content of Website gains from any method in order to do any acts or attempt to do any acts such that impair the reputation, prejudice the rights, or disgrace to Us, Dev Club, Faculty of Information and Communication Technology, Mahidol University, anyone related to Faculty of ICT Mahidol University, Faculty of ICT Mahidol University, Mahidol University.",
+            "You may not use any \"deep-link\", \"page-scrape\", \"robot\", \"spider\" or other automatic device, program, algorithm or methodology, or any similar or equivalent manual process, to access, acquire, copy or monitor any portion of the Website or any Content, or in any way reproduce or circumvent the navigational structure or presentation of the Website or any Content, to obtain or attempt to obtain any materials, documents or information through any means not purposely made available through the Website. We reserves the right to bar any such activity.",
+            "You may not attempt to gain unauthorized access to any portion or feature of the Website, or any other systems or networks connected to the Website or to any Our server, or to any of the services offered on or through the Website, by hacking, password \"mining\" or any other illegitimate means.",
+            "You may not probe, scan or test the vulnerability of the Website or any network connected to the Website, nor breach the security or authentication measures on the Website or any network connected to the Website. You may not reverse look-up, trace or seek to trace any information on any other user of or visitor to the Website, or exploit the Website or any service or information made available or offered by or through the Website, in any way where the purpose is to reveal any information, including but not limited to personal identification or information, other than your own information, as provided for by the Website.",
+            "You agree that you will not take any action that imposes an unreasonable or disproportionately large load on the infrastructure of the Website or Our systems or networks, or any systems or networks connected to the Website or to Us.",
+            "You agree not to use any device, software or routine to interfere or attempt to interfere with the proper working of the Website or any transaction being conducted on the Website, or with any other person’s use of the Website.",
+            "You may not forge headers or otherwise manipulate identifiers in order to disguise the origin of any message or transmittal you send to Us on or through the Website or any service offered on or through the Website. You may not pretend that you are, or that you represent, someone else, or impersonate any other individual or entity.",
+            "You may not use the Website or any Content for any purpose that is unlawful or prohibited by these Terms of Use, or to solicit the performance of any illegal activity or other activity which infringes the rights of Us or others."
+          ]
+        },
+        {
+          "heading": "Disclaimers",
+          "paragraphs": [
+            "WE DOES NOT PROMISE THAT THE WEBSITE OR ANY CONTENT, SERVICE OR FEATURE OF THE WEBSITE WILL BE ERROR-FREE OR UNINTERRUPTED, OR THAT ANY DEFECTS WILL BE CORRECTED, OR THAT YOUR USE OF THE SITE WILL PROVIDE SPECIFIC RESULTS. THE WEBSITE AND ITS CONTENT ARE DELIVERED ON AN \"AS-IS\" AND \"AS-AVAILABLE\" BASIS. ALL INFORMATION PROVIDED ON THE WEBSITE IS SUBJECT TO CHANGE WITHOUT NOTICE. WE CANNOT ENSURE THAT ANY FILES OR OTHER DATA YOU DOWNLOAD FROM THE WEBSITE WILL BE FREE OF VIRUSES OR CONTAMINATION OR DESTRUCTIVE FEATURES. WE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING ANY WARRANTIES OF ACCURACY, NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. WE DISCLAIMS ANY AND ALL LIABILITY FOR THE ACTS, OMISSIONS AND CONDUCT OF ANY THIRD PARTIES IN CONNECTION WITH OR RELATED TO YOUR USE OF THE WEBSITE AND/OR ANY OUR SERVICES. YOU ASSUME TOTAL RESPONSIBILITY FOR YOUR USE OF THE WEBSITE AND ANY LINKED SITES. YOUR SOLE REMEDY AGAINST US FOR DISSATISFACTION WITH THE WEBSITE OR ANY CONTENT IS TO STOP USING THE WEBSITE OR ANY SUCH CONTENT. THIS LIMITATION OF RELIEF IS A PART OF THE BARGAIN BETWEEN THE PARTIES."
+          ]
+        }
+      ]
+    },
+    "th": {
+      "title": "ข้อกำหนดและเงื่อนไขการใช้งานของเว็บไซต์ MUICT Dev Club",
+      "subtitle": "MUICT Dev Club · มหาวิทยาลัยมหิดล",
+      "lastUpdated": "Last updated: Nov 2026",
+      "sections": [
+        {
+          "heading": "การเห็นด้วยในข้อกำหนดและเงื่อนไขการใช้งาน",
+          "paragraphs": [
+            "เมื่อเข้าใช้งานเว็บไซต์นี้นั้นถือว่าคุณได้เห็นด้วยกับข้อกำหนดและเงื่อนไขการใช้งานรวมถึงนโยบายความเป็นส่วนตัว อย่าใช้งานเว็บไซต์นี้หากว่าคุณไม่ยอมรับ"
+          ]
+        },
+        {
+          "heading": "กรรมสิทธิ์ในเว็บไซต์",
+          "paragraphs": [
+            "ข้อกำหนดและเงื่อนไขการใช้งาน (“ข้อกำหนดการใช้งาน”) ใช้กับเว็บไซต์ MUICT Dev Club ที่ตั้งอยู่ ณ เว็บไซต์ MUICT Dev Club และเว็บไซต์ที่เกี่ยวข้องที่เป็นของ เว็บไซต์ MUICT Dev Club ที่ถูกพัฒนาโดย Dev Club คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดล เว็บไซต์ลูกและเว็บไซต์หลักทั้งในประเทศและต่างประเทศที่อยู่ภายใต้เว็บไซต์ MUICT Dev Club (\"เว็บไซต์\") เว็บไซต์นั้นเป็นกรรมสิทธิ์ของ Dev Club คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดล และคณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดล (“เรา”)",
+            "เราสงวนสิทธิ์ ตามดุลยพินิจของเราที่จะเปลี่ยนแปลง แก้ไข เพิ่ม ลด บางส่วนของข้อกำหนดการใช้งานเหล่านี้ได้ตลอดเวลา ซึ่งเป็นความรับผิดชอบของตัวคุณที่จะต้องตรวจสอบความเปลี่ยนแปลงของข้อกำหนดการใช้งานอยู่เป็นนิจ การดำเนินการใช้งานเว็บไซต์ต่อหลังจารการเปลี่ยนแปลงของข้อกำหนดการใช้งานนั้นให้ถือว่าคุณได้ให้การยอมรับและเห็นด้วยกับข้อกำหนดการใช้งานที่เปลี่ยนแปลงนั้น ตราบเท่าที่คุณปฏิบัติตามข้อกำหนดการใช้งานเราให้เอกสิทธิ์ ไม่ผูกขาด ไม่สามารถโอนย้ายได้ และสิทธิที่มีการจำกัดในการเข้าถึงและใช้งานเว็บไซต์",
+            "เราสงวนสิทธิ์ทุกประการที่ถูกผลิตโดยเราหรือเกี่ยวข้องกับเรานั่นรวมถึงข้อความ กราฟิก อินเทอร์เฟซผู้ใช้ อินเทอร์เฟซภาพ รูปถ่าย เครื่องหมายทางการค้า โลโก้ เสียง ดนตรี งานศิลปะ และโค้ดทางคอมพิวเตอร์ทั้งหมด(\"เนื้อหา\") แต่สำหรับรูปลักษณ์อักษร เครื่องมือของบุคคลที่สาม รูปภาพของบุคคลที่สาม ดีไซน์ โครงสร้าง การเลือกสรร การประสานงาน การแสดงออก รูปลักษณ์ และการจัดวางเนื้อหานั้นไม่ถูกครอบคลุมถึง ทั้งหมดเหล่านี้ที่เว็บไซต์เป็นเจ้าของ ควบคุม ให้อนุญาตโดยเราในทุกที่และทุกเวลา"
+          ]
+        },
+        {
+          "heading": "การใช้งานเว็บไซต์ของคุณ",
+          "paragraphs": [
+            "คุณไม่สามารถใช้เนื้อหาของเว็บไซต์ที่ได้รับมาไม่ว่าโดยวิธีการใดในการกระทำการใด ๆ หรือพยายามกระทำการใด ๆ ที่ทำให้เสื่อมเสียชื่อเสียง พรากไปซึ่งสิทธิ หรือการทำการใด ๆ ที่เสื่อมเสียต่อเรา Dev Club คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดล คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดลและมหาวิทยาลัยมหิดลโดยเด็ดขาด",
+            "คุณไม่สามารถใช้ \"deep-link\", \"page-scrape\", \"robot\", \"spider\" หรืออุปกรณ์ โปรแกรม อัลกอริธึมหรือวิธีการอัตโนมัติอื่นๆ หรือกระบวนการด้วยตนเองที่คล้ายคลึงกันหรือเทียบเท่า เพื่อเข้าถึง รับ คัดลอก หรือตรวจสอบส่วนใดส่วนหนึ่งของเว็บไซต์หรือเนื้อหาใดๆ หรือทําซ้ำหรือหลีกเลี่ยงโครงสร้างการนําทางหรือการนําเสนอของเว็บไซต์หรือเนื้อหาใดๆ ในทางใดทางหนึ่ง เพื่อรับหรือพยายามรับเนื้อหา เอกสาร หรือข้อมูลใดๆ เราขอสงวนสิทธิ์ในการห้ามการกระทำดังกล่าว",
+            "คุณไม่สามารถพยายามเข้าถึงส่วนหรือคุณลักษณะใดส่วนหนึ่งของเว็บไซต์โดยไม่ได้รับอนุญาต หรือระบบหรือเครือข่ายอื่นใดที่เชื่อมต่อกับเว็บไซต์หรือเซิร์ฟเวอร์ของเรา หรือบริการใดๆ ที่นําเสนอบนหรือผ่านไซต์ โดยการแฮ็ก การ \"การขุด\" ด้วยรหัสผ่าน หรือวิธีการอื่นใดที่ผิดกฎหมาย คุณไม่สามารถตรวจสอบ สแกน หรือทดสอบช่องโหว่ของเว็บไซต์หรือเครือข่ายใดๆ ที่เชื่อมต่อกับเว็บไซต์ หรือละเมิดมาตรการรักษาความปลอดภัยหรือการรับรองความถูกต้องบนเว็บไซต์หรือเครือข่ายใดๆ ที่เชื่อมต่อกับเว็บไซต์ คุณไม่สามารถย้อนกลับการค้นหา ติดตาม หรือพยายามติดตามข้อมูลใดๆ เกี่ยวกับผู้ใช้รายอื่นหรือผู้เยี่ยมชมเว็บไซต์ หรือใช้ประโยชน์จากเว็บไซต์หรือบริการหรือข้อมูลใดๆ ที่มีให้หรือนําเสนอโดยหรือผ่านเว็บไซต์ ในลักษณะที่มีวัตถุประสงค์เพื่อเปิดเผยข้อมูลใดๆ รวมถึงแต่ไม่จํากัดเพียงข้อมูลประจําตัวหรือข้อมูลส่วนบุคคล นอกเหนือจากข้อมูลของคุณเอง ตามที่เว็บไซต์กําหนด",
+            "คุณตกลงว่าคุณจะไม่ดําเนินการใดๆ ที่กําหนดภาระอย่างหนักอย่างไม่สมเหตุสมผลหรือผิดปรกติวิสัยบนโครงสร้างพื้นฐานของเว็บไซต์หรือระบบหรือเครือข่ายของเรา หรือระบบหรือเครือข่ายใดๆ ที่เชื่อมต่อกับเว็บไซต์หรือกับเรา",
+            "คุณตกลงที่จะไม่ใช้อุปกรณ์ ซอฟต์แวร์ หรือการกระทำใดๆ เพื่อแทรกแซงหรือพยายามแทรกแซงการทํางานที่เหมาะสมของเว็บไซต์หรือกิจกรรมใดๆ ที่ดําเนินการบนเว็บไซต์ หรือกับการใช้งานเว็บไซต์ของบุคคลอื่น",
+            "คุณไม่สามารถปลอมแปลงส่วนหัวหรือจัดการตัวระบุเพื่ออําพรางที่มาของข้อความหรือการส่งใดๆ ที่คุณส่งถึงเราบนหรือผ่านเว็บไซต์หรือบริการใดๆ ที่นําเสนอบนหรือผ่านเว็บไซต์ คุณไม่สามารถแสร้งทําเป็นว่าคุณเป็นหรือเป็นตัวแทนคนอื่นหรือปลอมตัวเป็นบุคคลหรือนิติบุคคลอื่น",
+            "คุณไม่สามารถใช้ไซต์หรือเนื้อหาใด ๆ เพื่อวัตถุประสงค์ใด ๆ ที่ผิดกฎหมายหรือต้องห้ามตามข้อกําหนดการใช้งานเหล่านี้ หรือเพื่อเป็นส่วนหนึ่งของการกระทำที่ผิดกฎหมายหรือการกระทำอื่น ๆ ที่ละเมิดสิทธิ์ของเราหรือผู้อื่น"
+          ]
+        },
+        {
+          "heading": "การประมวลผลข้อมูลส่วนบุคคล",
+          "paragraphs": [
+            "เราจะเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของคุณเพื่อวัตถุประสงค์ดังต่อไปนี้"
+          ],
+          "bullets": [
+            "เพื่อสร้างและจัดการบัญชีผู้ใช้งาน",
+            "เพื่อการบริหารจัดการภายในบริษัท",
+            "เพื่อการบริการหลังการขาย",
+            "เพื่อปฏิบัติตามข้อตกลงและเงื่อนไข (Terms and Conditions)",
+            "เพื่อปฏิบัติตามกฎหมายและกฎระเบียบของหน่วยงานราชการ"
+          ]
+        },
+        {
+          "heading": "ข้อจำกัดความรับผิดชอบ",
+          "paragraphs": [
+            "เราไม่สัญญาว่าเว็บไซต์หรือเนื้อหา บริการ หรือคุณลักษณะใดๆ ของเว็บไซต์จะปราศจากข้อผิดพลาดหรือไม่หยุดชะงัก หรือข้อบกพร่องใดๆ จะได้รับการแก้ไข หรือการใช้งานเว็บไซต์ของคุณจะให้ผลลัพธ์ที่เฉพาะ เว็บไซต์และเนื้อหาถูกจัดส่งตาม \"ตามสภาพ\" และ \"ตามที่มี\" ข้อมูลทั้งหมดที่ให้ไว้ในเว็บไซต์อาจมีการเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า เราไม่สามารถรับรองได้ว่าไฟล์หรือข้อมูลอื่น ๆ ที่คุณดาวน์โหลดจากเว็บไซต์จะปราศจากไวรัสหรือการติดเชื้อหรือคุณสมบัติการทําลายล้าง เราปฏิเสธการรับประกันทั้งหมด ไม่ว่าโดยชัดแจ้งหรือโดยนัย รวมถึงการรับประกันความถูกต้อง การไม่ละเมิด ความสามารถในการซื้อขาย และความเหมาะสมสําหรับวัตถุประสงค์เฉพาะใดๆ เราขอปฏิเสธความรับผิดใดๆ และทั้งหมดสําหรับการกระทํา การละเว้น และการดําเนินการของบุคคลที่สามที่เกี่ยวข้องกับหรือเกี่ยวข้องกับการใช้งานไซต์และ/หรือบริการใดๆ ของเรา คุณจะเป็นผู้รับผิดชอบทั้งหมดเพียงผู้เดียวสําหรับการใช้งานเว็บไซต์และเว็บไซต์ที่เชื่อมโยงใดๆ ของคุณ และเว็บไซต์ใดๆ การเยียวยาเพียงอย่างเดียวของคุณต่อเราสําหรับความไม่พอใจต่อไซต์หรือเนื้อหาใด ๆ คือการหยุดใช้ไซต์หรือเนื้อหาดังกล่าว ข้อจํากัดในการบรรเทาทุกข์นี้เป็นส่วนหนึ่งของการเจรจาต่อรองระหว่างคู่สัญญา",
+            "Last updated July 25, 2023. 10:10 AM Indochina Time."
+          ]
+        }
+      ]
+    }
+  },
+  "acknowledgement": {
+    "en": {
+      "title": "Acknowledgement",
+      "subtitle": "MUICT Dev Club · Mahidol University",
+      "lastUpdated": "Last updated: Nov 2026",
+      "sections": [
+        {
+          "heading": "Website Development Credits",
+          "paragraphs": [
+            "This website has been developed by members and alumni contributors of MUICT Dev Club at the Faculty of Information and Communication Technology, Mahidol University."
+          ],
+          "bullets": [
+            "Poonyawatt Klumnaim - Faculty of ICT",
+            "Pakawat Sanboonsri - Faculty of ICT"
+          ]
+        }
+      ]
+    },
+    "th": {
+      "title": "กิตติกรรมประกาศ (Acknowledgement)",
+      "subtitle": "MUICT Dev Club · มหาวิทยาลัยมหิดล",
+      "lastUpdated": "Last updated: Nov 2026",
+      "sections": [
+        {
+          "heading": "ผู้ร่วมพัฒนาเว็บไซต์",
+          "paragraphs": [
+            "เว็บไซต์นี้ได้รับการพัฒนาโดยสมาชิกและผู้มีส่วนร่วมของ MUICT Dev Club คณะเทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยมหิดล"
+          ],
+          "bullets": [
+            "Poonyawatt Klumnaim - Faculty of ICT",
+            "Pakawat Sanboonsri - Faculty of ICT"
+          ]
+        }
+      ]
+    },
+    "credits": [
+      {
+        "name": "Poonyawatt Klumnaim",
+        "affiliation": "Faculty of ICT",
+        "role": "Website Developer & Data Protection Contact"
+      },
+      {
+        "name": "Pakawat Sanboonsri",
+        "affiliation": "Faculty of ICT",
+        "role": "Website Developer"
+      }
+    ]
+  }
+}

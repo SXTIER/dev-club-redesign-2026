@@ -1,0 +1,199 @@
+{
+  "isOpen": true,
+  "banner": {
+    "eyebrow": "MUICT DEV CLUB  /  JOINING INFORMATION",
+    "headline": "Learn. Hack. Deliver."
+  },
+  "closedCopy": {
+    "eyebrow": "01 / RECRUITMENT STATUS",
+    "sideTitle": "Joining information",
+    "heading": "Applications are currently closed",
+    "description": "Recruitment details are being confirmed. Please check back for updates.",
+    "ctaLabel": "Back to MUICT Dev Club",
+    "ctaHref": "/"
+  },
+  "openedCopy": {
+    "backLinkLabel": "←  Joining information",
+    "sidebarHeadline": "Good things\nare worth\nbuilding._",
+    "sidebarDescription": "Your knowledge belongs in the real world. Complete your recruitment application to join MUICT Dev Club 2026.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Find your people",
+        "description": "Explore projects, frontend, backend, design, QA, or marketing."
+      },
+      {
+        "number": "02",
+        "title": "Share your experience",
+        "description": "Attach your CV, portfolio, and project ideas so team leads know your strengths."
+      },
+      {
+        "number": "03",
+        "title": "Take the next step",
+        "description": "Save your Application ID after submitting for interview updates."
+      }
+    ],
+    "formTitle": "Recruitment Application",
+    "formSubtitle": "All fields marked with * are required.",
+    "sections": {
+      "personal": {
+        "tag": "01 -",
+        "title": "Personal & Student Information",
+        "fields": {
+          "firstName": {
+            "label": "First Name (English)",
+            "placeholder": "e.g., Somchai"
+          },
+          "lastName": {
+            "label": "Last Name (English)",
+            "placeholder": "e.g., Narin"
+          },
+          "nickname": {
+            "label": "NickName (English)",
+            "placeholder": "e.g., Chai"
+          },
+          "studentId": {
+            "label": "Student ID (7 digits)",
+            "placeholder": "6987777",
+            "hint": "7-digit Mahidol student ID"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "example@student.mahidol.ac.th"
+          },
+          "phone": {
+            "label": "Phone (10 digits)",
+            "placeholder": "0812345678",
+            "hint": "10 digits starting with 0"
+          },
+          "program": {
+            "label": "Program",
+            "placeholder": "Select your Program"
+          },
+          "year": {
+            "label": "Year",
+            "placeholder": "Select Year (1 - 4)"
+          }
+        }
+      },
+      "role": {
+        "tag": "02 -",
+        "title": "Select Role & Focus",
+        "projectsTeamLabel": "Projects Team",
+        "marketingTeamLabel": "Marketing Team",
+        "otherPlaceholder": "Please specify your desired role..."
+      },
+      "motivation": {
+        "tag": "03 -",
+        "title": "Motivation, Experience & Portfolio",
+        "fields": {
+          "expectation": {
+            "label": "Expectation",
+            "placeholder": "What do you expect to learn or gain from MUICT Dev Club?"
+          },
+          "contribution": {
+            "label": "Contribution",
+            "placeholder": "What do you want to do or contribute within Dev Club?"
+          },
+          "projectIdea": {
+            "label": "Project Idea",
+            "placeholder": "Do you have a project idea in mind you'd want to do? Describe it."
+          },
+          "teamExperience": {
+            "label": "Team Project Experience",
+            "placeholder": "Any experience in working on a team project (school, club, work)?"
+          },
+          "cv": {
+            "label": "CV",
+            "emptyLabel": "No File selected (.pdf, .docx)",
+            "buttonLabel": "Upload CV",
+            "acceptLabel": ".pdf,.docx"
+          },
+          "portfolioUrl": {
+            "label": "Portfolio Link (github ,website ,etc.)",
+            "placeholder": "e.g., GitHub, website, etc."
+          }
+        }
+      }
+    }
+  },
+  "projectsTeamRoles": [
+    {
+      "id": "fullstack-dev",
+      "title": "Full Stack Developer",
+      "description": "Build both user interfaces and server logic"
+    },
+    {
+      "id": "frontend-dev",
+      "title": "Front End Developer",
+      "description": "Craft responsive web UIs and interactions"
+    },
+    {
+      "id": "backend-dev",
+      "title": "Back End Developer",
+      "description": "Design APIs, databases, and server systems"
+    },
+    {
+      "id": "game-dev",
+      "title": "Game Developer",
+      "description": "Create interactive games, mechanics, and worlds"
+    },
+    {
+      "id": "mobile-dev",
+      "title": "Mobile Application Developer",
+      "description": "Develop iOS/Android apps end-to-end"
+    },
+    {
+      "id": "project-manager",
+      "title": "Project Manager",
+      "description": "Lead timelines, sprints, and team delivery"
+    },
+    {
+      "id": "ux-ui-designer",
+      "title": "UX/UI Designer",
+      "description": "Design user flows, wireframes, and interfaces"
+    },
+    {
+      "id": "projects-other",
+      "title": "Other",
+      "description": "Pitch a custom tech or creative role",
+      "isOther": true
+    }
+  ],
+  "marketingTeamRoles": [
+    {
+      "id": "content-creator",
+      "title": "Content Creator",
+      "description": "Craft engaging posts, copy, and club stories"
+    },
+    {
+      "id": "graphic-designer",
+      "title": "Graphic Designer",
+      "description": "Create visuals, posters, and brand assets"
+    },
+    {
+      "id": "event-coordinator",
+      "title": "Event Coordinator",
+      "description": "Organize club workshops, talks, and events"
+    },
+    {
+      "id": "marketing-other",
+      "title": "Other",
+      "description": "Pitch a custom marketing or media role",
+      "isOther": true
+    }
+  ],
+  "programs": ["ICT", "DST"],
+  "years": ["1", "2", "3", "4"],
+  "agreements": {
+    "requirementsLabel": "Requirements Agreement *",
+    "requirementsDescription": "I understand the role responsibilities and agree to participate actively in club meetings and projects.",
+    "pdpaLabel": "Information Confirmation *",
+    "pdpaDescription": "I confirm that all information provided above is true and consent to MUICT Dev Club reviewing my application (PDPA)."
+  },
+  "submitLabel": "Submit Application & Notify Me",
+  "successCopy": {
+    "title": "Application Submitted!",
+    "description": "Thank you for applying to MUICT Dev Club 2026. Keep your Application ID for interview updates."
+  }
+}

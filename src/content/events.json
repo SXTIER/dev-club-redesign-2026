@@ -1,0 +1,110 @@
+[
+  {
+    "id": "evt-2026-first-meet",
+    "marker": "Phase 01 · All Teams",
+    "title": "First Meet & Club Onboarding",
+    "subtitle": "Welcome Night, Squad Kickoff & Ice-Breaking",
+    "category": "Event",
+    "dateLabel": "11 NOV 2026 · 17:00",
+    "location": "IT-105 Auditorium, Faculty of ICT",
+    "description": "Meet the 2026 committee, explore our 5 engineering and creative tracks, and form starter squads for the semester's software sandbox.",
+    "coverImage": {
+      "id": "media-campus-ict",
+      "src": "/images/figma/campus-ict.png",
+      "alt": "Faculty of ICT Building, Mahidol University Salaya Campus"
+    },
+    "status": "Published",
+    "showOnHome": true,
+    "order": 1,
+    "updatedAt": "2026-11-01T09:00:00.000Z"
+  },
+  {
+    "id": "evt-2026-recruitment-open",
+    "marker": "News · Recruitment 2026",
+    "title": "2026 Member Recruitment Now Open",
+    "subtitle": "Applications open for Projects & Marketing Teams",
+    "category": "News",
+    "dateLabel": "20 NOV 2026",
+    "location": "Online · /joining-information",
+    "description": "Applications are officially open for ICT and DST students across Years 1–4. Apply for Full Stack, Frontend, Backend, Mobile, Game Dev, PM, UX/UI Design, or Marketing roles.",
+    "coverImage": {
+      "id": "media-head-banner",
+      "src": "/images/figma/head-banner.svg",
+      "alt": "MUICT Dev Club Learn Hack Deliver artwork"
+    },
+    "status": "Published",
+    "showOnHome": true,
+    "order": 2,
+    "updatedAt": "2026-11-10T10:30:00.000Z"
+  },
+  {
+    "id": "evt-2026-nextjs-workshop",
+    "marker": "Tools: React, Next.js",
+    "title": "Modern Web & Next.js Workshop",
+    "subtitle": "From Figma Tokens to Type-Safe Components",
+    "category": "Event",
+    "dateLabel": "10 DEC 2026 · 16:30",
+    "location": "Lab IT-302, Faculty of ICT",
+    "description": "A hands-on engineering session covering Next.js App Router, TypeScript strict schemas, Tailwind CSS design tokens, and collaborative Git workflows.",
+    "status": "Published",
+    "showOnHome": true,
+    "order": 3,
+    "updatedAt": "2026-11-12T14:15:00.000Z"
+  },
+  {
+    "id": "evt-2027-mini-hackathon",
+    "marker": "Tools: TypeScript, Figma",
+    "title": "MUICT Sandbox Mini Hackathon",
+    "subtitle": "48-Hour Cross-Functional Product Sprint",
+    "category": "Event",
+    "dateLabel": "16 JAN 2027 · 09:00",
+    "location": "ICT Co-Working Space, Salaya Campus",
+    "description": "Teams of developers, designers, and QA engineers team up over one weekend to prototype, test, and pitch campus-focused software tools.",
+    "status": "Published",
+    "showOnHome": true,
+    "order": 4,
+    "updatedAt": "2026-11-14T11:00:00.000Z"
+  },
+  {
+    "id": "evt-2027-demo-day-news",
+    "marker": "News · Demo Day",
+    "title": "Mid-Year Demo Day Lineup Announced",
+    "subtitle": "Five Student Squads Selected for Live Showcase",
+    "category": "News",
+    "dateLabel": "14 FEB 2027 · 13:30",
+    "location": "Grand Hall, Faculty of ICT",
+    "description": "Our semester project teams will present live product demos, architecture walkthroughs, and QA retrospectives with faculty advisors and alumni guests.",
+    "status": "Published",
+    "showOnHome": true,
+    "order": 5,
+    "updatedAt": "2026-11-15T16:45:00.000Z"
+  },
+  {
+    "id": "evt-2027-figma-handoff",
+    "marker": "News · Design & Art",
+    "title": "Design Systems & Figma Handoff Clinic",
+    "subtitle": "Bridging Design Tokens and Frontend Implementation",
+    "category": "News",
+    "dateLabel": "28 FEB 2027 · 16:00",
+    "location": "Room IT-204, Faculty of ICT",
+    "description": "A joint announcement and prep guide for Design & Art and Frontend Web members preparing component specs for Term 2 releases.",
+    "status": "Published",
+    "showOnHome": false,
+    "order": 6,
+    "updatedAt": "2026-11-16T08:20:00.000Z"
+  },
+  {
+    "id": "evt-2027-backend-draft",
+    "marker": "Tools: Python, Docker",
+    "title": "Backend Architecture & Cloud Deployment",
+    "subtitle": "FastAPI Services, Postgres & CI/CD Pipelines",
+    "category": "Event",
+    "dateLabel": "20 MAR 2027 · 16:30",
+    "location": "Lab IT-304, Faculty of ICT",
+    "description": "Draft workshop outline covering REST API design, Pydantic validation, containerization with Docker, and automated test pipelines.",
+    "status": "Draft",
+    "showOnHome": false,
+    "order": 7,
+    "updatedAt": "2026-11-18T12:00:00.000Z"
+  }
+]
