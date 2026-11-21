@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  /* Primary Palette (2026 CI) */
+  --color-primary: #0038E1;
+  --color-primary-dark: #002BAA;
+  --color-primary-base: #2E5DE9;
+  --color-primary-light: #A6C0FF;
+
+  --color-secondary: #E25BE9;
+  --color-secondary-dark: #9E00A7;
+  --color-secondary-light: #F3BFF9;
+
+  --color-tertiary: #A9E041;
+  --color-tertiary-dark: #548000;
+  --color-tertiary-light: #E7FDA7;
+
+  /* Neutrals */
+  --color-surface: #FFFFFF;
+  --color-canvas: #F8FAFC;
+  --color-canvas-muted: #F4F5F7;
+  --color-ink: #1C1B1F;
+  --color-dark-gray: #4A5565;
+  --color-gray: #757E91;
+  --color-light-gray: #A1A7B4;
+  --color-border: #E2E8F0;
+  --color-border-subtle: #E4E4E7;
+  --color-footer: #11151C;
+
+  /* Semantic Status Colors */
+  --color-success-bg: #E7FDA7;
+  --color-success-text: #548000;
+  --color-success-accent: #A9E041;
+
+  --color-warning-bg: #FFF194;
+  --color-warning-text: #AA5000;
+  --color-warning-dark: #B48700;
+  --color-warning-accent: #FAA100;
+
+  --color-danger-bg: #FAAF98;
+  --color-danger-text: #B41B00;
+  --color-danger-border: #FB4A2A;
+
+  --color-info-bg: #A6C0FF;
+  --color-info-text: #002BAA;
+  --color-turquoise-bg: #BDFBCC;
+  --color-turquoise-text: #006C6C;
+  --color-turquoise-base: #41E0A8;
+
+  /* Typography */
+  --font-sans: "Inter Thai Loopless", "Inter", "Noto Sans Thai", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
