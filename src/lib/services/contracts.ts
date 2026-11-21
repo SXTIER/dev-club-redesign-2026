@@ -4,6 +4,7 @@ import type {
   EditableImageSlot,
   FaqItem,
   HomeContent,
+  ImageAsset,
   LegalContent,
   RecruitmentContent,
   SiteContent,
@@ -87,12 +88,16 @@ export interface EventListFilters {
   showOnHome?: boolean;
 }
 
+export type EventUpdateInput = Partial<Omit<EventUpsertInput, "coverImage">> & {
+  coverImage?: ImageAsset | null;
+};
+
 export interface EventsService {
   listEvents(filters?: EventListFilters): Promise<EventItem[]>;
   createEvent(input: EventUpsertInput, coverFile?: File): Promise<EventItem>;
   updateEvent(
     id: string,
-    input: Partial<EventUpsertInput>,
+    input: EventUpdateInput,
     coverFile?: File,
   ): Promise<EventItem>;
   deleteEvent(id: string): Promise<void>;

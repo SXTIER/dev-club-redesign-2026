@@ -21,6 +21,7 @@ import {
   type ContentSectionMap,
   type CvDownloadInfo,
   type EventListFilters,
+  type EventUpdateInput,
   type FaqBankCreateInput,
   type FaqBankUpdateInput,
   type MediaUploadRequest,
@@ -356,13 +357,24 @@ export function createHttpServices(options: HttpAdapterOptions): ServiceBundle {
 
     updateEvent(
       id: string,
-      input: Partial<EventUpsertInput>,
+      input: EventUpdateInput,
       coverFile?: File,
     ): Promise<EventItem> {
       const path = `/events/${encodeURIComponent(id)}`;
+      const shouldClearCover =
+        !coverFile &&
+        "coverImage" in input &&
+        (input.coverImage === null || input.coverImage === undefined);
+      const serializedInput: Record<string, unknown> = shouldClearCover
+        ? { ...input, coverImage: null }
+        : { ...input };
+
       if (coverFile) {
+        if (serializedInput.coverImage == null) {
+          delete serializedInput.coverImage;
+        }
         const formData = new FormData();
-        formData.append("payload", JSON.stringify(input));
+        formData.append("payload", JSON.stringify(serializedInput));
         formData.append("cover", coverFile);
         return request<EventItem>(path, {
           method: "PATCH",
@@ -372,7 +384,7 @@ export function createHttpServices(options: HttpAdapterOptions): ServiceBundle {
 
       return request<EventItem>(path, {
         method: "PATCH",
-        body: JSON.stringify(input),
+        body: JSON.stringify(serializedInput),
       });
     },
 

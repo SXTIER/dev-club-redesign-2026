@@ -124,6 +124,7 @@ Allowed image uploads: `.png`, `.jpg`, `.jpeg`, `.webp`, `.gif`, `.svg` up to **
 - **Form Fields:**
   - `payload` *(string, JSON)*: `{ "title"?: string, "sourceSlot"?: "site.logoDark" | "site.logoLight" | "home.hero.heroArtwork" | "home.location.image" }`
   - `file` *(binary file)*: Image or SVG file (`<= 10 MB`)
+- **Slot Side Effect:** When `sourceSlot` is provided in `payload`, the backend must atomically update the corresponding `ImageAsset` slot in `site` (`logoDark`, `logoLight`) or `home` (`hero.heroArtwork`, `location.image`) with `{ "id": asset.id, "src": asset.url, "alt": asset.title }` and clear `sourceSlot` from any previously bound `MediaAsset`.
 - **Response (`201 Created`, `application/json`):** `MediaAsset` with optional SVG sanitization metadata:
 ```json
 {
@@ -150,6 +151,7 @@ Allowed image uploads: `.png`, `.jpg`, `.jpeg`, `.webp`, `.gif`, `.svg` up to **
   "slot": "home.hero.heroArtwork"
 }
 ```
+- **Slot Side Effect:** Atomically updates the corresponding `ImageAsset` slot in `site` (`logoDark`, `logoLight`) or `home` (`hero.heroArtwork`, `location.image`) with `{ "id": asset.id, "src": asset.url, "alt": asset.title }`, sets `sourceSlot` on `{assetId}`, and clears `sourceSlot` from any previously bound `MediaAsset`.
 - **Response (`200 OK`, `application/json`):** Updated `MediaAsset` with `sourceSlot` set.
 
 #### `DELETE /media/{assetId}`
@@ -186,9 +188,9 @@ Allowed image uploads: `.png`, `.jpg`, `.jpeg`, `.webp`, `.gif`, `.svg` up to **
 #### `POST /events` & `PATCH /events/{id}`
 - **Without `coverFile` (`application/json`):**
   - `POST`: full `EventUpsertInput` JSON
-  - `PATCH`: partial `EventUpsertInput` JSON (`{ "coverImage": null }` or omitted `coverImage` removes/preserves cover)
+  - `PATCH`: partial `EventUpdateInput` JSON. Passing `{ "coverImage": null }` explicitly removes an existing cover image (and `HttpAdapter` automatically serializes an explicit `{ coverImage: undefined }` or `{ coverImage: null }` as `"coverImage": null`); omitting `coverImage` preserves the existing cover image.
 - **With `coverFile` (`multipart/form-data`):**
-  - `payload` *(string, JSON)*: `EventUpsertInput` (for `POST`) or `Partial<EventUpsertInput>` (for `PATCH`)
+  - `payload` *(string, JSON)*: `EventUpsertInput` (for `POST`) or `EventUpdateInput` (for `PATCH`)
   - `cover` *(binary file)*: Image/SVG `<= 10 MB`. Backend must also register the uploaded cover as a `MediaAsset` in `/media` and populate `coverImage: { id, src, alt }`.
 
 Example `payload` JSON:

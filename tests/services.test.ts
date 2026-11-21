@@ -623,4 +623,180 @@ describe("Service layer (MockAdapter & HttpAdapter)", () => {
     expect((patchInit.body as FormData).has("payload")).toBe(true);
     expect((patchInit.body as FormData).has("cover")).toBe(true);
   });
+
+  it("removes event coverImage consistently in both MockAdapter and HttpAdapter (coverImage: null or explicit undefined)", async () => {
+    const mockSvc = createMockServices();
+    const cover = new File(["png"], "cover-a.png", { type: "image/png" });
+    const created = await mockSvc.events.createEvent(
+      {
+        marker: "M1",
+        title: "Cover Removal Test",
+        subtitle: "Sub",
+        category: "Event",
+        dateLabel: "19 DEC 2026",
+        location: "ICT",
+        description: "Desc",
+        status: "Published",
+        showOnHome: true,
+        order: 20,
+      },
+      cover,
+    );
+    expect(created.coverImage).toBeDefined();
+
+    // Preserved when coverImage key is omitted
+    const renamed = await mockSvc.events.updateEvent(created.id, {
+      title: "Cover Still Here",
+    });
+    expect(renamed.coverImage).toEqual(created.coverImage);
+
+    // Removed via explicit null
+    const clearedByNull = await mockSvc.events.updateEvent(created.id, {
+      coverImage: null,
+    });
+    expect(clearedByNull.coverImage).toBeUndefined();
+
+    // Re-attach then remove via explicit undefined
+    const reattached = await mockSvc.events.updateEvent(created.id, {
+      coverImage: created.coverImage,
+    });
+    expect(reattached.coverImage).toEqual(created.coverImage);
+    const clearedByUndefined = await mockSvc.events.updateEvent(created.id, {
+      coverImage: undefined,
+    });
+    expect(clearedByUndefined.coverImage).toBeUndefined();
+
+    // HttpAdapter serializes coverImage: null for both null and explicit undefined
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({ ...created, coverImage: undefined }),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        ),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({ ...created, coverImage: undefined }),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        ),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(created), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+
+    const httpSvc = createHttpServices({
+      baseUrl: "http://localhost:8000/api/v1",
+      fetchImpl: fetchMock,
+    });
+
+    await httpSvc.events.updateEvent(created.id, { coverImage: null });
+    await httpSvc.events.updateEvent(created.id, { coverImage: undefined });
+    await httpSvc.events.updateEvent(created.id, { title: "Preserve" });
+
+    expect(JSON.parse(String(fetchMock.mock.calls[0][1].body))).toEqual({
+      coverImage: null,
+    });
+    expect(JSON.parse(String(fetchMock.mock.calls[1][1].body))).toEqual({
+      coverImage: null,
+    });
+    expect(JSON.parse(String(fetchMock.mock.calls[2][1].body))).toEqual({
+      title: "Preserve",
+    });
+  });
+
+  it("AppDataProvider in api mode initializes admin-only state (applications, inquiries, faqBank) as [] synchronously", async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith("/auth/me")) {
+        return new Response(JSON.stringify({ detail: "Not authenticated" }), {
+          status: 401,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+      if (url.endsWith("/events")) {
+        return new Response(JSON.stringify([]), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+      if (url.endsWith("/media")) {
+        return new Response(JSON.stringify([]), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+      return new Response(JSON.stringify({}), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      });
+    });
+
+    const apiServices = createHttpServices({
+      baseUrl: "http://localhost:8000/api/v1",
+      fetchImpl: fetchMock as unknown as typeof fetch,
+    });
+
+    function ApiHarness() {
+      const {
+        mode,
+        site,
+        applications,
+        inquiries,
+        faqBank,
+        isHydrated,
+      } = useAppData();
+      return createElement(
+        "div",
+        null,
+        createElement("span", { "data-testid": "api-mode" }, mode),
+        createElement("span", { "data-testid": "api-brand" }, site.brandName),
+        createElement(
+          "span",
+          { "data-testid": "api-apps" },
+          String(applications.length),
+        ),
+        createElement(
+          "span",
+          { "data-testid": "api-inquiries" },
+          String(inquiries.length),
+        ),
+        createElement(
+          "span",
+          { "data-testid": "api-faq-bank" },
+          String(faqBank.length),
+        ),
+        createElement(
+          "span",
+          { "data-testid": "api-hydrated" },
+          String(isHydrated),
+        ),
+      );
+    }
+
+    render(
+      createElement(AppDataProvider, {
+        mode: "api",
+        services: apiServices,
+        children: createElement(ApiHarness),
+      }),
+    );
+
+    // Synchronous first paint assertions (no fake mock admin seed data in api mode)
+    expect(screen.getByTestId("api-mode")).toHaveTextContent("api");
+    expect(screen.getByTestId("api-brand")).toHaveTextContent("MUICT Dev Club");
+    expect(screen.getByTestId("api-apps")).toHaveTextContent("0");
+    expect(screen.getByTestId("api-inquiries")).toHaveTextContent("0");
+    expect(screen.getByTestId("api-faq-bank")).toHaveTextContent("0");
+
+    await waitFor(() =>
+      expect(screen.getByTestId("api-hydrated")).toHaveTextContent("true"),
+    );
+    expect(screen.getByTestId("api-apps")).toHaveTextContent("0");
+    expect(screen.getByTestId("api-inquiries")).toHaveTextContent("0");
+    expect(screen.getByTestId("api-faq-bank")).toHaveTextContent("0");
+  });
 });

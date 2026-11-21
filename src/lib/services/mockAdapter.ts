@@ -66,6 +66,7 @@ import {
   type ContentSectionMap,
   type CvDownloadInfo,
   type EventListFilters,
+  type EventUpdateInput,
   type FaqBankCreateInput,
   type FaqBankUpdateInput,
   type MediaUploadRequest,
@@ -911,7 +912,7 @@ export function createMockServices(): ServiceBundle {
 
     async updateEvent(
       id: string,
-      input: Partial<EventUpsertInput>,
+      input: EventUpdateInput,
       coverFile?: File,
     ): Promise<EventItem> {
       const current = readEvents();
@@ -921,8 +922,10 @@ export function createMockServices(): ServiceBundle {
       }
 
       const existing = current[index];
-      let nextCoverImage: ImageAsset | undefined =
-        "coverImage" in input ? input.coverImage : existing.coverImage;
+      const hasCoverProp = "coverImage" in input;
+      let nextCoverImage: ImageAsset | undefined = hasCoverProp
+        ? (input.coverImage ?? undefined)
+        : existing.coverImage;
 
       if (coverFile) {
         const uploaded = await media.uploadMedia({

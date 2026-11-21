@@ -106,14 +106,14 @@ export function AppDataProvider({
     useState<RecruitmentContent>(INITIAL_RECRUITMENT);
   const [legal, setLegal] = useState<LegalContent>(INITIAL_LEGAL);
   const [media, setMedia] = useState<MediaAsset[]>(INITIAL_MEDIA);
-  const [applications, setApplications] = useState<RecruitmentApplication[]>(
-    INITIAL_ADMIN_SEED.applications,
+  const [applications, setApplications] = useState<RecruitmentApplication[]>(() =>
+    mode === "mock" ? INITIAL_ADMIN_SEED.applications : [],
   );
-  const [inquiries, setInquiries] = useState<InquiryItem[]>(
-    INITIAL_ADMIN_SEED.inquiries,
+  const [inquiries, setInquiries] = useState<InquiryItem[]>(() =>
+    mode === "mock" ? INITIAL_ADMIN_SEED.inquiries : [],
   );
-  const [faqBank, setFaqBank] = useState<FaqBankItem[]>(
-    INITIAL_ADMIN_SEED.faqBank,
+  const [faqBank, setFaqBank] = useState<FaqBankItem[]>(() =>
+    mode === "mock" ? INITIAL_ADMIN_SEED.faqBank : [],
   );
   const [signinMemes, setSigninMemes] = useState<SigninMemeSlide[]>(
     INITIAL_ADMIN_SEED.signinMemes,
