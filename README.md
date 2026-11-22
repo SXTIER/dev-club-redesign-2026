@@ -106,6 +106,12 @@ npm run build
 npm run start
 ```
 
+### Testing from a phone
+
+Run `npm run dev -- --hostname 0.0.0.0`, connect your phone to the same Wi-Fi, and open `http://<PC-IPv4>:3000` (find the Wi-Fi IPv4 address with `ipconfig` on Windows). Allow Node.js through Windows Firewall on private networks if prompted.
+
+`next.config.ts` allows the machine's current non-loopback IPv4 addresses as development origins so Next.js hydration and live reload work over LAN or VPN. Restart the dev server after switching networks or changing IP addresses, then reload the phone's page. Arbitrary external origins remain blocked; this setting does not change production behavior.
+
 ### Responsive UI
 
 - Public and admin navigation switch to compact menus below `1280px`; menus support keyboard focus, Escape, and scroll restoration when resizing.

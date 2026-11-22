@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
+import { networkInterfaces } from "node:os";
 
 const nextConfig: NextConfig = {
+  // Phones use a network IP rather than localhost; keep dev hydration/HMR allowed.
+  allowedDevOrigins: Object.values(networkInterfaces()).flatMap(
+    (addresses) =>
+      addresses
+        ?.filter(({ family, internal }) => family === "IPv4" && !internal)
+        .map(({ address }) => address) ?? [],
+  ),
   images: {
     unoptimized: true,
   },
