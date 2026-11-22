@@ -195,6 +195,8 @@ function createId(prefix: string): string {
 }
 
 interface MobileEditorTarget {
+  heading?: string;
+  subpath?: readonly string[];
   label: string;
   value: string;
   placeholder?: string;
@@ -212,6 +214,46 @@ const MobileTextEditorContext = createContext<MobileTextEditorContextValue>({
   isMobile: false,
   openEditor: () => {},
 });
+
+interface EditorBreadcrumbContextValue {
+  heading?: string;
+  subpath: readonly string[];
+}
+
+const EditorBreadcrumbContext = createContext<EditorBreadcrumbContextValue>({
+  heading: undefined,
+  subpath: [],
+});
+
+function EditorGroup({
+  heading,
+  subpath,
+  children,
+}: {
+  heading?: string;
+  subpath?: string;
+  children: ReactNode;
+}) {
+  const parent = useContext(EditorBreadcrumbContext);
+  const value = useMemo<EditorBreadcrumbContextValue>(
+    () => ({
+      heading: heading ?? parent.heading,
+      subpath: heading
+        ? subpath
+          ? [subpath]
+          : []
+        : subpath
+          ? [...parent.subpath, subpath]
+          : parent.subpath,
+    }),
+    [heading, subpath, parent.heading, parent.subpath],
+  );
+  return (
+    <EditorBreadcrumbContext.Provider value={value}>
+      {children}
+    </EditorBreadcrumbContext.Provider>
+  );
+}
 
 function MobileTextEditorModal({
   target,
@@ -257,6 +299,10 @@ function MobileTextEditorModal({
 
   const showDelete = Boolean(target.onDelete);
   const canDelete = target.canDelete ?? true;
+  const modalHeading = target.heading || target.label;
+  const modalSubtitle = target.heading
+    ? [...(target.subpath ?? []), target.label].join(" / ")
+    : undefined;
 
   return (
     <div
@@ -267,15 +313,22 @@ function MobileTextEditorModal({
       className="fixed inset-0 z-50 bg-white flex flex-col"
     >
       {/* Top Bar */}
-      <div className="shrink-0 h-14 px-4 border-b border-[#E2E8F0] flex items-center justify-between gap-3">
-        <span className="text-sm font-medium text-[#4A5565] truncate">
-          {target.label}
-        </span>
+      <div className="shrink-0 min-h-14 px-4 py-2.5 border-b border-[#CBD5E1] flex items-center justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <p className="text-[14px] font-bold text-[#1C1B1F] leading-snug truncate">
+            {modalHeading}
+          </p>
+          {modalSubtitle ? (
+            <p className="text-xs font-normal text-[#757E91] leading-snug truncate mt-0.5">
+              {modalSubtitle}
+            </p>
+          ) : null}
+        </div>
         <button
           type="button"
           aria-label="Close editor"
           onClick={onClose}
-          className="inline-flex items-center justify-center w-9 h-9 text-[#1C1B1F] hover:bg-[#F4F5F7] rounded-[6px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0038E1]"
+          className="inline-flex items-center justify-center w-9 h-9 shrink-0 text-[#1C1B1F] hover:bg-[#F4F5F7] rounded-[6px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0038E1]"
         >
           <X className="w-5 h-5" aria-hidden="true" />
         </button>
@@ -347,6 +400,7 @@ function TextField({
 }) {
   const id = useId();
   const { isMobile, openEditor } = useContext(MobileTextEditorContext);
+  const breadcrumb = useContext(EditorBreadcrumbContext);
 
   return (
     <div className="space-y-1.5">
@@ -365,6 +419,8 @@ function TextField({
         onClick={() => {
           if (isMobile) {
             openEditor({
+              heading: breadcrumb.heading,
+              subpath: breadcrumb.subpath,
               label,
               value,
               placeholder,
@@ -410,6 +466,7 @@ function TextAreaField({
 }) {
   const id = useId();
   const { isMobile, openEditor } = useContext(MobileTextEditorContext);
+  const breadcrumb = useContext(EditorBreadcrumbContext);
 
   return (
     <div className="space-y-1.5">
@@ -428,6 +485,8 @@ function TextAreaField({
         onClick={() => {
           if (isMobile) {
             openEditor({
+              heading: breadcrumb.heading,
+              subpath: breadcrumb.subpath,
               label,
               value,
               placeholder,
@@ -463,6 +522,8 @@ function SubsectionCard({
   action?: ReactNode;
   children: ReactNode;
 }) {
+  const cleanHeading = title.replace(/\s*\(\d+\)$/, "");
+
   return (
     <div className="border border-[#E2E8F0] rounded-[12px] bg-[#F8FAFC] p-4 sm:p-5 space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -474,7 +535,7 @@ function SubsectionCard({
         </div>
         {action ? <div className="shrink-0">{action}</div> : null}
       </div>
-      {children}
+      <EditorGroup heading={cleanHeading}>{children}</EditorGroup>
     </div>
   );
 }
@@ -770,85 +831,84 @@ function RecruitmentRoleListEditor({
     >
       <div className="space-y-3">
         {roles.map((role, idx) => (
-          <div
-            key={idx}
-            className="bg-white border border-[#E2E8F0] rounded-[8px] p-4 space-y-3"
-          >
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="font-mono text-xs text-[#757E91]">
-                ID: {role.id}
-              </span>
-              <div className="flex items-center gap-3">
-                <label className="inline-flex items-center gap-2 text-xs text-[#4A5565] cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={Boolean(role.isOther)}
-                    onChange={(event) =>
-                      onChange(
-                        roles.map((item, i) =>
-                          i === idx
-                            ? {
-                                ...item,
-                                isOther: event.target.checked
-                                  ? true
-                                  : undefined,
-                              }
-                            : item,
-                        ),
-                      )
-                    }
-                    className="w-4 h-4 accent-[#0038E1]"
-                  />
-                  <span>Custom &ldquo;Other&rdquo; input role</span>
-                </label>
-                <button
-                  type="button"
-                  disabled={roles.length <= 1}
-                  onClick={() => onChange(roles.filter((_, i) => i !== idx))}
-                  className="inline-flex items-center gap-1 text-xs font-medium text-[#B41B00] hover:underline disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-                >
-                  <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
-                  Remove
-                </button>
+          <EditorGroup key={idx} subpath={`Role ${formatCount(idx + 1)}`}>
+            <div className="bg-white border border-[#E2E8F0] rounded-[8px] p-4 space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="font-mono text-xs text-[#757E91]">
+                  ID: {role.id}
+                </span>
+                <div className="flex items-center gap-3">
+                  <label className="inline-flex items-center gap-2 text-xs text-[#4A5565] cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(role.isOther)}
+                      onChange={(event) =>
+                        onChange(
+                          roles.map((item, i) =>
+                            i === idx
+                              ? {
+                                  ...item,
+                                  isOther: event.target.checked
+                                    ? true
+                                    : undefined,
+                                }
+                              : item,
+                          ),
+                        )
+                      }
+                      className="w-4 h-4 accent-[#0038E1]"
+                    />
+                    <span>Custom &ldquo;Other&rdquo; input role</span>
+                  </label>
+                  <button
+                    type="button"
+                    disabled={roles.length <= 1}
+                    onClick={() => onChange(roles.filter((_, i) => i !== idx))}
+                    className="inline-flex items-center gap-1 text-xs font-medium text-[#B41B00] hover:underline disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                    Remove
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <TextField
+                  label={`${title} ID ${idx + 1}`}
+                  value={role.id}
+                  onChange={(val) =>
+                    onChange(
+                      roles.map((item, i) =>
+                        i === idx ? { ...item, id: val } : item,
+                      ),
+                    )
+                  }
+                />
+                <TextField
+                  label={`${title} Title ${idx + 1}`}
+                  value={role.title}
+                  onChange={(val) =>
+                    onChange(
+                      roles.map((item, i) =>
+                        i === idx ? { ...item, title: val } : item,
+                      ),
+                    )
+                  }
+                />
+                <TextField
+                  label={`${title} Description ${idx + 1}`}
+                  value={role.description}
+                  onChange={(val) =>
+                    onChange(
+                      roles.map((item, i) =>
+                        i === idx ? { ...item, description: val } : item,
+                      ),
+                    )
+                  }
+                />
               </div>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <TextField
-                label={`${title} ID ${idx + 1}`}
-                value={role.id}
-                onChange={(val) =>
-                  onChange(
-                    roles.map((item, i) =>
-                      i === idx ? { ...item, id: val } : item,
-                    ),
-                  )
-                }
-              />
-              <TextField
-                label={`${title} Title ${idx + 1}`}
-                value={role.title}
-                onChange={(val) =>
-                  onChange(
-                    roles.map((item, i) =>
-                      i === idx ? { ...item, title: val } : item,
-                    ),
-                  )
-                }
-              />
-              <TextField
-                label={`${title} Description ${idx + 1}`}
-                value={role.description}
-                onChange={(val) =>
-                  onChange(
-                    roles.map((item, i) =>
-                      i === idx ? { ...item, description: val } : item,
-                    ),
-                  )
-                }
-              />
-            </div>
-          </div>
+          </EditorGroup>
         ))}
       </div>
     </SubsectionCard>
@@ -918,64 +978,63 @@ function LegalDocumentEditor({
       >
         <div className="space-y-4">
           {document.sections.map((section, idx) => (
-            <div
-              key={idx}
-              className="bg-white border border-[#E2E8F0] rounded-[10px] p-4 space-y-4"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <span className="font-mono text-xs font-semibold text-[#0038E1]">
-                  Clause {formatCount(idx + 1)}
-                </span>
-                <button
-                  type="button"
-                  disabled={document.sections.length <= 1}
-                  onClick={() =>
-                    onChange({
-                      ...document,
-                      sections: document.sections.filter((_, i) => i !== idx),
+            <EditorGroup key={idx} subpath={`Clause ${formatCount(idx + 1)}`}>
+              <div className="bg-white border border-[#E2E8F0] rounded-[10px] p-4 space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-xs font-semibold text-[#0038E1]">
+                    Clause {formatCount(idx + 1)}
+                  </span>
+                  <button
+                    type="button"
+                    disabled={document.sections.length <= 1}
+                    onClick={() =>
+                      onChange({
+                        ...document,
+                        sections: document.sections.filter((_, i) => i !== idx),
+                      })
+                    }
+                    className="inline-flex items-center gap-1 text-xs font-medium text-[#B41B00] hover:underline disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                    Remove Clause
+                  </button>
+                </div>
+
+                <TextField
+                  label={`Clause ${idx + 1} Heading`}
+                  value={section.heading}
+                  onChange={(heading) =>
+                    updateSection(idx, { ...section, heading })
+                  }
+                />
+
+                <StringListEditor
+                  title="Paragraphs"
+                  itemLabel={`Clause ${idx + 1} Paragraph`}
+                  addLabel="Add Paragraph"
+                  items={section.paragraphs}
+                  minItems={0}
+                  multiline
+                  onChange={(paragraphs) =>
+                    updateSection(idx, { ...section, paragraphs })
+                  }
+                />
+
+                <StringListEditor
+                  title="Bullets (optional)"
+                  itemLabel={`Clause ${idx + 1} Bullet`}
+                  addLabel="Add Bullet"
+                  items={section.bullets ?? []}
+                  minItems={0}
+                  onChange={(bullets) =>
+                    updateSection(idx, {
+                      ...section,
+                      bullets: bullets.length > 0 ? bullets : undefined,
                     })
                   }
-                  className="inline-flex items-center gap-1 text-xs font-medium text-[#B41B00] hover:underline disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-                >
-                  <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
-                  Remove Clause
-                </button>
+                />
               </div>
-
-              <TextField
-                label={`Clause ${idx + 1} Heading`}
-                value={section.heading}
-                onChange={(heading) =>
-                  updateSection(idx, { ...section, heading })
-                }
-              />
-
-              <StringListEditor
-                title="Paragraphs"
-                itemLabel={`Clause ${idx + 1} Paragraph`}
-                addLabel="Add Paragraph"
-                items={section.paragraphs}
-                minItems={0}
-                multiline
-                onChange={(paragraphs) =>
-                  updateSection(idx, { ...section, paragraphs })
-                }
-              />
-
-              <StringListEditor
-                title="Bullets (optional)"
-                itemLabel={`Clause ${idx + 1} Bullet`}
-                addLabel="Add Bullet"
-                items={section.bullets ?? []}
-                minItems={0}
-                onChange={(bullets) =>
-                  updateSection(idx, {
-                    ...section,
-                    bullets: bullets.length > 0 ? bullets : undefined,
-                  })
-                }
-              />
-            </div>
+            </EditorGroup>
           ))}
         </div>
       </SubsectionCard>
@@ -1575,6 +1634,7 @@ export function WebsiteCopyTab() {
             </p>
 
             {/* Section Form Body */}
+            <EditorGroup heading={activeMeta.title}>
             {activeSection === "home-hero" ? (
               <div className="space-y-5">
                 <TextField
@@ -2152,68 +2212,73 @@ export function WebsiteCopyTab() {
                 >
                   <div className="space-y-3">
                     {homeDraft.faq.items.map((item, idx) => (
-                      <div
+                      <EditorGroup
                         key={item.id}
-                        className="bg-white border border-[#E2E8F0] rounded-[10px] p-4 space-y-3"
+                        subpath={`FAQ #${formatCount(idx + 1)}`}
                       >
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="font-mono text-xs font-semibold text-[#0038E1]">
-                            FAQ #{formatCount(idx + 1)} · {item.id}
-                          </span>
-                          <button
-                            type="button"
-                            aria-label={`Remove FAQ ${idx + 1}`}
-                            disabled={homeDraft.faq.items.length <= 1}
-                            onClick={() =>
+                        <div className="bg-white border border-[#E2E8F0] rounded-[10px] p-4 space-y-3">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-mono text-xs font-semibold text-[#0038E1]">
+                              FAQ #{formatCount(idx + 1)} · {item.id}
+                            </span>
+                            <button
+                              type="button"
+                              aria-label={`Remove FAQ ${idx + 1}`}
+                              disabled={homeDraft.faq.items.length <= 1}
+                              onClick={() =>
+                                updateHome((prev) => ({
+                                  ...prev,
+                                  faq: {
+                                    ...prev.faq,
+                                    items: prev.faq.items.filter(
+                                      (_, i) => i !== idx,
+                                    ),
+                                  },
+                                }))
+                              }
+                              className="inline-flex items-center gap-1 text-xs font-medium text-[#B41B00] hover:underline disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                            >
+                              <Trash2
+                                className="w-3.5 h-3.5"
+                                aria-hidden="true"
+                              />
+                              Remove
+                            </button>
+                          </div>
+
+                          <TextField
+                            label="Question"
+                            value={item.question}
+                            onChange={(question) =>
                               updateHome((prev) => ({
                                 ...prev,
                                 faq: {
                                   ...prev.faq,
-                                  items: prev.faq.items.filter(
-                                    (_, i) => i !== idx,
+                                  items: prev.faq.items.map((entry, i) =>
+                                    i === idx ? { ...entry, question } : entry,
                                   ),
                                 },
                               }))
                             }
-                            className="inline-flex items-center gap-1 text-xs font-medium text-[#B41B00] hover:underline disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
-                            Remove
-                          </button>
+                          />
+                          <TextAreaField
+                            label="Answer"
+                            rows={2}
+                            value={item.answer}
+                            onChange={(answer) =>
+                              updateHome((prev) => ({
+                                ...prev,
+                                faq: {
+                                  ...prev.faq,
+                                  items: prev.faq.items.map((entry, i) =>
+                                    i === idx ? { ...entry, answer } : entry,
+                                  ),
+                                },
+                              }))
+                            }
+                          />
                         </div>
-
-                        <TextField
-                          label="Question"
-                          value={item.question}
-                          onChange={(question) =>
-                            updateHome((prev) => ({
-                              ...prev,
-                              faq: {
-                                ...prev.faq,
-                                items: prev.faq.items.map((entry, i) =>
-                                  i === idx ? { ...entry, question } : entry,
-                                ),
-                              },
-                            }))
-                          }
-                        />
-                        <TextAreaField
-                          label="Answer"
-                          rows={2}
-                          value={item.answer}
-                          onChange={(answer) =>
-                            updateHome((prev) => ({
-                              ...prev,
-                              faq: {
-                                ...prev.faq,
-                                items: prev.faq.items.map((entry, i) =>
-                                  i === idx ? { ...entry, answer } : entry,
-                                ),
-                              },
-                            }))
-                          }
-                        />
-                      </div>
+                      </EditorGroup>
                     ))}
                   </div>
                 </SubsectionCard>
@@ -3534,6 +3599,7 @@ export function WebsiteCopyTab() {
                 ) : null}
               </div>
             ) : null}
+            </EditorGroup>
           </div>
 
           {/* Feedback & Action Bar */}

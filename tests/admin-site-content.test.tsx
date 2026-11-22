@@ -401,6 +401,12 @@ describe("Admin Site Content (/admin/site-content)", () => {
         await user.click(paragraph2);
         const modal = screen.getByTestId("mobile-text-editor-modal");
         expect(modal).toBeInTheDocument();
+        expect(
+          within(modal).getByText("Privacy Policy (EN) Clauses"),
+        ).toBeInTheDocument();
+        expect(
+          within(modal).getByText("Clause 01 / Clause 1 Paragraph 2"),
+        ).toBeInTheDocument();
 
         const modalTextarea = within(modal).getByRole("textbox");
         await user.type(modalTextarea, "Updated via full-screen mobile editor");
