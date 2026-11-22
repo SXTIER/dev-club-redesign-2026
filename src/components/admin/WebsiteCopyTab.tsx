@@ -576,7 +576,7 @@ function RecruitmentRoleListEditor({
       <div className="space-y-3">
         {roles.map((role, idx) => (
           <div
-            key={role.id}
+            key={idx}
             className="bg-white border border-[#E2E8F0] rounded-[8px] p-4 space-y-3"
           >
             <div className="flex flex-wrap items-center justify-between gap-2">
@@ -2523,7 +2523,7 @@ export function WebsiteCopyTab() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                       {recruitmentDraft.openedCopy.steps.map((step, idx) => (
                         <div
-                          key={step.number}
+                          key={idx}
                           className="bg-white border border-[#E2E8F0] rounded-[8px] p-3 space-y-2.5"
                         >
                           <TextField

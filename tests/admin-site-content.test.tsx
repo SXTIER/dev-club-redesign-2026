@@ -311,6 +311,48 @@ describe("Admin Site Content (/admin/site-content)", () => {
       const savedLegal = await services.content.getSection("legal");
       expect(savedLegal.privacyPolicy.th.sections).toHaveLength(clauseIdx);
     }, 15000);
+
+    it("preserves input focus when typing multi-character text into Recruitment Role ID and Step Number inputs", async () => {
+      const user = userEvent.setup();
+      const services = createMockServices();
+
+      render(
+        <AppDataProvider services={services} mode="mock">
+          <WebsiteCopyTab />
+        </AppDataProvider>,
+      );
+
+      await user.click(
+        await screen.findByRole("button", { name: /Recruitment Copy & Roles/i }),
+      );
+
+      const roleIdInput = screen.getByLabelText(
+        /^Projects Team Roles ID 1$/i,
+      ) as HTMLInputElement;
+      await user.clear(roleIdInput);
+      await user.type(roleIdInput, "custom-fullstack");
+      expect(roleIdInput).toHaveFocus();
+      expect(roleIdInput.value).toBe("custom-fullstack");
+
+      const stepNumberInput = screen.getByLabelText(
+        /^Step 1 Number$/i,
+      ) as HTMLInputElement;
+      await user.clear(stepNumberInput);
+      await user.type(stepNumberInput, "01A");
+      expect(stepNumberInput).toHaveFocus();
+      expect(stepNumberInput.value).toBe("01A");
+
+      await user.click(screen.getByRole("button", { name: /Save Changes/i }));
+      await waitFor(() =>
+        expect(
+          screen.getByText(/Changes saved successfully/i),
+        ).toBeInTheDocument(),
+      );
+
+      const savedRec = await services.content.getSection("recruitment");
+      expect(savedRec.projectsTeamRoles[0].id).toBe("custom-fullstack");
+      expect(savedRec.openedCopy.steps[0].number).toBe("01A");
+    }, 15000);
   });
 
   describe("MediaLibraryTab", () => {
