@@ -131,7 +131,9 @@ export function AppDataProvider({
   }, []);
 
   const sessionRef = useRef<AdminSession | null>(session);
-  sessionRef.current = session;
+  useEffect(() => {
+    sessionRef.current = session;
+  }, [session]);
 
   const refreshContent = useCallback(async () => {
     const [siteRes, homeRes, recRes, legalRes] = await Promise.allSettled([

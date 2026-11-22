@@ -257,7 +257,9 @@ describe("Admin Events & Inquiries management (/admin/events & /admin/inquiries)
     );
 
     await screen.findByTestId("events-desktop-table");
-    expect(screen.getByRole("navigation", { name: /Pagination/i })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("navigation", { name: /Pagination/i }),
+    ).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: /Next page/i }));
     expect(
       within(screen.getByTestId("events-desktop-table")).getByText("Paged Event 5"),

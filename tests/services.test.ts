@@ -778,6 +778,7 @@ describe("Service layer (MockAdapter & HttpAdapter)", () => {
     }
 
     render(
+      // eslint-disable-next-line react/no-children-prop
       createElement(AppDataProvider, {
         mode: "api",
         services: apiServices,

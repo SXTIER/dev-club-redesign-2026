@@ -264,6 +264,11 @@ function MobileTextEditorModal({
 }) {
   const [draft, setDraft] = useState(target?.value ?? "");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     if (!target) return;
@@ -272,28 +277,25 @@ function MobileTextEditorModal({
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const focusTimer = window.setTimeout(() => {
-      const el = textareaRef.current;
-      if (el) {
-        el.focus();
-        const len = el.value.length;
-        el.setSelectionRange(len, len);
-      }
-    }, 0);
+    const el = textareaRef.current;
+    if (el) {
+      el.focus();
+      const len = el.value.length;
+      el.setSelectionRange(len, len);
+    }
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        onClose();
+        onCloseRef.current();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.clearTimeout(focusTimer);
       document.body.style.overflow = prevOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [target, onClose]);
+  }, [target]);
 
   if (!target) return null;
 

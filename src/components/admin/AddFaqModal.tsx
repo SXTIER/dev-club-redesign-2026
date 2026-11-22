@@ -49,8 +49,8 @@ export function AddFaqModal({
     return Array.from(new Set(base.map((c) => c.trim()).filter(Boolean)));
   }, [
     home.faq.askModal.categories,
-    editingItem?.category,
-    initialDraft?.category,
+    editingItem,
+    initialDraft,
   ]);
 
   const [question, setQuestion] = useState("");
