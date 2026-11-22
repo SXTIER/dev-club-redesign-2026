@@ -63,17 +63,21 @@ export function RecruitmentManager() {
     let accepted = 0;
     let rejected = 0;
     let withCv = 0;
-    let projects = 0;
-    let marketing = 0;
+    let acceptedProjects = 0;
+    let acceptedMarketing = 0;
 
     for (const app of applications) {
-      if (app.status === "Pending") pending += 1;
-      else if (app.status === "Accepted") accepted += 1;
-      else rejected += 1;
+      if (app.status === "Pending") {
+        pending += 1;
+      } else if (app.status === "Accepted") {
+        accepted += 1;
+        if (app.team === "projects") acceptedProjects += 1;
+        else acceptedMarketing += 1;
+      } else {
+        rejected += 1;
+      }
 
       if (app.cv) withCv += 1;
-      if (app.team === "projects") projects += 1;
-      else marketing += 1;
     }
 
     const total = applications.length;
@@ -86,8 +90,8 @@ export function RecruitmentManager() {
       accepted,
       rejected,
       withCv,
-      projects,
-      marketing,
+      acceptedProjects,
+      acceptedMarketing,
       reviewedPercent,
     };
   }, [applications]);
@@ -330,7 +334,7 @@ export function RecruitmentManager() {
             {counts.accepted}
           </p>
           <p className="text-xs sm:text-sm text-[#4A5565]">
-            {counts.projects} Projects · {counts.marketing} Marketing
+            {counts.acceptedProjects} Projects · {counts.acceptedMarketing} Marketing
           </p>
         </div>
 

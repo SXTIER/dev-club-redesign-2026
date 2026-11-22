@@ -3,13 +3,20 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import AdminRecruitmentPage from "@/app/admin/recruitment/page";
 import { RecruitmentManager } from "@/components/admin/RecruitmentManager";
+import {
+  isSafeDownloadUrl,
+  ViewApplicationModal,
+} from "@/components/admin/ViewApplicationModal";
 import { AppDataProvider } from "@/context/AppDataContext";
 import adminSeedJson from "@/content/admin-seed.json";
 import { ApiError } from "@/lib/services/contracts";
 import { createMockServices } from "@/lib/services/mockAdapter";
 import { clearAllFiles } from "@/lib/storage/indexedDbFiles";
 import { clearAllOverlays } from "@/lib/storage/localOverlay";
-import type { RecruitmentApplication } from "@/lib/types/recruitment";
+import {
+  recruitmentApplicationSchema,
+  type RecruitmentApplication,
+} from "@/lib/types/recruitment";
 import { buildApplicationsCsv } from "@/lib/utils/csvExport";
 
 const mockPush = vi.fn();
@@ -183,6 +190,9 @@ describe("Admin Recruitment Checklist (/admin/recruitment) & CSV export", () => 
     ).toBeInTheDocument();
     expect(within(screen.getByTestId("kpi-pending")).getByText("3")).toBeInTheDocument();
     expect(within(screen.getByTestId("kpi-accepted")).getByText("3")).toBeInTheDocument();
+    expect(
+      within(screen.getByTestId("kpi-accepted")).getByText("3 Projects · 0 Marketing"),
+    ).toBeInTheDocument();
     expect(within(screen.getByTestId("kpi-rejected")).getByText("1")).toBeInTheDocument();
 
     // Toggle Recruitment Open/Closed switch and verify services.content flips
@@ -283,6 +293,9 @@ describe("Admin Recruitment Checklist (/admin/recruitment) & CSV export", () => 
     });
 
     expect(within(screen.getByTestId("kpi-accepted")).getByText("4")).toBeInTheDocument();
+    expect(
+      within(screen.getByTestId("kpi-accepted")).getByText("4 Projects · 0 Marketing"),
+    ).toBeInTheDocument();
     expect(within(screen.getByTestId("kpi-pending")).getByText("2")).toBeInTheDocument();
 
     await user.click(within(dialog).getByRole("button", { name: /^Done$/i }));
@@ -291,10 +304,10 @@ describe("Admin Recruitment Checklist (/admin/recruitment) & CSV export", () => 
     );
   }, 15000);
 
-  it("opens PDF CVs in a new tab, downloads DOCX CVs, surfaces getCvDownloadUrl errors, and blocks unsafe portfolio URLs", async () => {
+  it("opens PDF CVs in a new tab without fallback download when window.open returns null, downloads DOCX CVs, revokes blob URLs, surfaces errors, and blocks unsafe portfolio URLs", async () => {
     const user = userEvent.setup();
     const services = createMockServices();
-    const { createSpy, restore } = stubObjectUrlFns();
+    const { createSpy, revokeSpy, restore } = stubObjectUrlFns();
     restoreObjectUrls = restore;
     createSpy.mockImplementation((blob) =>
       (blob as Blob).type.includes("pdf") ? "blob:cv-pdf" : "blob:cv-docx",
@@ -358,12 +371,13 @@ describe("Admin Recruitment Checklist (/admin/recruitment) & CSV export", () => 
       }),
     );
 
-    const openSpy = vi.spyOn(window, "open").mockReturnValue({} as Window);
+    // WHATWG spec: window.open(..., "noopener,noreferrer") returns null even when opening succeeds
+    const openSpy = vi.spyOn(window, "open").mockReturnValue(null);
     const anchorClickSpy = vi
       .spyOn(HTMLAnchorElement.prototype, "click")
       .mockImplementation(() => {});
 
-    render(
+    const { unmount } = render(
       <AppDataProvider services={services} mode="mock">
         <RecruitmentManager />
       </AppDataProvider>,
@@ -371,7 +385,7 @@ describe("Admin Recruitment Checklist (/admin/recruitment) & CSV export", () => 
 
     const desktopTable = await screen.findByTestId("recruitment-desktop-table");
 
-    // 1) PDF CV opens in a new tab & unsafe portfolioUrl is NOT an <a> link
+    // 1) PDF CV opens in a new tab & does NOT trigger fallback <a download>; unsafe portfolioUrl is NOT an <a> link
     const pdfCell = await within(desktopTable).findByText("Pdf Applicant");
     const pdfRow = pdfCell.closest("tr")!;
     await user.click(within(pdfRow).getByRole("button", { name: /View Form/i }));
@@ -390,6 +404,7 @@ describe("Admin Recruitment Checklist (/admin/recruitment) & CSV export", () => 
         "noopener,noreferrer",
       ),
     );
+    expect(anchorClickSpy).not.toHaveBeenCalled();
     await user.click(within(dialog).getByRole("button", { name: /^Done$/i }));
 
     // 2) DOCX CV triggers <a download> & valid https portfolioUrl renders safe link
@@ -417,6 +432,95 @@ describe("Admin Recruitment Checklist (/admin/recruitment) & CSV export", () => 
       expect(within(dialog).getByRole("alert")).toHaveTextContent(
         /CV blob missing in storage\./i,
       ),
+    );
+
+    // Unmount revokes any pending blob: URLs cleanly
+    unmount();
+    expect(revokeSpy).toHaveBeenCalledWith("blob:cv-pdf");
+    expect(revokeSpy).toHaveBeenCalledWith("blob:cv-docx");
+  });
+
+  it("validates isSafeDownloadUrl, rejects unsafe CV URLs returned by service, and revokes blob: URLs after scheduled delay", async () => {
+    // Unit verification of isSafeDownloadUrl
+    expect(isSafeDownloadUrl("//evil.com/x.pdf")).toBe(false);
+    expect(isSafeDownloadUrl("/\\evil.com/x.pdf")).toBe(false);
+    expect(isSafeDownloadUrl("data:text/html,<script>alert(1)</script>")).toBe(false);
+    expect(isSafeDownloadUrl("data:image/svg+xml,<svg/>")).toBe(false);
+    expect(isSafeDownloadUrl("data:application/pdf-evil,foo")).toBe(false);
+    expect(isSafeDownloadUrl("javascript:alert(1)")).toBe(false);
+
+    expect(isSafeDownloadUrl("/api/recruitment/cv.pdf")).toBe(true);
+    expect(isSafeDownloadUrl("https://cdn.example.com/cv.pdf")).toBe(true);
+    expect(isSafeDownloadUrl("blob:http://localhost/abc-123")).toBe(true);
+    expect(isSafeDownloadUrl("data:application/pdf;base64,JVBERi0=")).toBe(true);
+    expect(
+      isSafeDownloadUrl(
+        "data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,UEs=",
+      ),
+    ).toBe(true);
+
+    const services = createMockServices();
+    const { revokeSpy, restore } = stubObjectUrlFns();
+    restoreObjectUrls = restore;
+
+    const appWithCv: RecruitmentApplication = recruitmentApplicationSchema.parse({
+      ...adminSeedJson.applications[0],
+      status: "Pending",
+      cv: {
+        fileRef: "idb://cv-test",
+        filename: "cv.docx",
+        mimeType:
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        sizeBytes: 1024,
+      },
+    });
+
+    const getCvSpy = vi.spyOn(services.recruitment, "getCvDownloadUrl");
+    getCvSpy.mockResolvedValueOnce({
+      url: "data:text/html,<script>alert(1)</script>",
+      filename: "evil.html",
+      mimeType: "text/html",
+    });
+
+    const anchorClickSpy = vi
+      .spyOn(HTMLAnchorElement.prototype, "click")
+      .mockImplementation(() => {});
+    const openSpy = vi.spyOn(window, "open").mockReturnValue(null);
+
+    const user = userEvent.setup();
+    render(
+      <AppDataProvider services={services} mode="mock">
+        <ViewApplicationModal
+          application={appWithCv}
+          open={true}
+          onClose={() => {}}
+        />
+      </AppDataProvider>,
+    );
+
+    // Unsafe data:text/html URL is rejected before opening/downloading
+    await user.click(screen.getByRole("button", { name: /View File/i }));
+    await waitFor(() =>
+      expect(screen.getByRole("alert")).toHaveTextContent(
+        /unavailable or invalid/i,
+      ),
+    );
+    expect(anchorClickSpy).not.toHaveBeenCalled();
+    expect(openSpy).not.toHaveBeenCalled();
+
+    // Valid blob: URL for DOCX triggers download and revokes after delay timer
+    getCvSpy.mockResolvedValueOnce({
+      url: "blob:timed-docx-cv",
+      filename: "cv.docx",
+      mimeType:
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    });
+
+    await user.click(screen.getByRole("button", { name: /View File/i }));
+    await waitFor(() => expect(anchorClickSpy).toHaveBeenCalledTimes(1));
+    await waitFor(
+      () => expect(revokeSpy).toHaveBeenCalledWith("blob:timed-docx-cv"),
+      { timeout: 2500 },
     );
   });
 

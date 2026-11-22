@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   AlertCircle,
   ExternalLink,
@@ -72,16 +72,41 @@ function getSafeHttpUrl(raw?: string): string | null {
   }
 }
 
-function isSafeDownloadUrl(url: string): boolean {
+const ALLOWED_DATA_CV_PREFIXES = [
+  "data:application/pdf",
+  "data:application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "data:application/octet-stream",
+] as const;
+
+const DOCX_REVOKE_DELAY_MS = 1000;
+const PDF_REVOKE_DELAY_MS = 60_000;
+
+export function isSafeDownloadUrl(url: string): boolean {
   const trimmed = url.trim();
   if (!trimmed) return false;
-  if (trimmed.startsWith("/")) return true;
-  return (
-    trimmed.startsWith("blob:") ||
-    trimmed.startsWith("data:") ||
-    trimmed.startsWith("https://") ||
-    trimmed.startsWith("http://")
-  );
+  if (
+    trimmed.startsWith("/") &&
+    !trimmed.startsWith("//") &&
+    !trimmed.startsWith("/\\")
+  ) {
+    return true;
+  }
+  const lower = trimmed.toLowerCase();
+  if (
+    lower.startsWith("blob:") ||
+    lower.startsWith("https://") ||
+    lower.startsWith("http://")
+  ) {
+    return true;
+  }
+  if (lower.startsWith("data:")) {
+    return ALLOWED_DATA_CV_PREFIXES.some((prefix) => {
+      if (!lower.startsWith(prefix)) return false;
+      const nextChar = lower.charAt(prefix.length);
+      return nextChar === ";" || nextChar === ",";
+    });
+  }
+  return false;
 }
 
 function getDecisionButtonClasses(
@@ -159,6 +184,46 @@ export function ViewApplicationModal({
   const [statusError, setStatusError] = useState<string | null>(null);
   const [loadingCv, setLoadingCv] = useState(false);
   const [cvError, setCvError] = useState<string | null>(null);
+  const blobCleanupTimersRef = useRef<
+    Map<string, ReturnType<typeof setTimeout>>
+  >(new Map());
+
+  const revokeBlobUrlNow = useCallback((url: string) => {
+    if (
+      typeof URL !== "undefined" &&
+      typeof URL.revokeObjectURL === "function"
+    ) {
+      URL.revokeObjectURL(url);
+    }
+  }, []);
+
+  const scheduleBlobRevoke = useCallback(
+    (url: string, delayMs: number) => {
+      if (!url.startsWith("blob:")) return;
+      const timers = blobCleanupTimersRef.current;
+      const existingTimer = timers.get(url);
+      if (existingTimer !== undefined) {
+        clearTimeout(existingTimer);
+      }
+      const timer = setTimeout(() => {
+        timers.delete(url);
+        revokeBlobUrlNow(url);
+      }, delayMs);
+      timers.set(url, timer);
+    },
+    [revokeBlobUrlNow],
+  );
+
+  useEffect(() => {
+    const timers = blobCleanupTimersRef.current;
+    return () => {
+      for (const [url, timer] of timers.entries()) {
+        clearTimeout(timer);
+        revokeBlobUrlNow(url);
+      }
+      timers.clear();
+    };
+  }, [revokeBlobUrlNow]);
 
   useEffect(() => {
     setStatusError(null);
@@ -215,12 +280,11 @@ export function ViewApplicationModal({
         resolvedFilename.toLowerCase().endsWith(".pdf");
 
       if (isPdf && typeof window !== "undefined") {
-        const opened = window.open(info.url, "_blank", "noopener,noreferrer");
-        if (!opened) {
-          triggerAnchorDownload(info.url, resolvedFilename);
-        }
+        window.open(info.url, "_blank", "noopener,noreferrer");
+        scheduleBlobRevoke(info.url, PDF_REVOKE_DELAY_MS);
       } else {
         triggerAnchorDownload(info.url, resolvedFilename);
+        scheduleBlobRevoke(info.url, DOCX_REVOKE_DELAY_MS);
       }
     } catch (err) {
       setCvError(
