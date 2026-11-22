@@ -42,7 +42,9 @@ describe("Admin Login, AdminShell (AuthGuard), and Overview Dashboard", () => {
       );
 
       expect(screen.getByText(/<Admin SignIn \/> !/i)).toBeInTheDocument();
-      const homeLink = screen.getByRole("link", { name: /Back to Home/i });
+      const homeLink = screen.getByRole("link", {
+        name: /MUICT Dev Club home/i,
+      });
       expect(homeLink).toHaveAttribute("href", "/");
 
       const emailInput = screen.getByPlaceholderText(/Enter your email/i);
