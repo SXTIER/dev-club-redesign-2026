@@ -31,8 +31,8 @@ export function TeamsSection() {
   return (
     <section id="teams" className="scroll-mt-28 w-full bg-[#F5F5FA]">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-12 lg:py-16">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
+          <div className="min-w-0">
             <p className="text-[13px] font-medium leading-[20px] text-[#0038E1]">
               {teams.eyebrow}
             </p>
@@ -41,12 +41,12 @@ export function TeamsSection() {
             </h2>
           </div>
 
-          <p className="text-sm sm:text-[15px] leading-[24px] text-[#1C1B1F] sm:shrink-0 sm:text-right">
+          <p className="max-w-sm text-sm sm:text-[15px] leading-[24px] text-[#4A5565] sm:text-right break-words">
             {teams.subtitle}
           </p>
         </div>
 
-        <ul className="mt-8 divide-y divide-[#4A4A52]/30 border-t border-b border-[#4A4A52]/30">
+        <ul className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:block md:divide-y md:divide-[#4A4A52]/30 md:border-t md:border-b md:border-[#4A4A52]/30">
           {teams.items.map((team, idx) => {
             const art =
               TEAM_ILLUSTRATIONS[team.index] ??
@@ -55,13 +55,13 @@ export function TeamsSection() {
             return (
               <li
                 key={`${team.index}-${team.name}`}
-                className="py-5 lg:py-6 grid grid-cols-1 md:grid-cols-[36px_140px_1fr] xl:grid-cols-[36px_140px_210px_minmax(280px,1fr)_auto] items-start md:items-center gap-4 lg:gap-6"
+                className="grid grid-cols-[minmax(0,1fr)_72px] md:grid-cols-[36px_140px_1fr] xl:grid-cols-[36px_140px_210px_minmax(280px,1fr)_auto] items-start md:items-center gap-x-4 gap-y-3 lg:gap-6 rounded-xl border border-[#D6D9E3] bg-white p-4 md:rounded-none md:border-0 md:bg-transparent md:px-0 md:py-5 lg:py-6"
               >
-                <span className="text-[14px] font-medium leading-[20px] text-[#1C1B1F]">
+                <span className="col-start-1 row-start-1 md:col-auto md:row-auto text-[13px] md:text-[14px] font-medium leading-[20px] text-[#0038E1] md:text-[#1C1B1F]">
                   {team.index}
                 </span>
 
-                <div className="flex items-center justify-start md:justify-center">
+                <div className="col-start-2 row-start-1 row-span-2 md:col-auto md:row-auto md:row-span-1 flex items-center justify-center self-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={art.src}
@@ -72,12 +72,12 @@ export function TeamsSection() {
                     loading="lazy"
                     decoding="async"
                     style={{ aspectRatio: `${art.width} / ${art.height}` }}
-                    className="h-auto max-h-[96px] w-auto max-w-[140px] object-contain"
+                    className="h-auto max-h-[72px] w-auto max-w-[72px] md:max-h-[96px] md:max-w-[140px] object-contain"
                   />
                 </div>
 
-                <div className="min-w-0">
-                  <h3 className="text-xl lg:text-[22px] font-normal leading-snug lg:leading-[30px] text-[#1C1B1F]">
+                <div className="col-start-1 row-start-2 md:col-auto md:row-auto min-w-0">
+                  <h3 className="text-[19px] md:text-xl lg:text-[22px] font-normal leading-snug lg:leading-[30px] text-[#1C1B1F] break-words">
                     {team.name}
                   </h3>
                   <div
@@ -87,12 +87,12 @@ export function TeamsSection() {
                   />
                 </div>
 
-                <p className="md:col-start-3 xl:col-start-auto text-sm sm:text-[15px] leading-[24px] text-[#4A5565] min-w-0">
+                <p className="col-span-2 md:col-span-1 md:col-start-3 xl:col-start-auto text-sm sm:text-[15px] leading-[24px] text-[#4A5565] min-w-0 break-words">
                   {team.description}
                 </p>
 
-                <div className="md:col-start-3 xl:col-start-auto flex xl:justify-end">
-                  <span className="inline-flex items-center bg-[#1C1B1F] text-white text-xs sm:text-[13px] px-3 py-1.5 rounded-md leading-snug whitespace-normal sm:whitespace-nowrap xl:whitespace-normal xl:max-w-[240px] 2xl:max-w-none 2xl:whitespace-nowrap">
+                <div className="col-span-2 md:col-span-1 md:col-start-3 xl:col-start-auto flex min-w-0 xl:justify-end">
+                  <span className="inline-flex max-w-full items-center bg-[#1C1B1F] text-white text-xs sm:text-[13px] px-3 py-1.5 rounded-md leading-snug whitespace-normal break-words xl:max-w-[240px] 2xl:max-w-none">
                     {team.toolsLabel}
                   </span>
                 </div>

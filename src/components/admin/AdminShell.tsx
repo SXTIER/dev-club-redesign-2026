@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -85,6 +85,10 @@ export function AdminShell({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const drawerId = useId();
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const mainRef = useRef<HTMLElement>(null);
 
   const isAuthenticated = Boolean(session?.authenticated);
 
@@ -97,19 +101,52 @@ export function AdminShell({
   useEffect(() => {
     if (!mobileOpen) return;
 
+    const drawer = drawerRef.current;
+    const trigger = menuTriggerRef.current;
+    const background = [headerRef.current, mainRef.current];
+    const previousInert = background.map((element) => element?.inert ?? false);
+    background.forEach((element) => {
+      if (element) element.inert = true;
+    });
+    const focusableSelector = 'a[href], button:not([disabled]), [tabindex="0"]';
+    drawer?.querySelector<HTMLElement>(focusableSelector)?.focus();
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        event.preventDefault();
         setMobileOpen(false);
       }
+      if (event.key === "Tab") {
+        const focusable = Array.from(
+          drawer?.querySelectorAll<HTMLElement>(focusableSelector) ?? [],
+        );
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
     };
-
+    const closeOnDesktop = () => {
+      if (window.innerWidth >= 1280) setMobileOpen(false);
+    };
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", closeOnDesktop);
 
     return () => {
+      background.forEach((element, index) => {
+        if (element) element.inert = previousInert[index] ?? false;
+      });
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", closeOnDesktop);
+      if (trigger?.isConnected && window.innerWidth < 1280) trigger.focus();
     };
   }, [mobileOpen]);
 
@@ -143,8 +180,8 @@ export function AdminShell({
   return (
     <div className="min-h-screen bg-[#F5F5FA] text-[#1C1B1F] flex flex-col">
       {/* Admin Topbar Navigation */}
-      <header className="sticky top-0 z-40 w-full bg-[#FFFFFF] border-b-4 border-[#0038E1]">
-        <div className="max-w-[1440px] mx-auto h-16 lg:h-[76px] px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
+      <header ref={headerRef} className="sticky top-0 z-40 w-full bg-[#FFFFFF] border-b-4 border-[#0038E1]">
+        <div className="max-w-[1440px] mx-auto h-16 xl:h-[76px] px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 xl:gap-3 shrink-0 min-w-0">
             <Link
               href="/admin/overview"
@@ -161,7 +198,7 @@ export function AdminShell({
             </Link>
 
             {mode === "mock" ? (
-              <Badge tone="info" className="hidden xl:inline-flex rounded-full">
+              <Badge tone="info" className="hidden 2xl:inline-flex rounded-full">
                 Preview / Mock Mode
               </Badge>
             ) : null}
@@ -170,7 +207,7 @@ export function AdminShell({
           {/* Desktop Horizontal Nav */}
           <nav
             aria-label="Admin navigation"
-            className="hidden lg:flex items-center gap-4 xl:gap-6"
+            className="hidden xl:flex items-center gap-4"
           >
             {ADMIN_NAV_ITEMS.map((item) => {
               const Icon = item.icon;
@@ -181,7 +218,7 @@ export function AdminShell({
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
                   className={[
-                    "inline-flex items-center gap-1.5 py-2 text-[14px] xl:text-[15px] whitespace-nowrap border-b-2 transition-colors",
+                    "inline-flex min-h-11 items-center gap-1.5 py-2 text-[14px] whitespace-nowrap border-b-2 transition-colors",
                     "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]",
                     isActive
                       ? "text-[#0038E1] font-semibold border-[#0038E1]"
@@ -196,8 +233,8 @@ export function AdminShell({
           </nav>
 
           {/* Desktop Session / Actions */}
-          <div className="hidden lg:flex flex-col items-end justify-center gap-1 shrink-0">
-            <div className="flex items-center gap-2.5 xl:gap-4 text-xs xl:text-sm">
+          <div className="hidden xl:flex flex-col items-end justify-center shrink-0">
+            <div className="flex items-center gap-2.5 text-xs">
               <span className="inline-flex items-center gap-1.5 text-[#1C1B1F] font-medium min-w-0">
                 <ShieldCheck
                   className="w-4 h-4 text-[#0038E1] shrink-0"
@@ -205,7 +242,7 @@ export function AdminShell({
                 />
                 <span
                   title={session.email}
-                  className="max-w-[140px] xl:max-w-[220px] truncate"
+                  className="max-w-[160px] truncate"
                 >
                   {session.email}
                 </span>
@@ -214,7 +251,7 @@ export function AdminShell({
                 type="button"
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="inline-flex items-center gap-1 text-[#FB4A2A] hover:text-[#B41B00] font-medium whitespace-nowrap transition-colors cursor-pointer disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+                className="inline-flex min-h-11 items-center gap-1 text-[#FB4A2A] hover:text-[#B41B00] font-medium whitespace-nowrap transition-colors cursor-pointer disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
               >
                 <LogOut className="w-4 h-4 shrink-0" aria-hidden="true" />
                 <span>Log out</span>
@@ -222,7 +259,7 @@ export function AdminShell({
             </div>
             <Link
               href="/"
-              className="text-xs xl:text-sm text-[#0038E1] hover:text-[#002BAA] underline underline-offset-4 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+              className="text-xs text-[#0038E1] hover:text-[#002BAA] underline underline-offset-4 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
             >
               ← View Home
             </Link>
@@ -230,12 +267,13 @@ export function AdminShell({
 
           {/* Mobile Hamburger Trigger */}
           <button
+            ref={menuTriggerRef}
             type="button"
             aria-label="Toggle admin navigation"
             aria-expanded={mobileOpen}
             aria-controls={drawerId}
             onClick={() => setMobileOpen((prev) => !prev)}
-            className="lg:hidden inline-flex items-center justify-center w-10 h-10 border border-[#E2E8F0] text-[#1C1B1F] hover:bg-[#F4F5F7] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+            className="xl:hidden inline-flex items-center justify-center w-11 h-11 rounded-[5px] border border-[#E2E8F0] text-[#1C1B1F] hover:bg-[#F4F5F7] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
           >
             {mobileOpen ? (
               <X className="w-5 h-5" aria-hidden="true" />
@@ -255,14 +293,15 @@ export function AdminShell({
               setMobileOpen(false);
             }
           }}
-          className="fixed inset-0 z-50 bg-[#1C1B1F]/60 lg:hidden flex justify-end"
+          className="fixed inset-0 z-50 bg-[#1C1B1F]/60 xl:hidden flex justify-end"
         >
           <div
+            ref={drawerRef}
             id={drawerId}
             role="dialog"
             aria-modal="true"
             aria-label="Admin navigation drawer"
-            className="w-full max-w-xs h-full bg-[#FFFFFF] border-l-2 border-[#001C26] flex flex-col justify-between p-6 overflow-y-auto"
+            className="w-full max-w-sm h-dvh bg-[#FFFFFF] border-l-2 border-[#001C26] flex flex-col justify-between gap-6 px-5 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] overflow-y-auto overscroll-contain"
           >
             <div className="space-y-6">
               <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-4">
@@ -279,7 +318,7 @@ export function AdminShell({
                   type="button"
                   aria-label="Close admin navigation"
                   onClick={() => setMobileOpen(false)}
-                  className="inline-flex items-center justify-center w-9 h-9 border border-[#E2E8F0] text-[#1C1B1F] hover:bg-[#F4F5F7] cursor-pointer"
+                  className="inline-flex items-center justify-center w-11 h-11 shrink-0 rounded-[5px] border border-[#E2E8F0] text-[#1C1B1F] hover:bg-[#F4F5F7] cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0038E1]"
                 >
                   <X className="w-5 h-5" aria-hidden="true" />
                 </button>
@@ -327,7 +366,7 @@ export function AdminShell({
                 <Link
                   href="/"
                   onClick={() => setMobileOpen(false)}
-                  className="text-sm font-medium text-[#0038E1] underline underline-offset-4"
+                  className="inline-flex min-h-11 items-center text-sm font-medium text-[#0038E1] underline underline-offset-4"
                 >
                   ← View Home
                 </Link>
@@ -335,7 +374,7 @@ export function AdminShell({
                   type="button"
                   onClick={handleLogout}
                   disabled={isLoggingOut}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#FB4A2A] hover:text-[#B41B00] cursor-pointer"
+                  className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-[#FB4A2A] hover:text-[#B41B00] cursor-pointer disabled:opacity-50"
                 >
                   <LogOut className="w-4 h-4" aria-hidden="true" />
                   <span>Log out</span>
@@ -347,8 +386,8 @@ export function AdminShell({
       ) : null}
 
       {/* Main Content */}
-      <main className="flex-1 w-full">
-        <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-10">
+      <main ref={mainRef} className="flex-1 w-full min-w-0">
+        <div className="max-w-[1440px] min-w-0 mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-8 lg:py-10">
           {title ? (
             <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div>

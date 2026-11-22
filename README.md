@@ -105,3 +105,11 @@ npm test
 npm run build
 npm run start
 ```
+
+### Responsive UI
+
+- Public and admin navigation switch to compact menus below `1280px`; menus support keyboard focus, Escape, and scroll restoration when resizing.
+- Homepage sections use compact mobile cards. Admin events and recruitment use cards through tablet widths, with mobile filter dropdowns.
+- Recruitment instructions collapse on smaller screens. The mobile inquiry inbox opens one question at a time with a back action.
+- Dialogs become scrollable bottom sheets on phones, with safe-area spacing and keyboard focus containment. Website-copy fields retain their full-screen mobile editor.
+- Mobile form controls use at least `16px` text to avoid iOS focus zoom; shared buttons use touch-friendly minimum heights.

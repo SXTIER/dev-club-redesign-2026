@@ -264,6 +264,7 @@ function MobileTextEditorModal({
 }) {
   const [draft, setDraft] = useState(target?.value ?? "");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
   const onCloseRef = useRef(onClose);
 
   useEffect(() => {
@@ -274,6 +275,7 @@ function MobileTextEditorModal({
     if (!target) return;
     setDraft(target.value);
 
+    const previousFocus = document.activeElement;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
@@ -287,6 +289,23 @@ function MobileTextEditorModal({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         onCloseRef.current();
+        event.preventDefault();
+      }
+      if (event.key === "Tab") {
+        const focusable = Array.from(
+          dialogRef.current?.querySelectorAll<HTMLElement>(
+            "button:not([disabled]), textarea",
+          ) ?? [],
+        );
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -294,6 +313,9 @@ function MobileTextEditorModal({
     return () => {
       document.body.style.overflow = prevOverflow;
       window.removeEventListener("keydown", handleKeyDown);
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) {
+        previousFocus.focus({ preventScroll: true });
+      }
     };
   }, [target]);
 
@@ -308,11 +330,12 @@ function MobileTextEditorModal({
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label={target.label}
       data-testid="mobile-text-editor-modal"
-      className="fixed inset-0 z-50 bg-white flex flex-col"
+      className="fixed inset-x-0 top-0 h-dvh z-50 bg-white flex flex-col overscroll-contain"
     >
       {/* Top Bar */}
       <div className="shrink-0 min-h-14 px-4 py-2.5 border-b border-[#CBD5E1] flex items-center justify-between gap-3">
@@ -330,7 +353,7 @@ function MobileTextEditorModal({
           type="button"
           aria-label="Close editor"
           onClick={onClose}
-          className="inline-flex items-center justify-center w-9 h-9 shrink-0 text-[#1C1B1F] hover:bg-[#F4F5F7] rounded-[6px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0038E1]"
+          className="inline-flex items-center justify-center w-11 h-11 shrink-0 text-[#1C1B1F] hover:bg-[#F4F5F7] rounded-[6px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0038E1]"
         >
           <X className="w-5 h-5" aria-hidden="true" />
         </button>
@@ -370,7 +393,7 @@ function MobileTextEditorModal({
               target.onDelete?.();
               onClose();
             }}
-            className="h-12 px-4 rounded-[10px] bg-[#FAAF98] border border-[#FB4A2A] text-white hover:bg-[#FB4A2A] disabled:opacity-40 disabled:cursor-not-allowed inline-flex items-center justify-center gap-1.5 text-sm font-semibold tracking-wide uppercase transition-colors cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FB4A2A]"
+            className="h-12 px-4 rounded-[10px] bg-[#FB4A2A] border border-[#FB4A2A] text-white hover:bg-[#B41B00] disabled:opacity-40 disabled:cursor-not-allowed inline-flex items-center justify-center gap-1.5 text-sm font-semibold tracking-wide uppercase transition-colors cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FB4A2A]"
           >
             <Trash2 className="w-4 h-4" aria-hidden="true" />
             <span>DELETE</span>
@@ -405,7 +428,7 @@ function TextField({
   const breadcrumb = useContext(EditorBreadcrumbContext);
 
   return (
-    <div className="space-y-1.5">
+    <div className="min-w-0 space-y-1.5">
       <label
         htmlFor={id}
         className="block text-sm font-medium text-[#4A5565]"
@@ -471,7 +494,7 @@ function TextAreaField({
   const breadcrumb = useContext(EditorBreadcrumbContext);
 
   return (
-    <div className="space-y-1.5">
+    <div className="min-w-0 space-y-1.5">
       <label
         htmlFor={id}
         className="block text-sm font-medium text-[#4A5565]"
@@ -527,7 +550,7 @@ function SubsectionCard({
   const cleanHeading = title.replace(/\s*\(\d+\)$/, "");
 
   return (
-    <div className="border border-[#E2E8F0] rounded-[12px] bg-[#F8FAFC] p-4 sm:p-5 space-y-4">
+    <div className="min-w-0 border border-[#E2E8F0] rounded-[12px] bg-[#F8FAFC] p-3 sm:p-5 space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <h3 className="text-base font-semibold text-[#1C1B1F]">{title}</h3>
@@ -574,7 +597,7 @@ function ImageSlotField({
               {slotHint} · {asset.src}
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {isLocalIdb ? <Badge tone="warning">idb:// local</Badge> : null}
             <Button
               variant="secondary"
@@ -1503,7 +1526,7 @@ export function WebsiteCopyTab() {
             className="w-5 h-5 shrink-0 mt-0.5 text-[#AA5000]"
             aria-hidden="true"
           />
-          <div className="text-sm space-y-1">
+          <div className="min-w-0 text-sm space-y-1 [overflow-wrap:anywhere]">
             <p className="font-semibold">
               Local IndexedDB media references detected ({exportIdbRefs.length})
             </p>
@@ -1520,9 +1543,9 @@ export function WebsiteCopyTab() {
         </div>
       ) : null}
 
-      <div className="grid grid-cols-1 lg:grid-cols-[270px_1fr] gap-6 items-start">
-        {/* Mobile Section Selector (< lg) */}
-        <div className="lg:hidden bg-white border border-[#A1A7B4] rounded-[10px] p-4 space-y-2">
+      <div className="grid grid-cols-1 xl:grid-cols-[250px_minmax(0,1fr)] gap-5 xl:gap-6 items-start">
+        {/* Mobile and tablet section selector */}
+        <div className="xl:hidden min-w-0 bg-white border border-[#A1A7B4] rounded-[10px] p-4 space-y-2">
           <label
             htmlFor="mobile-section-select"
             className="block text-sm font-medium text-[#1C1B1F]"
@@ -1535,20 +1558,20 @@ export function WebsiteCopyTab() {
             onChange={(event) =>
               setActiveSection(event.target.value as EditorSectionId)
             }
-            className="w-full h-11 px-3 bg-white border border-[#A1A7B4] rounded-[5px] text-sm font-medium text-[#1C1B1F] focus:outline-none focus:border-[#0038E1]"
+            className="w-full min-w-0 h-11 px-3 bg-white border border-[#A1A7B4] rounded-[5px] text-base font-medium text-[#1C1B1F] focus:outline-none focus:border-[#0038E1]"
           >
             {SECTION_NAV.map((sec) => (
               <option key={sec.id} value={sec.id}>
-                {sec.label} ({sectionCounts[sec.id]})
+                {sec.label} ({sectionCounts[sec.id]}){dirtySections.has(sec.configKey) ? " · Unsaved" : ""}
               </option>
             ))}
           </select>
         </div>
 
-        {/* Desktop Section Selector (>= lg) */}
+        {/* Desktop section selector */}
         <aside
           aria-label="Website sections"
-          className="hidden lg:flex flex-col justify-between bg-white border border-[#A1A7B4] rounded-[10px] p-4 min-h-[620px]"
+          className="hidden xl:flex flex-col justify-between bg-white border border-[#A1A7B4] rounded-[10px] p-4 min-h-[620px]"
         >
           <div className="space-y-4">
             <h2 className="px-2 pt-1 text-[20px] font-medium text-[#1C1B1F]">
@@ -1610,11 +1633,11 @@ export function WebsiteCopyTab() {
         {/* Main Editor Card */}
         <section
           aria-label={activeMeta.title}
-          className="bg-white border border-[#A1A7B4] rounded-[16px] p-5 sm:p-7 flex flex-col justify-between min-h-[620px] space-y-6"
+          className="min-w-0 bg-white border border-[#A1A7B4] rounded-[16px] p-4 sm:p-6 flex flex-col justify-between min-h-[620px] space-y-6"
         >
           <div className="space-y-6">
             {/* Section Header */}
-            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-[#E2E8F0] pb-4">
+            <div className="flex flex-col 2xl:flex-row 2xl:items-start justify-between gap-3 border-b border-[#E2E8F0] pb-4">
               <div>
                 <h2 className="text-[22px] sm:text-[25px] font-medium text-[#1C1B1F]">
                   {activeMeta.title}
@@ -1623,7 +1646,7 @@ export function WebsiteCopyTab() {
                   {activeMeta.description}
                 </p>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
                 {hasDirty ? <Badge tone="warning">Unsaved draft</Badge> : null}
                 <Badge tone="info" className="font-mono">
                   {activeMeta.configKey}.json
@@ -3413,10 +3436,20 @@ export function WebsiteCopyTab() {
                 />
 
                 <div className="flex flex-wrap items-center justify-between gap-3 border-y border-[#E2E8F0] py-3">
+                  <select
+                    aria-label="Legal document selector"
+                    value={legalDocTab}
+                    onChange={(event) => setLegalDocTab(event.target.value as typeof legalDocTab)}
+                    className="sm:hidden w-full min-w-0 min-h-11 rounded-[5px] border border-[#A1A7B4] bg-white px-3 text-base font-medium text-[#0038E1] focus:outline-2 focus:outline-[#0038E1]"
+                  >
+                    <option value="privacyPolicy">Privacy Policy</option>
+                    <option value="termsOfUse">Terms of Use</option>
+                    <option value="acknowledgement">Acknowledgement</option>
+                  </select>
                   <div
                     role="group"
                     aria-label="Legal document selector"
-                    className="inline-flex flex-wrap border border-[#A1A7B4] rounded-[5px] overflow-hidden bg-white"
+                    className="hidden sm:inline-flex flex-wrap border border-[#A1A7B4] rounded-[5px] overflow-hidden bg-white"
                   >
                     {(
                       [
@@ -3428,9 +3461,10 @@ export function WebsiteCopyTab() {
                       <button
                         key={docOption.id}
                         type="button"
+                        aria-pressed={legalDocTab === docOption.id}
                         onClick={() => setLegalDocTab(docOption.id)}
                         className={[
-                          "h-10 px-3.5 text-sm font-medium transition-colors cursor-pointer",
+                          "min-h-11 px-3.5 text-sm font-medium transition-colors cursor-pointer",
                           legalDocTab === docOption.id
                             ? "bg-[#0038E1] text-white"
                             : "text-[#4A5565] hover:bg-[#F4F5F7]",
@@ -3444,7 +3478,7 @@ export function WebsiteCopyTab() {
                   <div
                     role="group"
                     aria-label="Legal language selector"
-                    className="inline-flex border border-[#A1A7B4] rounded-[5px] overflow-hidden bg-white"
+                    className="grid grid-cols-2 w-full sm:w-auto sm:inline-flex border border-[#A1A7B4] rounded-[5px] overflow-hidden bg-white"
                   >
                     {(
                       [
@@ -3455,9 +3489,10 @@ export function WebsiteCopyTab() {
                       <button
                         key={langOption.id}
                         type="button"
+                        aria-pressed={legalLangTab === langOption.id}
                         onClick={() => setLegalLangTab(langOption.id)}
                         className={[
-                          "h-10 px-3.5 text-sm font-medium transition-colors cursor-pointer",
+                          "min-h-11 min-w-0 px-2 sm:px-3.5 text-sm font-medium transition-colors cursor-pointer",
                           legalLangTab === langOption.id
                             ? "bg-[#1C1B1F] text-white"
                             : "text-[#4A5565] hover:bg-[#F4F5F7]",
@@ -3615,7 +3650,7 @@ export function WebsiteCopyTab() {
               </div>
             ) : null}
 
-            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+            <div className="flex flex-col gap-4">
               <div className="min-h-[24px] flex items-center">
                 {saveMessage ? (
                   <p
@@ -3634,7 +3669,7 @@ export function WebsiteCopyTab() {
                 )}
               </div>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 2xl:flex 2xl:flex-wrap items-center gap-3">
                 <Button
                   variant="secondary"
                   size="md"

@@ -28,7 +28,7 @@ export function LegalDocumentView({ documentKey }: LegalDocumentViewProps) {
         <div className="mb-5">
           <Link
             href="/"
-            className="inline-flex items-center text-[13px] font-medium leading-[1.5] text-[#0038E1] hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]"
+            className="inline-flex min-h-11 items-center text-sm font-medium leading-[1.5] text-[#0038E1] hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]"
           >
             {legal.backToHomeLabel}
           </Link>
@@ -51,31 +51,28 @@ export function LegalDocumentView({ documentKey }: LegalDocumentViewProps) {
               <div
                 role="group"
                 aria-label="Language switch"
-                className="inline-flex shrink-0 items-center gap-1.5 text-[14px] italic leading-[1.55]"
+                className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] p-1 text-sm leading-[1.55]"
               >
                 <button
                   type="button"
                   aria-pressed={lang === "en"}
                   onClick={() => setLang("en")}
-                  className={`cursor-pointer bg-transparent px-0.5 italic transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1] ${
+                  className={`min-h-11 min-w-11 cursor-pointer rounded-md px-3 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1] ${
                     lang === "en"
-                      ? "font-bold text-[#0038E1]"
-                      : "font-normal text-[#757E91] hover:text-[#1C1B1F]"
+                      ? "bg-[#0038E1] font-semibold text-white"
+                      : "font-medium text-[#4A5565] hover:bg-white"
                   }`}
                 >
                   EN
                 </button>
-                <span aria-hidden="true" className="select-none italic text-[#4A5565]">
-                  /
-                </span>
                 <button
                   type="button"
                   aria-pressed={lang === "th"}
                   onClick={() => setLang("th")}
-                  className={`cursor-pointer bg-transparent px-0.5 italic transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1] ${
+                  className={`min-h-11 min-w-11 cursor-pointer rounded-md px-3 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1] ${
                     lang === "th"
-                      ? "font-bold text-[#0038E1]"
-                      : "font-normal text-[#757E91] hover:text-[#1C1B1F]"
+                      ? "bg-[#0038E1] font-semibold text-white"
+                      : "font-medium text-[#4A5565] hover:bg-white"
                   }`}
                 >
                   TH

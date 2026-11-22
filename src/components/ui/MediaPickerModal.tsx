@@ -96,7 +96,7 @@ export function MediaPickerModal({
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search media by title or filename..."
               aria-label="Search media"
-              className="w-full h-10 pl-9 pr-3 border border-border bg-surface text-sm text-ink placeholder:text-light-gray focus:outline-none focus:border-primary"
+              className="w-full h-11 pl-9 pr-3 border border-border bg-surface text-sm text-ink placeholder:text-light-gray focus:outline-none focus:border-primary"
             />
           </div>
 
@@ -116,9 +116,10 @@ export function MediaPickerModal({
                 <button
                   key={tab.id}
                   type="button"
+                  aria-pressed={kindFilter === tab.id}
                   onClick={() => setKindFilter(tab.id)}
                   className={[
-                    "h-9 px-3 text-xs font-semibold transition-colors cursor-pointer",
+                    "min-h-11 sm:min-h-9 px-3 text-xs font-semibold transition-colors cursor-pointer",
                     kindFilter === tab.id
                       ? "bg-primary text-white"
                       : "text-dark-gray hover:bg-canvas-muted",

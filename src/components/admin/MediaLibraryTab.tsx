@@ -360,11 +360,11 @@ export function MediaLibraryTab() {
       ) : null}
 
       {/* Filter Tabs + Search + Sort Bar */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
         <div
           role="group"
           aria-label="Filter media type"
-          className="inline-flex border border-[#A1A7B4] rounded-[5px] bg-white overflow-hidden self-start"
+          className="grid grid-cols-3 min-w-0 sm:inline-flex border border-[#A1A7B4] rounded-[5px] bg-white overflow-hidden"
         >
           {(
             [
@@ -381,7 +381,7 @@ export function MediaLibraryTab() {
                 aria-pressed={active}
                 onClick={() => handleFilterChange(tab.id)}
                 className={[
-                  "h-11 px-4 text-sm sm:text-base transition-colors cursor-pointer whitespace-nowrap",
+                  "min-h-11 min-w-0 px-2 sm:px-4 text-sm sm:text-base transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#0038E1]",
                   active
                     ? "bg-[#0038E1] text-white font-medium"
                     : "bg-white text-[#4A5565] hover:bg-[#F4F5F7]",
@@ -446,7 +446,7 @@ export function MediaLibraryTab() {
               <article
                 key={asset.id}
                 data-testid={`media-card-${asset.id}`}
-                className="bg-white border border-[#A1A7B4] rounded-[16px] p-4 flex flex-col justify-between gap-4"
+                className="min-w-0 bg-white border border-[#A1A7B4] rounded-[16px] p-4 flex flex-col justify-between gap-4"
               >
                 <div className="space-y-3">
                   {/* Preview Container with subtle contrast frame so white SVGs stay visible */}
@@ -488,7 +488,7 @@ export function MediaLibraryTab() {
 
                     {asset.sourceSlot ? (
                       <div className="pt-1">
-                        <Badge tone="teal">
+                        <Badge tone="teal" className="max-w-full whitespace-normal [overflow-wrap:anywhere]">
                           Slot: {asset.sourceSlot}
                         </Badge>
                       </div>
@@ -498,7 +498,7 @@ export function MediaLibraryTab() {
 
                 {/* Card Actions */}
                 <div className="pt-3 border-t border-[#E2E8F0] flex flex-wrap items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <Button
                       variant="secondary"
                       size="sm"
@@ -536,7 +536,7 @@ export function MediaLibraryTab() {
                     type="button"
                     disabled={isDeleting}
                     onClick={() => void handleDeleteAsset(asset)}
-                    className="inline-flex items-center gap-1 h-9 px-2.5 text-sm font-medium text-[#B41B00] hover:bg-[#FAAF98]/30 rounded-[5px] transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-1 min-h-11 px-2.5 text-sm font-medium text-[#B41B00] hover:bg-[#FAAF98]/30 rounded-[5px] transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-[#0038E1]"
                   >
                     <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
                     Delete

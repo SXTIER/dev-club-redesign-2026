@@ -26,7 +26,7 @@ export default function AdminSiteContentPage() {
           <div
             role="tablist"
             aria-label="Site content workspace tabs"
-            className="inline-flex flex-wrap items-center gap-3.5"
+            className="grid w-full grid-cols-2 sm:w-auto sm:flex items-center gap-2 sm:gap-3.5"
           >
             <button
               id={copyTabId}
@@ -36,7 +36,7 @@ export default function AdminSiteContentPage() {
               aria-controls={copyPanelId}
               onClick={() => setActiveTab("copy")}
               className={[
-                "h-12 px-5 rounded-[5px] text-base transition-colors cursor-pointer whitespace-nowrap",
+                "min-h-12 min-w-0 px-2 sm:px-5 rounded-[5px] text-sm sm:text-base transition-colors cursor-pointer",
                 "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]",
                 activeTab === "copy"
                   ? "bg-[#0038E1] text-white font-medium"
@@ -54,7 +54,7 @@ export default function AdminSiteContentPage() {
               aria-controls={mediaPanelId}
               onClick={() => setActiveTab("media")}
               className={[
-                "h-12 px-5 rounded-[5px] text-base transition-colors cursor-pointer whitespace-nowrap",
+                "min-h-12 min-w-0 px-2 sm:px-5 rounded-[5px] text-sm sm:text-base transition-colors cursor-pointer",
                 "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]",
                 activeTab === "media"
                   ? "bg-[#0038E1] text-white font-medium"
