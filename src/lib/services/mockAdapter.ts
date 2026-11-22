@@ -32,8 +32,6 @@ import {
   type FaqItem,
   type HomeContent,
   type ImageAsset,
-  type LegalContent,
-  type RecruitmentContent,
   type SiteContent,
 } from "@/lib/types/content";
 import {
