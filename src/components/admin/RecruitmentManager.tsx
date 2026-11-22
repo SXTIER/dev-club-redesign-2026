@@ -538,7 +538,7 @@ export function RecruitmentManager() {
 
                       <td className="py-3.5 px-3 align-middle">
                         <div className="flex flex-wrap items-center gap-1.5">
-                          <Badge tone="danger" className="rounded-[5px]">
+                          <Badge tone="neutral" className="rounded-[5px]">
                             {app.roleLabel}
                           </Badge>
                           {app.customRole ? (
@@ -631,7 +631,7 @@ export function RecruitmentManager() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-1.5 min-w-0">
-                    <Badge tone="danger" className="rounded-[5px]">
+                    <Badge tone="neutral" className="rounded-[5px]">
                       {app.roleLabel}
                     </Badge>
                     {app.customRole ? (

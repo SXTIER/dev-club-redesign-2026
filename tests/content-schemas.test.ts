@@ -17,6 +17,10 @@ import {
 import { eventsListSchema } from "@/lib/types/events";
 import { mediaListSchema } from "@/lib/types/media";
 import { adminSeedSchema } from "@/lib/types/adminSeed";
+import {
+  recruitmentApplicationSchema,
+  recruitmentSubmitInputSchema,
+} from "@/lib/types/recruitment";
 
 describe("Modular src/content/*.json schemas & local Figma assets", () => {
   it("validates all 7 JSON files against Zod schemas", () => {
@@ -87,5 +91,46 @@ describe("Modular src/content/*.json schemas & local Figma assets", () => {
     }
     const unused = media.filter((m) => !usedUrls.has(m.url) && !m.sourceSlot);
     expect(unused.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("normalizes null customRole and portfolioUrl to undefined in recruitment schemas per API contract", () => {
+    const baseInput = {
+      personal: {
+        firstName: "Somchai",
+        lastName: "Narin",
+        nickname: "Chai",
+        studentId: "6987777",
+        email: "somchai@student.mahidol.ac.th",
+        phone: "0894567890",
+        program: "DST",
+        year: "1",
+      },
+      team: "projects" as const,
+      roleId: "frontend-dev",
+      roleLabel: "Front End Developer",
+      customRole: null,
+      motivation: {
+        expectation: "Learn production React and Next.js",
+        contribution: "Build accessible UI components",
+        projectIdea: "Campus shuttle tracker",
+        teamExperience: "Orientation group prototype",
+      },
+      portfolioUrl: null,
+      agreedRequirements: true as const,
+      agreedPdpa: true as const,
+    };
+
+    const parsedSubmit = recruitmentSubmitInputSchema.parse(baseInput);
+    expect(parsedSubmit.customRole).toBeUndefined();
+    expect(parsedSubmit.portfolioUrl).toBeUndefined();
+
+    const parsedApp = recruitmentApplicationSchema.parse({
+      ...baseInput,
+      id: "APP-2026-9999",
+      createdAt: "2026-11-22T00:00:00Z",
+      status: "Pending",
+    });
+    expect(parsedApp.customRole).toBeUndefined();
+    expect(parsedApp.portfolioUrl).toBeUndefined();
   });
 });

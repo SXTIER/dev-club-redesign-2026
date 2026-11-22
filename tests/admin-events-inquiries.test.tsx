@@ -99,7 +99,7 @@ describe("Admin Events & Inquiries management (/admin/events & /admin/inquiries)
     ).toBeInTheDocument();
 
     // Open Add Event modal and create a Published showOnHome event
-    await user.click(screen.getByRole("button", { name: /\+ Add Event/i }));
+    await user.click(screen.getByRole("button", { name: /Add Event/i }));
     const createDialog = screen.getByRole("dialog");
 
     await user.type(within(createDialog).getByLabelText(/Title/i), "ICT Hackathon 2026");
@@ -265,7 +265,7 @@ describe("Admin Events & Inquiries management (/admin/events & /admin/inquiries)
     await user.click(screen.getByRole("button", { name: /Previous page/i }));
 
     // Required field inline validation + MediaPickerModal + cover removal
-    await user.click(screen.getByRole("button", { name: /\+ Add Event/i }));
+    await user.click(screen.getByRole("button", { name: /Add Event/i }));
     const dialog = screen.getByRole("dialog");
     await user.click(within(dialog).getByRole("button", { name: /Save Draft/i }));
     expect(within(dialog).getByText(/Title is required/i)).toBeInTheDocument();
@@ -378,7 +378,7 @@ describe("Admin Events & Inquiries management (/admin/events & /admin/inquiries)
     expect(screen.getByText(/Private · Admins only/i)).toBeInTheDocument();
 
     // Add a private FAQ via AddFaqModal
-    await user.click(screen.getByRole("button", { name: /\+ Add FAQ/i }));
+    await user.click(screen.getByRole("button", { name: /Add FAQ/i }));
     const addFaqDialog = screen.getByRole("dialog");
     expect(within(addFaqDialog).getByText(/Private · Admins only/i)).toBeInTheDocument();
     await user.type(within(addFaqDialog).getByLabelText(/Question/i), "Do I need a Mac?");

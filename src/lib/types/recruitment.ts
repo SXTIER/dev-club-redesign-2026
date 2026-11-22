@@ -55,10 +55,16 @@ export const recruitmentApplicationSchema = z.object({
   team: recruitmentTeamSchema,
   roleId: z.string().min(1),
   roleLabel: z.string().min(1),
-  customRole: z.string().optional(),
+  customRole: z
+    .string()
+    .nullish()
+    .transform((v) => v ?? undefined),
   motivation: recruitmentMotivationSchema,
   cv: recruitmentCvMetaSchema.optional(),
-  portfolioUrl: z.string().optional(),
+  portfolioUrl: z
+    .string()
+    .nullish()
+    .transform((v) => v ?? undefined),
   agreedRequirements: z.literal(true),
   agreedPdpa: z.literal(true),
 });

@@ -331,7 +331,8 @@ export function EventsManager() {
           onClick={openCreateModal}
           className="rounded-[5px] border-0 self-start sm:self-auto"
         >
-          <Plus className="w-4 h-4" aria-hidden="true" />+ Add Event / News
+          <Plus className="w-4 h-4" aria-hidden="true" />
+          Add Event / News
         </Button>
       </div>
 

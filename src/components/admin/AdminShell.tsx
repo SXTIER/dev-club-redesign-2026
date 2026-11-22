@@ -144,15 +144,15 @@ export function AdminShell({
     <div className="min-h-screen bg-[#F5F5FA] text-[#1C1B1F] flex flex-col">
       {/* Admin Topbar Navigation */}
       <header className="sticky top-0 z-40 w-full bg-[#FFFFFF] border-b-4 border-[#0038E1]">
-        <div className="max-w-[1440px] mx-auto h-16 lg:h-[104px] px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3 shrink-0 min-w-0">
+        <div className="max-w-[1440px] mx-auto h-16 lg:h-[104px] px-4 sm:px-6 lg:px-6 xl:px-10 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 xl:gap-3 shrink-0 min-w-0">
             <Link
               href="/admin/overview"
-              className="flex items-center gap-2.5 shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]"
+              className="flex items-center gap-2 xl:gap-2.5 shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]"
             >
               <ContentImage
                 asset={site.logoDark}
-                className="h-9 lg:h-11 w-auto object-contain"
+                className="h-8 xl:h-11 w-auto object-contain"
                 priority
               />
               <span className="text-sm sm:text-base font-medium text-[#4A5565]">
@@ -161,7 +161,7 @@ export function AdminShell({
             </Link>
 
             {mode === "mock" ? (
-              <Badge tone="info" className="hidden sm:inline-flex rounded-full">
+              <Badge tone="info" className="hidden xl:inline-flex rounded-full">
                 Preview / Mock Mode
               </Badge>
             ) : null}
@@ -170,7 +170,7 @@ export function AdminShell({
           {/* Desktop Horizontal Nav */}
           <nav
             aria-label="Admin navigation"
-            className="hidden lg:flex items-center gap-6 xl:gap-8"
+            className="hidden lg:flex items-center gap-3.5 xl:gap-7"
           >
             {ADMIN_NAV_ITEMS.map((item) => {
               const Icon = item.icon;
@@ -181,14 +181,14 @@ export function AdminShell({
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
                   className={[
-                    "inline-flex items-center gap-2 py-2 text-[16px] xl:text-[17px] whitespace-nowrap border-b-2 transition-colors",
+                    "inline-flex items-center gap-1.5 xl:gap-2 py-2 text-[15px] xl:text-[17px] whitespace-nowrap border-b-2 transition-colors",
                     "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]",
                     isActive
                       ? "text-[#0038E1] font-semibold border-[#0038E1]"
                       : "text-[#1C1B1F] font-normal border-transparent hover:text-[#0038E1]",
                   ].join(" ")}
                 >
-                  <Icon className="w-5 h-5 shrink-0" aria-hidden="true" />
+                  <Icon className="w-4 h-4 xl:w-5 xl:h-5 shrink-0" aria-hidden="true" />
                   <span>{item.label}</span>
                 </Link>
               );
@@ -197,27 +197,32 @@ export function AdminShell({
 
           {/* Desktop Session / Actions */}
           <div className="hidden lg:flex flex-col items-end justify-center gap-1 shrink-0">
-            <div className="flex items-center gap-4 text-sm">
-              <span className="inline-flex items-center gap-1.5 text-[#1C1B1F] font-medium">
+            <div className="flex items-center gap-2.5 xl:gap-4 text-xs xl:text-sm">
+              <span className="inline-flex items-center gap-1.5 text-[#1C1B1F] font-medium min-w-0">
                 <ShieldCheck
-                  className="w-4 h-4 text-[#0038E1]"
+                  className="w-4 h-4 text-[#0038E1] shrink-0"
                   aria-hidden="true"
                 />
-                <span>{session.email}</span>
+                <span
+                  title={session.email}
+                  className="max-w-[140px] xl:max-w-[220px] truncate"
+                >
+                  {session.email}
+                </span>
               </span>
               <button
                 type="button"
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="inline-flex items-center gap-1 text-[#FB4A2A] hover:text-[#B41B00] font-medium transition-colors cursor-pointer disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+                className="inline-flex items-center gap-1 text-[#FB4A2A] hover:text-[#B41B00] font-medium whitespace-nowrap transition-colors cursor-pointer disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
               >
-                <LogOut className="w-4 h-4" aria-hidden="true" />
+                <LogOut className="w-4 h-4 shrink-0" aria-hidden="true" />
                 <span>Log out</span>
               </button>
             </div>
             <Link
               href="/"
-              className="text-sm text-[#0038E1] hover:text-[#002BAA] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+              className="text-xs xl:text-sm text-[#0038E1] hover:text-[#002BAA] underline underline-offset-4 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
             >
               ← View Home
             </Link>

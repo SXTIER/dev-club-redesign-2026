@@ -30,7 +30,7 @@ export function TeamsSection() {
 
   return (
     <section id="teams" className="scroll-mt-28 w-full bg-[#F5F5FA]">
-      <div className="max-w-[1920px] mx-auto px-6 lg:px-16 xl:px-32 py-16 lg:py-24">
+      <div className="max-w-[1920px] mx-auto px-6 lg:px-16 xl:px-20 2xl:px-32 py-16 lg:py-24">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <p className="text-[14px] font-medium leading-[22px] text-[#0038E1]">
@@ -41,7 +41,7 @@ export function TeamsSection() {
             </h2>
           </div>
 
-          <p className="text-base sm:text-[18px] leading-[28px] text-[#1C1B1F]">
+          <p className="text-base sm:text-[18px] leading-[28px] text-[#1C1B1F] sm:shrink-0 sm:text-right">
             {teams.subtitle}
           </p>
         </div>
@@ -55,7 +55,7 @@ export function TeamsSection() {
             return (
               <li
                 key={`${team.index}-${team.name}`}
-                className="py-7 lg:py-8 grid grid-cols-1 md:grid-cols-[44px_180px_1fr] xl:grid-cols-[44px_200px_280px_1fr_auto] items-start md:items-center gap-5 lg:gap-8"
+                className="py-7 lg:py-8 grid grid-cols-1 md:grid-cols-[44px_180px_1fr] xl:grid-cols-[36px_156px_210px_minmax(300px,1fr)_auto] 2xl:grid-cols-[44px_200px_280px_1fr_auto] items-start md:items-center gap-5 lg:gap-8 xl:gap-6 2xl:gap-8"
               >
                 <span className="font-mono text-[16px] font-medium leading-[24px] text-[#1C1B1F]">
                   {team.index}
@@ -92,7 +92,7 @@ export function TeamsSection() {
                 </p>
 
                 <div className="md:col-start-3 xl:col-start-auto flex xl:justify-end">
-                  <span className="inline-flex items-center bg-[#1C1B1F] text-white font-mono text-xs sm:text-sm px-3 py-1.5 rounded-md whitespace-nowrap">
+                  <span className="inline-flex items-center bg-[#1C1B1F] text-white font-mono text-xs sm:text-sm px-3 py-1.5 rounded-md leading-snug whitespace-normal sm:whitespace-nowrap xl:whitespace-normal xl:max-w-[240px] 2xl:max-w-none 2xl:whitespace-nowrap">
                     {team.toolsLabel}
                   </span>
                 </div>

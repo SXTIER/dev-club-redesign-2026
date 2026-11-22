@@ -335,7 +335,7 @@ export function OverviewDashboard() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2.5 sm:justify-end">
-                    <Badge tone="danger" className="rounded-[5px]">
+                    <Badge tone="neutral" className="rounded-[5px]">
                       {app.customRole || app.roleLabel}
                     </Badge>
                     <Badge

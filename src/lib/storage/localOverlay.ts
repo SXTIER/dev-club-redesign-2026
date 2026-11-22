@@ -14,9 +14,9 @@ function getSafeLocalStorage(): Storage | null {
   }
 }
 
-export function readOverlay<T>(
+export function readOverlay<T, TInput = T>(
   key: string,
-  schema: z.ZodType<T>,
+  schema: z.ZodType<T, z.ZodTypeDef, TInput>,
   fallback: T
 ): T {
   const storage = getSafeLocalStorage();

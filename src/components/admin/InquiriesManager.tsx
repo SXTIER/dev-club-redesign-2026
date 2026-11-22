@@ -444,7 +444,8 @@ export function InquiriesManager() {
               : "rounded-[5px] border-[#A1A7B4] text-[#0038E1] self-start sm:self-auto"
           }
         >
-          <Plus className="w-4 h-4" aria-hidden="true" />+ Add FAQ
+          <Plus className="w-4 h-4" aria-hidden="true" />
+          Add FAQ
         </Button>
       </div>
 

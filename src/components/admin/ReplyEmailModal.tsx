@@ -27,16 +27,16 @@ export function ReplyEmailModal({
   const bodyId = useId();
   const markAnsweredId = useId();
 
-  const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
   const [markAnswered, setMarkAnswered] = useState(true);
   const [bodyError, setBodyError] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+  const subject = inquiry ? `Re: ${inquiry.question}` : "";
+
   useEffect(() => {
     if (!open || !inquiry) return;
-    setSubject(`Re: ${inquiry.question}`);
     setBody("");
     setMarkAnswered(true);
     setBodyError(null);
@@ -116,14 +116,14 @@ export function ReplyEmailModal({
               htmlFor={subjectId}
               className="block text-sm font-medium text-[#4A5565]"
             >
-              Subject
+              Subject (auto-generated)
             </label>
             <input
               id={subjectId}
               type="text"
+              readOnly
               value={subject}
-              onChange={(event) => setSubject(event.target.value)}
-              className="w-full h-11 px-3.5 rounded-[5px] border border-[#A1A7B4] bg-white text-sm sm:text-base text-[#1C1B1F] focus:outline-none focus:border-[#0038E1]"
+              className="w-full h-11 px-3.5 rounded-[5px] border border-[#A1A7B4] bg-[#F8FAFC] text-sm sm:text-base text-[#4A5565] cursor-default focus:outline-none"
             />
           </div>
 
