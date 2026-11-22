@@ -353,6 +353,88 @@ describe("Admin Site Content (/admin/site-content)", () => {
       expect(savedRec.projectsTeamRoles[0].id).toBe("custom-fullstack");
       expect(savedRec.openedCopy.steps[0].number).toBe("01A");
     }, 15000);
+
+    it("opens full-screen mobile text editor modal (DONE / DELETE / Close) when tapping fields on mobile viewports", async () => {
+      const user = userEvent.setup();
+      const services = createMockServices();
+      const origMatchMedia = window.matchMedia;
+
+      Object.defineProperty(window, "matchMedia", {
+        writable: true,
+        configurable: true,
+        value: vi.fn().mockImplementation((query: string) => ({
+          matches: query === "(max-width: 767px)",
+          media: query,
+          onchange: null,
+          addEventListener: vi.fn(),
+          removeEventListener: vi.fn(),
+          addListener: vi.fn(),
+          removeListener: vi.fn(),
+          dispatchEvent: vi.fn(),
+        })),
+      });
+
+      try {
+        render(
+          <AppDataProvider services={services} mode="mock">
+            <WebsiteCopyTab />
+          </AppDataProvider>,
+        );
+
+        // Switch to Legal section (clauses with paragraphs)
+        await user.click(
+          await screen.findByRole("button", { name: /Legal Documents/i }),
+        );
+
+        // Add a second paragraph to Clause 1 so DELETE is enabled
+        const addParagraphButtons = screen.getAllByRole("button", {
+          name: /Add Paragraph/i,
+        });
+        await user.click(addParagraphButtons[0]);
+
+        const paragraph2 = screen.getByLabelText(
+          /^Clause 1 Paragraph 2$/i,
+        ) as HTMLTextAreaElement;
+        expect(paragraph2).toHaveAttribute("readonly");
+
+        // Tap paragraph 2 -> opens full-screen Frame43 modal with DONE & DELETE
+        await user.click(paragraph2);
+        const modal = screen.getByTestId("mobile-text-editor-modal");
+        expect(modal).toBeInTheDocument();
+
+        const modalTextarea = within(modal).getByRole("textbox");
+        await user.type(modalTextarea, "Updated via full-screen mobile editor");
+        await user.click(within(modal).getByRole("button", { name: /^DONE$/i }));
+
+        expect(
+          screen.queryByTestId("mobile-text-editor-modal"),
+        ).not.toBeInTheDocument();
+        expect(
+          (screen.getByLabelText(/^Clause 1 Paragraph 2$/i) as HTMLTextAreaElement)
+            .value,
+        ).toBe("Updated via full-screen mobile editor");
+
+        // Re-open paragraph 2 and tap DELETE -> removes paragraph 2 cleanly
+        await user.click(screen.getByLabelText(/^Clause 1 Paragraph 2$/i));
+        const modal2 = screen.getByTestId("mobile-text-editor-modal");
+        await user.click(
+          within(modal2).getByRole("button", { name: /^DELETE$/i }),
+        );
+
+        expect(
+          screen.queryByTestId("mobile-text-editor-modal"),
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByLabelText(/^Clause 1 Paragraph 2$/i),
+        ).not.toBeInTheDocument();
+      } finally {
+        Object.defineProperty(window, "matchMedia", {
+          writable: true,
+          configurable: true,
+          value: origMatchMedia,
+        });
+      }
+    }, 15000);
   });
 
   describe("MediaLibraryTab", () => {

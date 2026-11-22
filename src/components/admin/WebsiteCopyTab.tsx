@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  createContext,
+  useContext,
   useEffect,
   useId,
   useMemo,
@@ -18,6 +20,7 @@ import {
   Plus,
   RotateCcw,
   Trash2,
+  X,
 } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -191,6 +194,138 @@ function createId(prefix: string): string {
   return `${prefix}-${rand}`;
 }
 
+interface MobileEditorTarget {
+  label: string;
+  value: string;
+  placeholder?: string;
+  onCommit: (next: string) => void;
+  onDelete?: () => void;
+  canDelete?: boolean;
+}
+
+interface MobileTextEditorContextValue {
+  isMobile: boolean;
+  openEditor: (target: MobileEditorTarget) => void;
+}
+
+const MobileTextEditorContext = createContext<MobileTextEditorContextValue>({
+  isMobile: false,
+  openEditor: () => {},
+});
+
+function MobileTextEditorModal({
+  target,
+  onClose,
+}: {
+  target: MobileEditorTarget | null;
+  onClose: () => void;
+}) {
+  const [draft, setDraft] = useState(target?.value ?? "");
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    if (!target) return;
+    setDraft(target.value);
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusTimer = window.setTimeout(() => {
+      const el = textareaRef.current;
+      if (el) {
+        el.focus();
+        const len = el.value.length;
+        el.setSelectionRange(len, len);
+      }
+    }, 0);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.clearTimeout(focusTimer);
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [target, onClose]);
+
+  if (!target) return null;
+
+  const showDelete = Boolean(target.onDelete);
+  const canDelete = target.canDelete ?? true;
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={target.label}
+      data-testid="mobile-text-editor-modal"
+      className="fixed inset-0 z-50 bg-white flex flex-col"
+    >
+      {/* Top Bar */}
+      <div className="shrink-0 h-14 px-4 border-b border-[#E2E8F0] flex items-center justify-between gap-3">
+        <span className="text-sm font-medium text-[#4A5565] truncate">
+          {target.label}
+        </span>
+        <button
+          type="button"
+          aria-label="Close editor"
+          onClick={onClose}
+          className="inline-flex items-center justify-center w-9 h-9 text-[#1C1B1F] hover:bg-[#F4F5F7] rounded-[6px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0038E1]"
+        >
+          <X className="w-5 h-5" aria-hidden="true" />
+        </button>
+      </div>
+
+      {/* Full-Screen Text Area */}
+      <div className="flex-1 min-h-0 flex flex-col">
+        <textarea
+          ref={textareaRef}
+          aria-label={`${target.label} mobile editor`}
+          value={draft}
+          placeholder={target.placeholder}
+          onChange={(event) => setDraft(event.target.value)}
+          className="w-full flex-1 resize-none border-0 bg-white p-5 text-[16px] leading-relaxed text-[#1C1B1F] placeholder:text-[#A1A7B4] focus:outline-none"
+        />
+      </div>
+
+      {/* Bottom Sticky Action Bar */}
+      <div className="shrink-0 px-5 py-4 bg-white border-t border-[#F4F5F7] flex items-center gap-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <button
+          type="button"
+          onClick={() => {
+            target.onCommit(draft);
+            onClose();
+          }}
+          className="flex-1 h-12 rounded-[10px] bg-[#0038E1] hover:bg-[#002BAA] active:bg-[#002BAA] text-white text-sm font-semibold tracking-wide uppercase transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+        >
+          DONE
+        </button>
+
+        {showDelete ? (
+          <button
+            type="button"
+            disabled={!canDelete}
+            onClick={() => {
+              if (!canDelete) return;
+              target.onDelete?.();
+              onClose();
+            }}
+            className="h-12 px-4 rounded-[10px] bg-[#FAAF98] border border-[#FB4A2A] text-white hover:bg-[#FB4A2A] disabled:opacity-40 disabled:cursor-not-allowed inline-flex items-center justify-center gap-1.5 text-sm font-semibold tracking-wide uppercase transition-colors cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FB4A2A]"
+          >
+            <Trash2 className="w-4 h-4" aria-hidden="true" />
+            <span>DELETE</span>
+          </button>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
 function TextField({
   label,
   value,
@@ -198,6 +333,8 @@ function TextField({
   type = "text",
   placeholder,
   hint,
+  onDelete,
+  canDelete,
 }: {
   label: string;
   value: string;
@@ -205,8 +342,12 @@ function TextField({
   type?: "text" | "url";
   placeholder?: string;
   hint?: string;
+  onDelete?: () => void;
+  canDelete?: boolean;
 }) {
   const id = useId();
+  const { isMobile, openEditor } = useContext(MobileTextEditorContext);
+
   return (
     <div className="space-y-1.5">
       <label
@@ -220,8 +361,28 @@ function TextField({
         type={type}
         value={value}
         placeholder={placeholder}
-        onChange={(event) => onChange(event.target.value)}
-        className="w-full h-11 px-3.5 bg-white border border-[#A1A7B4] rounded-[5px] text-base text-[#1C1B1F] placeholder:text-[#A1A7B4] focus:outline-none focus:border-[#0038E1]"
+        readOnly={isMobile}
+        onClick={() => {
+          if (isMobile) {
+            openEditor({
+              label,
+              value,
+              placeholder,
+              onCommit: onChange,
+              onDelete,
+              canDelete,
+            });
+          }
+        }}
+        onChange={(event) => {
+          if (!isMobile) {
+            onChange(event.target.value);
+          }
+        }}
+        className={[
+          "w-full h-11 px-3.5 bg-white border border-[#A1A7B4] rounded-[5px] text-base text-[#1C1B1F] placeholder:text-[#A1A7B4] focus:outline-none focus:border-[#0038E1]",
+          isMobile ? "cursor-pointer" : "",
+        ].join(" ")}
       />
       {hint ? <p className="text-xs text-[#757E91]">{hint}</p> : null}
     </div>
@@ -235,6 +396,8 @@ function TextAreaField({
   rows = 3,
   placeholder,
   hint,
+  onDelete,
+  canDelete,
 }: {
   label: string;
   value: string;
@@ -242,8 +405,12 @@ function TextAreaField({
   rows?: number;
   placeholder?: string;
   hint?: string;
+  onDelete?: () => void;
+  canDelete?: boolean;
 }) {
   const id = useId();
+  const { isMobile, openEditor } = useContext(MobileTextEditorContext);
+
   return (
     <div className="space-y-1.5">
       <label
@@ -257,8 +424,28 @@ function TextAreaField({
         rows={rows}
         value={value}
         placeholder={placeholder}
-        onChange={(event) => onChange(event.target.value)}
-        className="w-full p-3.5 bg-white border border-[#A1A7B4] rounded-[10px] text-base text-[#1C1B1F] placeholder:text-[#A1A7B4] focus:outline-none focus:border-[#0038E1] resize-y"
+        readOnly={isMobile}
+        onClick={() => {
+          if (isMobile) {
+            openEditor({
+              label,
+              value,
+              placeholder,
+              onCommit: onChange,
+              onDelete,
+              canDelete,
+            });
+          }
+        }}
+        onChange={(event) => {
+          if (!isMobile) {
+            onChange(event.target.value);
+          }
+        }}
+        className={[
+          "w-full p-3.5 bg-white border border-[#A1A7B4] rounded-[10px] text-base text-[#1C1B1F] placeholder:text-[#A1A7B4] focus:outline-none focus:border-[#0038E1] resize-y",
+          isMobile ? "cursor-pointer resize-none" : "",
+        ].join(" ")}
       />
       {hint ? <p className="text-xs text-[#757E91]">{hint}</p> : null}
     </div>
@@ -392,6 +579,10 @@ function StringListEditor({
                     label={`${itemLabel} ${idx + 1}`}
                     value={item}
                     rows={2}
+                    onDelete={() =>
+                      onChange(items.filter((_, i) => i !== idx))
+                    }
+                    canDelete={items.length > minItems}
                     onChange={(nextVal) =>
                       onChange(
                         items.map((entry, i) => (i === idx ? nextVal : entry)),
@@ -402,6 +593,10 @@ function StringListEditor({
                   <TextField
                     label={`${itemLabel} ${idx + 1}`}
                     value={item}
+                    onDelete={() =>
+                      onChange(items.filter((_, i) => i !== idx))
+                    }
+                    canDelete={items.length > minItems}
                     onChange={(nextVal) =>
                       onChange(
                         items.map((entry, i) => (i === idx ? nextVal : entry)),
@@ -417,7 +612,7 @@ function StringListEditor({
                 onClick={() =>
                   onChange(items.filter((_, i) => i !== idx))
                 }
-                className="mt-7 inline-flex items-center justify-center w-10 h-11 border border-[#E2E8F0] rounded-[5px] bg-white text-[#B41B00] hover:bg-[#FAAF98]/30 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shrink-0"
+                className="hidden md:inline-flex mt-7 items-center justify-center w-10 h-11 border border-[#E2E8F0] rounded-[5px] bg-white text-[#B41B00] hover:bg-[#FAAF98]/30 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shrink-0"
               >
                 <Trash2 className="w-4 h-4" aria-hidden="true" />
               </button>
@@ -847,6 +1042,36 @@ export function WebsiteCopyTab() {
     }
   }, [legal, dirtySections]);
 
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const [mobileEditorTarget, setMobileEditorTarget] =
+    useState<MobileEditorTarget | null>(null);
+
+  useEffect(() => {
+    if (
+      typeof window === "undefined" ||
+      typeof window.matchMedia !== "function"
+    ) {
+      return;
+    }
+    const mq = window.matchMedia("(max-width: 767px)");
+    const sync = () => setIsMobileViewport(mq.matches);
+    sync();
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", sync);
+      return () => mq.removeEventListener("change", sync);
+    }
+    mq.addListener(sync);
+    return () => mq.removeListener(sync);
+  }, []);
+
+  const mobileEditorCtx = useMemo<MobileTextEditorContextValue>(
+    () => ({
+      isMobile: isMobileViewport,
+      openEditor: (target) => setMobileEditorTarget(target),
+    }),
+    [isMobileViewport],
+  );
+
   const markDirty = (key: ContentSectionKey) => {
     dirtyRef.current.add(key);
     setSaveMessage(null);
@@ -1206,7 +1431,8 @@ export function WebsiteCopyTab() {
   }
 
   return (
-    <div className="space-y-5">
+    <MobileTextEditorContext.Provider value={mobileEditorCtx}>
+      <div className="space-y-5">
       {exportIdbRefs.length > 0 ? (
         <div
           role="alert"
@@ -3431,6 +3657,12 @@ export function WebsiteCopyTab() {
           bundled defaults. Uploaded files in Media &amp; Assets remain intact.
         </p>
       </Modal>
-    </div>
+
+      <MobileTextEditorModal
+        target={mobileEditorTarget}
+        onClose={() => setMobileEditorTarget(null)}
+      />
+      </div>
+    </MobileTextEditorContext.Provider>
   );
 }
