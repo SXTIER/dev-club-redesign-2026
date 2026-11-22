@@ -40,20 +40,20 @@ export default function RecruitmentClosedView({
       </section>
 
       {/* Recruitment Status — Closed */}
-      <section className="w-full bg-[#F5F5FA] border-b border-[#E4E4E7]">
-        <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-10 sm:py-12 lg:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+      <section className="w-full bg-[#F5F5FA]">
+        <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-12 sm:py-16 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-4 space-y-3">
               <p className="text-xs sm:text-sm font-medium tracking-wide text-[#0038E1]">
                 {closedCopy.eyebrow}
               </p>
-              <p className="text-[26px] sm:text-[30px] lg:text-[32px] font-medium leading-[1.25] text-[#1C1B1F]">
+              <p className="max-w-[240px] text-[26px] sm:text-[30px] lg:text-[34px] font-medium leading-[1.2] text-[#1C1B1F]">
                 {closedCopy.sideTitle}
               </p>
             </div>
 
-            <div className="lg:col-span-8 bg-white border border-[#E2E8F0] rounded-[16px] p-6 sm:p-8 max-w-3xl">
-              <h1 className="text-[24px] sm:text-[32px] lg:text-[38px] font-medium leading-[1.2] text-[#1C1B1F]">
+            <div className="lg:col-span-8 max-w-3xl">
+              <h1 className="text-[26px] sm:text-[34px] lg:text-[40px] font-medium leading-[1.2] text-[#1C1B1F]">
                 {closedCopy.heading}
               </h1>
               <p className="mt-3 text-sm sm:text-base lg:text-[17px] leading-[1.7] text-[#4A5565]">
@@ -62,7 +62,7 @@ export default function RecruitmentClosedView({
 
               <Link
                 href={closedCopy.ctaHref}
-                className="mt-6 inline-flex h-[46px] sm:h-[50px] px-5 sm:px-6 items-center justify-between gap-5 bg-[#A9E041] text-[#1C1B1F] text-sm sm:text-[15px] font-medium border-2 border-[#001C26] hover:bg-[#97CE32] active:bg-[#86BC24] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+                className="mt-7 inline-flex h-[46px] sm:h-[50px] px-5 sm:px-6 items-center justify-between gap-6 bg-[#A9E041] text-[#1C1B1F] text-sm sm:text-[15px] font-medium hover:bg-[#97CE32] active:bg-[#86BC24] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
               >
                 <span>{closedCopy.ctaLabel}</span>
                 <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />

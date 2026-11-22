@@ -37,14 +37,19 @@ describe("Recruitment page (/joining-information)", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(recruitmentJson.banner.headline)).toBeInTheDocument();
     expect(screen.getByText(recruitmentJson.closedCopy.eyebrow)).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 1, name: /Applications are currently closed/i }),
-    ).toBeInTheDocument();
+    const closedHeading = screen.getByRole("heading", {
+      level: 1,
+      name: /Applications are currently closed/i,
+    });
+    expect(closedHeading).toBeInTheDocument();
+    expect(closedHeading.parentElement?.className).not.toContain("bg-white");
+    expect(closedHeading.parentElement?.className).not.toContain("border");
     expect(screen.getByText(recruitmentJson.closedCopy.description)).toBeInTheDocument();
     const backLink = screen.getByRole("link", {
       name: new RegExp(recruitmentJson.closedCopy.ctaLabel, "i"),
     });
     expect(backLink).toHaveAttribute("href", recruitmentJson.closedCopy.ctaHref);
+    expect(backLink.className).not.toContain("border-2");
   });
 
   it("validates required fields and blocks submission until valid", async () => {
