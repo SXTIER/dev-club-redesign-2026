@@ -144,7 +144,7 @@ export function AdminShell({
     <div className="min-h-screen bg-[#F5F5FA] text-[#1C1B1F] flex flex-col">
       {/* Admin Topbar Navigation */}
       <header className="sticky top-0 z-40 w-full bg-[#FFFFFF] border-b-4 border-[#0038E1]">
-        <div className="max-w-[1440px] mx-auto h-16 lg:h-[104px] px-4 sm:px-6 lg:px-6 xl:px-10 flex items-center justify-between gap-3">
+        <div className="max-w-[1440px] mx-auto h-16 lg:h-[76px] px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 xl:gap-3 shrink-0 min-w-0">
             <Link
               href="/admin/overview"
@@ -152,10 +152,10 @@ export function AdminShell({
             >
               <ContentImage
                 asset={site.logoDark}
-                className="h-8 xl:h-11 w-auto object-contain"
+                className="h-7 lg:h-9 w-auto object-contain"
                 priority
               />
-              <span className="text-sm sm:text-base font-medium text-[#4A5565]">
+              <span className="text-xs sm:text-sm font-medium text-[#4A5565]">
                 Admin
               </span>
             </Link>
@@ -170,7 +170,7 @@ export function AdminShell({
           {/* Desktop Horizontal Nav */}
           <nav
             aria-label="Admin navigation"
-            className="hidden lg:flex items-center gap-3.5 xl:gap-7"
+            className="hidden lg:flex items-center gap-4 xl:gap-6"
           >
             {ADMIN_NAV_ITEMS.map((item) => {
               const Icon = item.icon;
@@ -181,14 +181,14 @@ export function AdminShell({
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
                   className={[
-                    "inline-flex items-center gap-1.5 xl:gap-2 py-2 text-[15px] xl:text-[17px] whitespace-nowrap border-b-2 transition-colors",
+                    "inline-flex items-center gap-1.5 py-2 text-[14px] xl:text-[15px] whitespace-nowrap border-b-2 transition-colors",
                     "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]",
                     isActive
                       ? "text-[#0038E1] font-semibold border-[#0038E1]"
                       : "text-[#1C1B1F] font-normal border-transparent hover:text-[#0038E1]",
                   ].join(" ")}
                 >
-                  <Icon className="w-4 h-4 xl:w-5 xl:h-5 shrink-0" aria-hidden="true" />
+                  <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                   <span>{item.label}</span>
                 </Link>
               );

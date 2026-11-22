@@ -32,18 +32,22 @@ export function PublicNavbar() {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#FFFFFF] border-b border-[#E4E4E7]">
-      <div className="max-w-[1920px] mx-auto h-16 lg:h-24 px-6 lg:px-16 xl:px-32 flex items-center justify-between gap-6">
-        <div className="shrink-0 flex items-center select-none">
+      <div className="max-w-[1440px] mx-auto h-16 lg:h-[72px] px-5 sm:px-8 lg:px-12 xl:px-16 flex items-center justify-between gap-6">
+        <Link
+          href="/"
+          aria-label="MUICT Dev Club home"
+          className="shrink-0 flex items-center select-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]"
+        >
           <ContentImage
             asset={site.logoDark}
-            className="h-[44px] lg:h-[54px] w-auto object-contain"
+            className="h-[36px] lg:h-[42px] w-auto object-contain"
             priority
           />
-        </div>
+        </Link>
 
         <nav
           aria-label="Main navigation"
-          className="hidden lg:flex items-center gap-8 xl:gap-12 text-[18px] leading-none text-[#1C1B1F]"
+          className="hidden lg:flex items-center gap-6 xl:gap-9 text-[15px] leading-none text-[#1C1B1F]"
         >
           {site.navbar.links.map((item) => (
             <Link
@@ -59,7 +63,7 @@ export function PublicNavbar() {
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href={site.navbar.cta.href}
-            className="hidden lg:flex h-[52px] px-6 items-center justify-center bg-[#0038E1] text-white text-[16px] font-medium border-2 border-[#001C26] hover:bg-[#002BAA] transition-colors whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+            className="hidden lg:flex h-[42px] px-5 items-center justify-center bg-[#0038E1] text-white text-[14px] font-medium border-2 border-[#001C26] hover:bg-[#002BAA] transition-colors whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
           >
             {site.navbar.cta.label}
           </Link>
@@ -100,12 +104,17 @@ export function PublicNavbar() {
           >
             <div className="space-y-6">
               <div className="flex items-center justify-between border-b border-[#E4E4E7] pb-4">
-                <div className="shrink-0 flex items-center select-none">
+                <Link
+                  href="/"
+                  aria-label="MUICT Dev Club home"
+                  onClick={() => setMobileOpen(false)}
+                  className="shrink-0 flex items-center select-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]"
+                >
                   <ContentImage
                     asset={site.logoDark}
-                    className="h-[40px] w-auto object-contain"
+                    className="h-[36px] w-auto object-contain"
                   />
-                </div>
+                </Link>
                 <button
                   type="button"
                   aria-label="Close navigation"

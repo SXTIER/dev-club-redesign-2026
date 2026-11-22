@@ -48,8 +48,8 @@
   --color-turquoise-base: #41E0A8;
 
   /* Typography */
-  --font-sans: "Inter Thai Loopless", "Inter", "Noto Sans Thai", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Inter", "Noto Sans Thai", sans-serif;
+  --font-mono: "Inter", "Noto Sans Thai", sans-serif;
 }
 
 :root {

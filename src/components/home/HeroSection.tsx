@@ -22,15 +22,15 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 max-w-[1920px] mx-auto px-6 lg:px-16 xl:px-32 py-14 sm:py-20 lg:py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] items-center gap-10 lg:gap-8">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-10 sm:py-14 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] items-center gap-8 lg:gap-8">
           <div className="min-w-0 flex flex-col items-start">
-            <p className="text-sm sm:text-base lg:text-[20px] font-medium leading-[24px] tracking-wide text-white">
+            <p className="text-xs sm:text-sm lg:text-[15px] font-medium leading-[22px] tracking-wide text-white">
               {hero.eyebrow}
             </p>
 
-            <div className="mt-10 sm:mt-16 lg:mt-24 flex flex-col items-start">
-              <div className="ml-2 sm:ml-6 w-[88px] h-[88px] sm:w-[112px] sm:h-[112px] lg:w-[125px] lg:h-[125px]">
+            <div className="mt-6 sm:mt-10 lg:mt-12 flex flex-col items-start">
+              <div className="ml-1 sm:ml-4 w-[72px] h-[72px] sm:w-[88px] sm:h-[88px] lg:w-[96px] lg:h-[96px]">
                 <ContentImage
                   asset={hero.mascotImage}
                   priority
@@ -38,18 +38,18 @@ export function HeroSection() {
                 />
               </div>
 
-              <h1 className="mt-4 sm:mt-6 text-[34px] sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[84px] font-medium leading-[1.15] text-white break-words">
+              <h1 className="mt-3 sm:mt-4 text-[30px] sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[62px] font-medium leading-[1.15] text-white break-words">
                 {hero.headline}
               </h1>
             </div>
 
-            <p className="mt-8 sm:mt-12 lg:mt-16 text-lg sm:text-2xl lg:text-[26px] leading-relaxed lg:leading-[40px] text-white max-w-2xl">
+            <p className="mt-5 sm:mt-8 lg:mt-10 text-base sm:text-lg lg:text-[20px] leading-relaxed lg:leading-[32px] text-white max-w-xl">
               {hero.description}
             </p>
 
             <Link
               href={hero.ctaHref}
-              className="mt-8 inline-flex h-[52px] sm:h-[58px] px-6 items-center justify-center bg-[#A9E041] text-[#1C1B1F] text-base sm:text-[18px] font-medium hover:bg-[#97CE32] active:bg-[#86BC24] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="mt-6 inline-flex h-[44px] sm:h-[48px] px-5 items-center justify-center bg-[#A9E041] text-[#1C1B1F] text-sm sm:text-[15px] font-medium hover:bg-[#97CE32] active:bg-[#86BC24] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               {hero.ctaLabel}
             </Link>
@@ -59,7 +59,7 @@ export function HeroSection() {
             <ContentImage
               asset={hero.heroArtwork}
               priority
-              className="w-full max-w-[460px] lg:max-w-[580px] xl:max-w-[688px] h-auto object-contain"
+              className="w-full max-w-[360px] lg:max-w-[440px] xl:max-w-[500px] h-auto object-contain"
             />
           </div>
         </div>

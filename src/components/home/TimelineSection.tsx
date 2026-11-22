@@ -1,8 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Calendar, MapPin } from "lucide-react";
-import { Badge } from "@/components/ui/Badge";
+import { Calendar } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useAppData } from "@/context/AppDataContext";
 import type { EventItem } from "@/lib/types/events";
@@ -32,31 +31,31 @@ export function TimelineSection() {
 
   return (
     <section id="timeline" className="scroll-mt-28 w-full bg-[#FFFFFF]">
-      <div className="max-w-[1920px] mx-auto px-6 lg:px-16 xl:px-32 py-16 lg:py-24">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-12 lg:py-16">
         <div className="max-w-3xl">
-          <p className="text-[14px] font-medium leading-[22px] text-[#0038E1]">
+          <p className="text-[13px] font-medium leading-[20px] text-[#0038E1]">
             {timeline.eyebrow}
           </p>
-          <h2 className="mt-2 text-3xl sm:text-4xl lg:text-[48px] font-normal leading-tight lg:leading-[60px] text-[#1C1B1F]">
+          <h2 className="mt-2 text-2xl sm:text-3xl lg:text-[38px] font-normal leading-tight lg:leading-[48px] text-[#1C1B1F]">
             {timeline.heading}
           </h2>
-          <p className="mt-3 text-base sm:text-[18px] leading-[28px] text-[#4A5565]">
+          <p className="mt-2.5 text-sm sm:text-base leading-[26px] text-[#4A5565]">
             {timeline.subtitle}
           </p>
         </div>
 
         {visibleEvents.length === 0 ? (
-          <div className="mt-10 border border-border bg-[#F5F5FA] rounded-[20px] p-8 text-base text-dark-gray">
+          <div className="mt-8 border border-border bg-[#F5F5FA] rounded-[16px] p-6 text-sm text-dark-gray">
             No scheduled events or news items are published on the roadmap yet.
           </div>
         ) : (
-          <div className="relative mt-10 lg:mt-12">
+          <div className="relative mt-8 lg:mt-10">
             <div
               aria-hidden="true"
-              className="hidden md:block absolute left-[15px] top-6 bottom-6 w-[2px] bg-[#1C1B1F]/25"
+              className="hidden md:block absolute left-[13px] top-6 bottom-6 w-[2px] bg-[#1C1B1F]/25"
             />
 
-            <ol className="space-y-5">
+            <ol className="space-y-4">
               {visibleEvents.map((item, idx) => {
                 const indexLabel = String(idx + 1).padStart(2, "0");
                 const accentColor =
@@ -65,61 +64,40 @@ export function TimelineSection() {
                 return (
                   <li
                     key={item.id}
-                    className="relative md:pl-12 flex items-stretch"
+                    className="relative md:pl-10 flex items-stretch"
                   >
                     <span
                       aria-hidden="true"
-                      className="hidden md:flex absolute left-[5px] top-1/2 -translate-y-1/2 w-[22px] h-[22px] rounded-full bg-[#A9E041] border-2 border-[#1C1B1F]"
+                      className="hidden md:flex absolute left-[4px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] rounded-full bg-[#A9E041] border-2 border-[#1C1B1F]"
                     />
 
                     <div
                       onClick={() => setSelectedEvent(item)}
-                      className="w-full bg-[#F5F5FA] border border-[#A1A7B4] hover:border-[#0038E1] rounded-[20px] sm:rounded-[27px] p-5 sm:p-7 transition-colors cursor-pointer grid grid-cols-1 lg:grid-cols-[240px_1fr_auto] gap-5 lg:gap-8 items-start lg:items-center"
+                      className="w-full bg-[#F5F5FA] border border-[#A1A7B4] hover:border-[#0038E1] rounded-[16px] sm:rounded-[20px] p-4 sm:p-5 lg:p-6 transition-colors cursor-pointer grid grid-cols-1 lg:grid-cols-[190px_1fr_auto] gap-4 lg:gap-6 items-start lg:items-center"
                     >
-                      <div className="min-w-0 space-y-2.5">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="font-mono text-xs font-semibold text-[#1C1B1F] bg-white border border-[#D6D9E3] px-2 py-0.5 rounded">
-                            {indexLabel}
-                          </span>
-                          <Badge
-                            tone={item.category === "Event" ? "info" : "teal"}
-                          >
-                            {item.category}
-                          </Badge>
-                        </div>
-
-                        <p className="font-mono text-xs text-[#4A5565]">
-                          {item.marker}
+                      <div className="min-w-0 flex flex-row lg:flex-col items-center lg:items-start justify-between lg:justify-center gap-2 lg:gap-2">
+                        <span className="text-xs font-semibold text-[#1C1B1F] bg-white border border-[#D6D9E3] px-2.5 py-0.5 rounded">
+                          {indexLabel}
+                        </span>
+                        <p className="flex items-center gap-1.5 text-sm font-medium text-[#4A5565]">
+                          <Calendar
+                            className="w-3.5 h-3.5 shrink-0 text-[#0038E1]"
+                            aria-hidden="true"
+                          />
+                          <span>{item.dateLabel}</span>
                         </p>
-
-                        <div className="space-y-1 text-sm text-[#4A5565]">
-                          <p className="flex items-center gap-1.5 font-mono">
-                            <Calendar
-                              className="w-3.5 h-3.5 shrink-0 text-[#0038E1]"
-                              aria-hidden="true"
-                            />
-                            <span>{item.dateLabel}</span>
-                          </p>
-                          <p className="flex items-center gap-1.5">
-                            <MapPin
-                              className="w-3.5 h-3.5 shrink-0 text-[#0038E1]"
-                              aria-hidden="true"
-                            />
-                            <span className="truncate">{item.location}</span>
-                          </p>
-                        </div>
                       </div>
 
                       <div className="min-w-0">
-                        <h3 className="text-xl sm:text-2xl lg:text-[26px] font-medium leading-snug text-[#1C1B1F]">
+                        <h3 className="text-lg sm:text-xl lg:text-[22px] font-medium leading-snug text-[#1C1B1F]">
                           {item.title}
                         </h3>
                         <div
                           aria-hidden="true"
-                          className="mt-2.5 w-[64px] h-[5px]"
+                          className="mt-2 w-[52px] h-[4px]"
                           style={{ backgroundColor: accentColor }}
                         />
-                        <p className="mt-3 text-base sm:text-[18px] leading-[28px] text-[#4A5565]">
+                        <p className="mt-2.5 text-sm sm:text-[15px] leading-[24px] text-[#4A5565]">
                           {item.subtitle}
                         </p>
                       </div>

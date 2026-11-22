@@ -390,21 +390,21 @@ export default function RecruitmentOpenedForm({
   return (
     <div
       ref={formTopRef}
-      className="w-full bg-white py-8 sm:py-10 lg:py-12"
+      className="w-full bg-white py-6 sm:py-8 lg:py-10"
     >
-      <div className="max-w-[1920px] mx-auto px-6 lg:px-16 xl:px-32">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16">
         <div>
           <Link
             href="/"
-            className="inline-flex items-center text-[15px] sm:text-base text-[#001C26] underline underline-offset-4 hover:text-[#0038E1] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]"
+            className="inline-flex items-center text-[14px] text-[#001C26] underline underline-offset-4 hover:text-[#0038E1] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]"
           >
             {openedCopy.backLinkLabel}
           </Link>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-start">
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-10 items-start">
           {/* Left Sticky Onboarding Column */}
-          <aside className="lg:col-span-5 lg:sticky lg:top-28 relative overflow-hidden rounded-[24px] bg-[#0038E1] text-white p-8 sm:p-10 xl:p-12">
+          <aside className="lg:col-span-5 lg:sticky lg:top-24 relative overflow-hidden rounded-[20px] bg-[#0038E1] text-white p-6 sm:p-8 xl:p-10">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0"
@@ -421,27 +421,27 @@ export default function RecruitmentOpenedForm({
             </div>
 
             <div className="relative z-10">
-              <p className="text-4xl sm:text-5xl xl:text-[60px] font-normal leading-[1.12] whitespace-pre-line text-white">
+              <p className="text-3xl sm:text-4xl xl:text-[46px] font-normal leading-[1.12] whitespace-pre-line text-white">
                 {openedCopy.sidebarHeadline}
               </p>
 
-              <p className="mt-6 text-base sm:text-lg lg:text-[20px] leading-[1.6] text-white/95">
+              <p className="mt-4 text-sm sm:text-base lg:text-[17px] leading-[1.6] text-white/95">
                 {openedCopy.sidebarDescription}
               </p>
 
-              <div className="my-8 border-t border-[#D6DBE0]/70" />
+              <div className="my-6 border-t border-[#D6DBE0]/70" />
 
-              <ol className="space-y-6">
+              <ol className="space-y-5">
                 {openedCopy.steps.map((step) => (
-                  <li key={step.number} className="flex items-start gap-5">
-                    <span className="font-mono text-lg font-semibold text-[#A9E041] shrink-0 pt-0.5">
+                  <li key={step.number} className="flex items-start gap-4">
+                    <span className="text-base font-semibold text-[#A9E041] shrink-0 pt-0.5">
                       {step.number}
                     </span>
                     <div className="min-w-0">
-                      <p className="text-lg sm:text-[20px] font-medium leading-[1.4] text-white">
+                      <p className="text-base sm:text-[17px] font-medium leading-[1.4] text-white">
                         {step.title}
                       </p>
-                      <p className="mt-1 text-sm sm:text-base leading-[1.6] text-white/90">
+                      <p className="mt-1 text-xs sm:text-sm leading-[1.6] text-white/90">
                         {step.description}
                       </p>
                     </div>
@@ -452,7 +452,7 @@ export default function RecruitmentOpenedForm({
           </aside>
 
           {/* Right Form / Receipt Column */}
-          <div className="lg:col-span-7 bg-white border border-[#E2E8F0] rounded-[16px] lg:rounded-[24px] p-6 sm:p-8 lg:p-10">
+          <div className="lg:col-span-7 bg-white border border-[#E2E8F0] rounded-[16px] lg:rounded-[20px] p-5 sm:p-7 lg:p-8">
             {receipt ? (
               <section
                 aria-labelledby="receipt-heading"
@@ -546,10 +546,10 @@ export default function RecruitmentOpenedForm({
               </section>
             ) : (
               <div>
-                <h1 className="text-2xl sm:text-[32px] lg:text-[36px] font-bold leading-tight text-[#001C26]">
+                <h1 className="text-xl sm:text-[26px] lg:text-[28px] font-bold leading-tight text-[#001C26]">
                   {openedCopy.formTitle}
                 </h1>
-                <p className="mt-2 text-base sm:text-[18px] text-[#001C26]">
+                <p className="mt-1.5 text-sm sm:text-[15px] text-[#001C26]">
                   {openedCopy.formSubtitle.includes("*") ? (
                     <>
                       {openedCopy.formSubtitle.split("*")[0]}

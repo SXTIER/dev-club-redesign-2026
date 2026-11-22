@@ -30,23 +30,23 @@ export function TeamsSection() {
 
   return (
     <section id="teams" className="scroll-mt-28 w-full bg-[#F5F5FA]">
-      <div className="max-w-[1920px] mx-auto px-6 lg:px-16 xl:px-20 2xl:px-32 py-16 lg:py-24">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-12 lg:py-16">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <p className="text-[14px] font-medium leading-[22px] text-[#0038E1]">
+            <p className="text-[13px] font-medium leading-[20px] text-[#0038E1]">
               {teams.eyebrow}
             </p>
-            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-[48px] font-normal leading-tight lg:leading-[60px] text-[#1C1B1F]">
+            <h2 className="mt-2 text-2xl sm:text-3xl lg:text-[38px] font-normal leading-tight lg:leading-[48px] text-[#1C1B1F]">
               {teams.heading}
             </h2>
           </div>
 
-          <p className="text-base sm:text-[18px] leading-[28px] text-[#1C1B1F] sm:shrink-0 sm:text-right">
+          <p className="text-sm sm:text-[15px] leading-[24px] text-[#1C1B1F] sm:shrink-0 sm:text-right">
             {teams.subtitle}
           </p>
         </div>
 
-        <ul className="mt-10 divide-y divide-[#4A4A52]/30 border-t border-b border-[#4A4A52]/30">
+        <ul className="mt-8 divide-y divide-[#4A4A52]/30 border-t border-b border-[#4A4A52]/30">
           {teams.items.map((team, idx) => {
             const art =
               TEAM_ILLUSTRATIONS[team.index] ??
@@ -55,9 +55,9 @@ export function TeamsSection() {
             return (
               <li
                 key={`${team.index}-${team.name}`}
-                className="py-7 lg:py-8 grid grid-cols-1 md:grid-cols-[44px_180px_1fr] xl:grid-cols-[36px_156px_210px_minmax(300px,1fr)_auto] 2xl:grid-cols-[44px_200px_280px_1fr_auto] items-start md:items-center gap-5 lg:gap-8 xl:gap-6 2xl:gap-8"
+                className="py-5 lg:py-6 grid grid-cols-1 md:grid-cols-[36px_140px_1fr] xl:grid-cols-[36px_140px_210px_minmax(280px,1fr)_auto] items-start md:items-center gap-4 lg:gap-6"
               >
-                <span className="font-mono text-[16px] font-medium leading-[24px] text-[#1C1B1F]">
+                <span className="text-[14px] font-medium leading-[20px] text-[#1C1B1F]">
                   {team.index}
                 </span>
 
@@ -72,27 +72,27 @@ export function TeamsSection() {
                     loading="lazy"
                     decoding="async"
                     style={{ aspectRatio: `${art.width} / ${art.height}` }}
-                    className="h-auto max-h-[126px] w-auto max-w-[176px] object-contain"
+                    className="h-auto max-h-[96px] w-auto max-w-[140px] object-contain"
                   />
                 </div>
 
                 <div className="min-w-0">
-                  <h3 className="text-2xl lg:text-[28px] font-normal leading-snug lg:leading-[38px] text-[#1C1B1F]">
+                  <h3 className="text-xl lg:text-[22px] font-normal leading-snug lg:leading-[30px] text-[#1C1B1F]">
                     {team.name}
                   </h3>
                   <div
                     aria-hidden="true"
-                    className="mt-3 w-[64px] h-[5px] border-[1.5px] border-[#757E91]"
+                    className="mt-2.5 w-[52px] h-[4px] border border-[#757E91]"
                     style={{ backgroundColor: team.accentColor }}
                   />
                 </div>
 
-                <p className="md:col-start-3 xl:col-start-auto text-base sm:text-[18px] leading-[28px] sm:leading-[29px] text-[#4A5565] min-w-0">
+                <p className="md:col-start-3 xl:col-start-auto text-sm sm:text-[15px] leading-[24px] text-[#4A5565] min-w-0">
                   {team.description}
                 </p>
 
                 <div className="md:col-start-3 xl:col-start-auto flex xl:justify-end">
-                  <span className="inline-flex items-center bg-[#1C1B1F] text-white font-mono text-xs sm:text-sm px-3 py-1.5 rounded-md leading-snug whitespace-normal sm:whitespace-nowrap xl:whitespace-normal xl:max-w-[240px] 2xl:max-w-none 2xl:whitespace-nowrap">
+                  <span className="inline-flex items-center bg-[#1C1B1F] text-white text-xs sm:text-[13px] px-3 py-1.5 rounded-md leading-snug whitespace-normal sm:whitespace-nowrap xl:whitespace-normal xl:max-w-[240px] 2xl:max-w-none 2xl:whitespace-nowrap">
                     {team.toolsLabel}
                   </span>
                 </div>

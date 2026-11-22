@@ -154,17 +154,17 @@ export function OverviewDashboard() {
             </Badge>
           </div>
 
-          <h1 className="text-2xl sm:text-[30px] font-medium text-[#1C1B1F] leading-tight">
+          <h1 className="text-xl sm:text-[26px] font-medium text-[#1C1B1F] leading-tight">
             Club Overview &amp; Statistics
           </h1>
-          <p className="mt-1 text-base sm:text-lg text-[#4A5565]">
+          <p className="mt-1 text-sm sm:text-base text-[#4A5565]">
             5 teams · Event Roadmap · Recruitment · Inquiries
           </p>
         </div>
 
         <Link
           href="/admin/events"
-          className="inline-flex items-center text-base sm:text-lg font-medium text-[#4A5565] hover:text-[#0038E1] transition-colors self-start lg:self-auto"
+          className="inline-flex items-center text-sm sm:text-base font-medium text-[#4A5565] hover:text-[#0038E1] transition-colors self-start lg:self-auto"
         >
           + Add Event
         </Link>
@@ -173,30 +173,30 @@ export function OverviewDashboard() {
       {/* 3-Column Live KPI Cards */}
       <section
         aria-label="Key metrics"
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        className="grid grid-cols-1 md:grid-cols-3 gap-5"
       >
         {/* Recruitment KPI */}
         <div
           data-testid="kpi-recruitment"
-          className="bg-[#FFFFFF] border border-[#A1A7B4] rounded-[16px] p-6 sm:p-7 flex flex-col justify-between"
+          className="bg-[#FFFFFF] border border-[#A1A7B4] rounded-[14px] p-5 sm:p-6 flex flex-col justify-between"
         >
           <div>
-            <h2 className="text-xl sm:text-[23px] font-medium text-[#1C1B1F]">
+            <h2 className="text-lg sm:text-[19px] font-medium text-[#1C1B1F]">
               Recruitment
             </h2>
-            <div className="mt-5 flex items-baseline gap-3">
-              <span className="text-5xl sm:text-[56px] font-medium leading-none text-[#1C1B1F]">
+            <div className="mt-4 flex items-baseline gap-2.5">
+              <span className="text-4xl sm:text-[44px] font-medium leading-none text-[#1C1B1F]">
                 {pendingApplications}
               </span>
-              <span className="text-lg sm:text-[22px] font-medium text-[#1C1B1F]">
+              <span className="text-base sm:text-[18px] font-medium text-[#1C1B1F]">
                 Unchecked
               </span>
             </div>
           </div>
 
           <div>
-            <hr className="my-5 border-[#E2E8F0]" />
-            <div className="flex flex-wrap items-center justify-between gap-2 text-base sm:text-lg font-medium text-[#1C1B1F]">
+            <hr className="my-4 border-[#E2E8F0]" />
+            <div className="flex flex-wrap items-center justify-between gap-2 text-sm sm:text-[15px] font-medium text-[#1C1B1F]">
               <span>{acceptedApplications} accepted</span>
               <span className="text-[#4A5565]">
                 {totalApplications} total submitted
@@ -204,7 +204,7 @@ export function OverviewDashboard() {
             </div>
             <Link
               href="/admin/recruitment"
-              className="mt-5 inline-flex items-center text-base sm:text-lg font-normal text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4"
+              className="mt-4 inline-flex items-center text-sm sm:text-[15px] font-normal text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4"
             >
               Review recruitment →
             </Link>
@@ -214,36 +214,36 @@ export function OverviewDashboard() {
         {/* Events & News KPI */}
         <div
           data-testid="kpi-events"
-          className="bg-[#FFFFFF] border border-[#A1A7B4] rounded-[16px] p-6 sm:p-7 flex flex-col justify-between"
+          className="bg-[#FFFFFF] border border-[#A1A7B4] rounded-[14px] p-5 sm:p-6 flex flex-col justify-between"
         >
           <div>
-            <h2 className="text-xl sm:text-[23px] font-medium text-[#1C1B1F]">
+            <h2 className="text-lg sm:text-[19px] font-medium text-[#1C1B1F]">
               Events &amp; News
             </h2>
-            <div className="mt-5 flex items-baseline gap-3">
-              <span className="text-5xl sm:text-[56px] font-medium leading-none text-[#1C1B1F]">
+            <div className="mt-4 flex items-baseline gap-2.5">
+              <span className="text-4xl sm:text-[44px] font-medium leading-none text-[#1C1B1F]">
                 {eventsInMonth}
               </span>
-              <span className="text-lg sm:text-[22px] font-medium text-[#1C1B1F]">
+              <span className="text-base sm:text-[18px] font-medium text-[#1C1B1F]">
                 {`events in ${currentMonthLabel}`}
               </span>
             </div>
           </div>
 
           <div>
-            <hr className="my-5 border-[#E2E8F0]" />
-            <div className="flex flex-wrap items-center justify-between gap-2 text-base font-medium text-[#1C1B1F]">
+            <hr className="my-4 border-[#E2E8F0]" />
+            <div className="flex flex-wrap items-center justify-between gap-2 text-sm sm:text-[15px] font-medium text-[#1C1B1F]">
               <span>{homeEvents} events on Home</span>
               <span className="text-[#4A5565]">{totalEvents} total events</span>
             </div>
             {nextPublishedEvent ? (
-              <p className="mt-1.5 text-sm text-[#757E91] truncate">
+              <p className="mt-1.5 text-xs sm:text-sm text-[#757E91] truncate">
                 Next: {nextPublishedEvent.title}
               </p>
             ) : null}
             <Link
               href="/admin/events"
-              className="mt-4 inline-flex items-center text-base sm:text-lg font-normal text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4"
+              className="mt-3.5 inline-flex items-center text-sm sm:text-[15px] font-normal text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4"
             >
               View roadmap →
             </Link>
@@ -253,25 +253,25 @@ export function OverviewDashboard() {
         {/* Questions / Inquiries KPI */}
         <div
           data-testid="kpi-inquiries"
-          className="bg-[#FFFFFF] border border-[#A1A7B4] rounded-[16px] p-6 sm:p-7 flex flex-col justify-between"
+          className="bg-[#FFFFFF] border border-[#A1A7B4] rounded-[14px] p-5 sm:p-6 flex flex-col justify-between"
         >
           <div>
-            <h2 className="text-xl sm:text-[23px] font-medium text-[#1C1B1F]">
+            <h2 className="text-lg sm:text-[19px] font-medium text-[#1C1B1F]">
               Questions
             </h2>
-            <div className="mt-5 flex items-baseline gap-3">
-              <span className="text-5xl sm:text-[56px] font-medium leading-none text-[#1C1B1F]">
+            <div className="mt-4 flex items-baseline gap-2.5">
+              <span className="text-4xl sm:text-[44px] font-medium leading-none text-[#1C1B1F]">
                 {unreadInquiries}
               </span>
-              <span className="text-lg sm:text-[22px] font-medium text-[#757E91]">
+              <span className="text-base sm:text-[18px] font-medium text-[#757E91]">
                 Unread Inquiries
               </span>
             </div>
           </div>
 
           <div>
-            <hr className="my-5 border-[#E2E8F0]" />
-            <div className="flex flex-wrap items-center justify-between gap-2 text-base sm:text-lg font-medium text-[#1C1B1F]">
+            <hr className="my-4 border-[#E2E8F0]" />
+            <div className="flex flex-wrap items-center justify-between gap-2 text-sm sm:text-[15px] font-medium text-[#1C1B1F]">
               <span>{`${answeredInquiries} answered`}</span>
               <span className="text-[#4A5565]">
                 {`${totalInquiries} total inquiries`}
@@ -279,7 +279,7 @@ export function OverviewDashboard() {
             </div>
             <Link
               href="/admin/inquiries"
-              className="mt-5 inline-flex items-center text-base sm:text-lg font-normal text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4"
+              className="mt-4 inline-flex items-center text-sm sm:text-[15px] font-normal text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4"
             >
               Review inquiries →
             </Link>

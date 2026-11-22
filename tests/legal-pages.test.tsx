@@ -46,7 +46,11 @@ describe("User Legal pages (EN / TH)", () => {
     const enButton = screen.getByRole("button", { name: /^EN$/i });
     const thButton = screen.getByRole("button", { name: /^TH$/i });
     expect(enButton).toHaveAttribute("aria-pressed", "true");
+    expect(enButton.className).toContain("text-[#0038E1]");
+    expect(enButton.className).toContain("italic");
     expect(thButton).toHaveAttribute("aria-pressed", "false");
+    expect(thButton.className).toContain("text-[#757E91]");
+    expect(screen.getByText("/")).toBeInTheDocument();
 
     await user.click(thButton);
 

@@ -364,9 +364,11 @@ describe("Shared UI primitives and Public shell", () => {
         </AppDataProvider>,
       );
 
-      // Non-clickable brand logo in navbar
+      // Brand logo in navbar and footer link back to main (/)
       const navLogo = screen.getByAltText("MUICT Dev Club wordmark");
-      expect(navLogo.closest("a")).toBeNull();
+      expect(navLogo.closest("a")).toHaveAttribute("href", "/");
+      const footerLogo = screen.getByAltText("MUICT Dev Club white logo");
+      expect(footerLogo.closest("a")).toHaveAttribute("href", "/");
 
       expect(
         screen.getByRole("link", { name: /Joining information/i }),

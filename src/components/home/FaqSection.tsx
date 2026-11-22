@@ -22,13 +22,13 @@ export function FaqSection() {
 
   return (
     <section id="faq" className="scroll-mt-28 w-full bg-[#FFFFFF]">
-      <div className="max-w-[1920px] mx-auto px-6 lg:px-16 xl:px-32 py-16 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-12 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           <div className="lg:col-span-4 min-w-0">
-            <p className="text-[14px] font-medium leading-[22px] text-[#0038E1]">
+            <p className="text-[13px] font-medium leading-[20px] text-[#0038E1]">
               {faq.eyebrow}
             </p>
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-[44px] font-normal leading-tight lg:leading-[56px] text-[#1C1B1F]">
+            <h2 className="mt-2.5 text-2xl sm:text-3xl lg:text-[36px] font-normal leading-tight lg:leading-[46px] text-[#1C1B1F]">
               {faq.heading}
             </h2>
           </div>
@@ -47,14 +47,14 @@ export function FaqSection() {
                         aria-expanded={isOpen}
                         aria-controls={panelId}
                         onClick={() => toggleItem(item.id)}
-                        className="w-full py-5 sm:py-6 flex items-center justify-between gap-4 text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+                        className="w-full py-4 sm:py-5 flex items-center justify-between gap-4 text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
                       >
-                        <span className="text-xl sm:text-2xl lg:text-[28px] font-medium leading-snug lg:leading-[40px] text-[#1C1B1F]">
+                        <span className="text-base sm:text-lg lg:text-[21px] font-medium leading-snug lg:leading-[30px] text-[#1C1B1F]">
                           {item.question}
                         </span>
                         <span
                           aria-hidden="true"
-                          className="shrink-0 w-6 text-center text-2xl lg:text-[28px] font-medium leading-none text-[#1C1B1F]"
+                          className="shrink-0 w-6 text-center text-xl lg:text-[22px] font-medium leading-none text-[#1C1B1F]"
                         >
                           {isOpen ? "-" : "+"}
                         </span>
@@ -64,7 +64,7 @@ export function FaqSection() {
                     <div
                       id={panelId}
                       hidden={!isOpen}
-                      className="pb-6 pr-8 text-base sm:text-lg lg:text-[20px] leading-relaxed lg:leading-[34px] text-[#1C1B1F]"
+                      className="pb-5 pr-6 text-sm sm:text-[15px] lg:text-[16px] leading-relaxed lg:leading-[26px] text-[#1C1B1F]"
                     >
                       <p>{item.answer}</p>
                     </div>
@@ -73,11 +73,11 @@ export function FaqSection() {
               })}
             </div>
 
-            <div className="mt-8">
+            <div className="mt-6">
               <Button
                 type="button"
                 variant="primary"
-                size="lg"
+                size="md"
                 onClick={() => setAskOpen(true)}
                 className="border-0"
               >

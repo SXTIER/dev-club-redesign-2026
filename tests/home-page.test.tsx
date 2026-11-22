@@ -67,6 +67,13 @@ describe("User Home page (/)", () => {
     const detailButtons = screen.getAllByRole("button", { name: /view details/i });
     expect(detailButtons).toHaveLength(5);
 
+    // Timeline cards show only number (01..05) and date, hiding marker/location until modal opens
+    const timelineSection = container.querySelector("#timeline") as HTMLElement;
+    expect(within(timelineSection).getByText("01")).toBeInTheDocument();
+    expect(within(timelineSection).getByText("10 DEC 2026 · 16:30")).toBeInTheDocument();
+    expect(within(timelineSection).queryByText("Tools: React, Next.js")).not.toBeInTheDocument();
+    expect(within(timelineSection).queryByText("Lab IT-302, Faculty of ICT")).not.toBeInTheDocument();
+
     // Click first event (has coverImage) -> opens EventDetailModal
     await user.click(detailButtons[0]);
     const dialog = screen.getByRole("dialog");

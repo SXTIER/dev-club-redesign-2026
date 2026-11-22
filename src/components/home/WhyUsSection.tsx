@@ -20,17 +20,17 @@ export function WhyUsSection() {
 
   return (
     <section id="why-us" className="scroll-mt-28 w-full bg-[#FFFFFF]">
-      <div className="max-w-[1920px] mx-auto px-6 lg:px-16 xl:px-32 py-16 lg:py-24">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-12 lg:py-16">
         <div>
-          <p className="text-[14px] font-medium leading-[22px] text-[#0038E1]">
+          <p className="text-[13px] font-medium leading-[20px] text-[#0038E1]">
             {whyUs.eyebrow}
           </p>
-          <h2 className="mt-2 text-3xl sm:text-4xl lg:text-[48px] font-normal leading-tight lg:leading-[60px] text-[#1C1B1F]">
+          <h2 className="mt-2 text-2xl sm:text-3xl lg:text-[38px] font-normal leading-tight lg:leading-[48px] text-[#1C1B1F]">
             {whyUs.heading}
           </h2>
         </div>
 
-        <div className="mt-8 lg:mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 xl:gap-10">
+        <div className="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6 xl:gap-8">
           {whyUs.cards.map((card, idx) => {
             const isLime = card.accent === "lime";
             const decorSrc =
@@ -41,7 +41,7 @@ export function WhyUsSection() {
               <article
                 key={`${card.index}-${card.title}`}
                 className={[
-                  "relative overflow-hidden rounded-[16px] p-7 sm:p-8 min-h-[300px] lg:min-h-[378px] flex flex-col justify-between text-[#1C1B1F]",
+                  "relative overflow-hidden rounded-[14px] p-6 min-h-[240px] lg:min-h-[290px] flex flex-col justify-between text-[#1C1B1F]",
                   isLime ? "bg-[#A9E041]" : "bg-[#F5F5FA]",
                 ].join(" ")}
               >
@@ -54,18 +54,18 @@ export function WhyUsSection() {
                   height={233}
                   loading="lazy"
                   decoding="async"
-                  className="pointer-events-none select-none absolute -top-5 -right-5 w-[160px] h-[160px] sm:w-[196px] sm:h-[196px] opacity-85"
+                  className="pointer-events-none select-none absolute -top-4 -right-4 w-[128px] h-[128px] sm:w-[152px] sm:h-[152px] opacity-85"
                 />
 
-                <span className="relative z-10 font-mono text-[16px] font-medium leading-[24px] text-[#1C1B1F]">
+                <span className="relative z-10 text-[14px] font-medium leading-[20px] text-[#1C1B1F]">
                   {card.index}
                 </span>
 
-                <div className="relative z-10 mt-14 sm:mt-16">
-                  <h3 className="text-2xl sm:text-[26px] xl:text-[28px] font-normal leading-snug lg:leading-[38px] text-[#1C1B1F]">
+                <div className="relative z-10 mt-10 sm:mt-12">
+                  <h3 className="text-xl sm:text-[22px] font-normal leading-snug lg:leading-[30px] text-[#1C1B1F]">
                     {card.title}
                   </h3>
-                  <p className="mt-4 text-base sm:text-[18px] leading-[28px] sm:leading-[29px] text-[#1C1B1F]">
+                  <p className="mt-3 text-sm sm:text-[15px] leading-[24px] text-[#1C1B1F]">
                     {card.description}
                   </p>
                 </div>
