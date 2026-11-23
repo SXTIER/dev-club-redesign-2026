@@ -80,23 +80,27 @@ export function Pagination({
         </span>
       )}
 
-      <div className="flex items-center gap-1.5">
+      <div className="flex w-full sm:w-auto items-center justify-between gap-1.5">
         <button
           type="button"
           onClick={() => onPageChange(safeCurrent - 1)}
           disabled={safeCurrent <= 1}
           aria-label="Previous page"
-          className="inline-flex items-center justify-center h-9 px-2.5 border border-border bg-surface text-sm font-medium text-ink hover:bg-canvas-muted disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          className="inline-flex items-center justify-center min-h-11 min-w-11 sm:min-h-9 sm:min-w-9 px-2.5 border border-border rounded-md bg-surface text-sm font-medium text-ink hover:bg-canvas-muted disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
         >
           <ChevronLeft className="w-4 h-4" aria-hidden="true" />
           <span className="sr-only sm:not-sr-only sm:ml-1">Previous</span>
         </button>
 
+        <span className="sm:hidden text-sm text-dark-gray" aria-live="polite">
+          Page {safeCurrent} of {totalPages}
+        </span>
+
         {visiblePages.map((entry, index) =>
           entry === "ellipsis" ? (
             <span
               key={`ellipsis-${index}`}
-              className="inline-flex items-center justify-center w-9 h-9 text-sm text-gray"
+              className="hidden sm:inline-flex items-center justify-center w-9 h-9 text-sm text-gray"
             >
               …
             </span>
@@ -107,7 +111,7 @@ export function Pagination({
               onClick={() => onPageChange(entry)}
               aria-current={entry === safeCurrent ? "page" : undefined}
               className={[
-                "inline-flex items-center justify-center w-9 h-9 text-sm font-medium transition-colors cursor-pointer",
+                "hidden sm:inline-flex items-center justify-center w-9 h-9 text-sm font-medium transition-colors cursor-pointer",
                 entry === safeCurrent
                   ? "bg-primary text-white border-2 border-[#001C26]"
                   : "bg-surface text-ink border border-border hover:bg-canvas-muted",
@@ -123,7 +127,7 @@ export function Pagination({
           onClick={() => onPageChange(safeCurrent + 1)}
           disabled={safeCurrent >= totalPages}
           aria-label="Next page"
-          className="inline-flex items-center justify-center h-9 px-2.5 border border-border bg-surface text-sm font-medium text-ink hover:bg-canvas-muted disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          className="inline-flex items-center justify-center min-h-11 min-w-11 sm:min-h-9 sm:min-w-9 px-2.5 border border-border rounded-md bg-surface text-sm font-medium text-ink hover:bg-canvas-muted disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
         >
           <span className="sr-only sm:not-sr-only sm:mr-1">Next</span>
           <ChevronRight className="w-4 h-4" aria-hidden="true" />

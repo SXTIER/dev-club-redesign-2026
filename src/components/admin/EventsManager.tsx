@@ -302,7 +302,7 @@ export function EventsManager() {
   return (
     <div className="space-y-6">
       {/* KPI Summary Pills + Primary Add CTA */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div
           aria-label="Events summary counts"
           className="flex flex-wrap items-center gap-2.5"
@@ -329,7 +329,7 @@ export function EventsManager() {
           type="button"
           variant="primary"
           onClick={openCreateModal}
-          className="rounded-[5px] border-0 self-start sm:self-auto"
+          className="rounded-[5px] border-0 w-full sm:w-auto shrink-0"
         >
           <Plus className="w-4 h-4" aria-hidden="true" />
           Add Event / News
@@ -358,10 +358,25 @@ export function EventsManager() {
 
       {/* Filter Pills + Search */}
       <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+        <select
+          aria-label="Filter events and news"
+          value={activeFilter}
+          onChange={(event) => {
+            setActiveFilter(event.target.value as EventsFilterKey);
+            setCurrentPage(1);
+          }}
+          className="sm:hidden w-full min-w-0 h-11 px-3 rounded-[5px] border border-[#A1A7B4] bg-white text-base font-medium text-[#0038E1] focus:outline-2 focus:outline-[#0038E1]"
+        >
+          {filterButtons.map((pill) => (
+            <option key={pill.key} value={pill.key}>
+              {pill.label} ({pill.count})
+            </option>
+          ))}
+        </select>
         <div
           role="group"
           aria-label="Filter events and news"
-          className="flex flex-wrap items-center gap-2"
+          className="hidden sm:flex flex-wrap items-center gap-2"
         >
           {filterButtons.map((pill) => {
             const active = activeFilter === pill.key;
@@ -375,7 +390,7 @@ export function EventsManager() {
                   setCurrentPage(1);
                 }}
                 className={[
-                  "h-10 px-3.5 rounded-[5px] text-sm sm:text-base transition-colors cursor-pointer whitespace-nowrap",
+                  "h-11 px-3.5 rounded-[5px] text-sm sm:text-base transition-colors cursor-pointer whitespace-nowrap",
                   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]",
                   active
                     ? "bg-[#0038E1] text-white font-medium"
@@ -430,10 +445,10 @@ export function EventsManager() {
           </div>
         ) : (
           <>
-            {/* Desktop Table (>= 1024px) */}
+            {/* Desktop Table (>= 1280px) */}
             <div
               data-testid="events-desktop-table"
-              className="hidden lg:block overflow-x-auto"
+              className="hidden xl:block min-w-0 overflow-x-auto"
             >
               <table className="w-full border-collapse text-left">
                 <thead>
@@ -574,10 +589,10 @@ export function EventsManager() {
               </table>
             </div>
 
-            {/* Mobile & Tablet Stacked Cards (< 1024px) */}
+            {/* Mobile & Tablet Stacked Cards (< 1280px) */}
             <div
               data-testid="events-mobile-cards"
-              className="lg:hidden divide-y divide-[#E2E8F0]"
+              className="xl:hidden divide-y divide-[#E2E8F0]"
             >
               {pagedEvents.map((item, idx) => {
                 const globalIdx = (safePage - 1) * PAGE_SIZE + idx;
@@ -585,7 +600,7 @@ export function EventsManager() {
 
                 return (
                   <article key={item.id} className="p-4 space-y-3 min-w-0">
-                    <div className="flex items-start gap-3 min-w-0">
+                    <div className="flex flex-col min-[380px]:flex-row items-start gap-3 min-w-0">
                       <CoverThumbnail item={item} index={globalIdx} />
                       <div className="min-w-0 flex-1 space-y-1.5">
                         <div className="flex flex-wrap items-center gap-1.5">
@@ -624,14 +639,14 @@ export function EventsManager() {
                           className="w-3.5 h-3.5 shrink-0 text-[#0038E1]"
                           aria-hidden="true"
                         />
-                        <span>{item.dateLabel}</span>
+                        <span className="min-w-0 [overflow-wrap:anywhere]">{item.dateLabel}</span>
                       </p>
                       <p className="flex items-center gap-1.5 break-words">
                         <MapPin
                           className="w-3.5 h-3.5 shrink-0 text-[#0038E1]"
                           aria-hidden="true"
                         />
-                        <span>{item.location}</span>
+                        <span className="min-w-0 [overflow-wrap:anywhere]">{item.location}</span>
                       </p>
                     </div>
 
@@ -680,7 +695,7 @@ export function EventsManager() {
                         type="button"
                         aria-label={`Delete ${item.title}`}
                         onClick={() => setDeleteTarget(item)}
-                        className="inline-flex items-center gap-1 h-9 px-2.5 text-sm font-medium text-[#B41B00] hover:bg-[#FAAF98]/30 rounded-[5px] transition-colors cursor-pointer ml-auto"
+                        className="inline-flex items-center gap-1 min-h-11 px-2.5 text-sm font-medium text-[#B41B00] hover:bg-[#FAAF98]/30 rounded-[5px] transition-colors cursor-pointer ml-auto focus-visible:outline-2 focus-visible:outline-[#0038E1]"
                       >
                         <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
                         Delete

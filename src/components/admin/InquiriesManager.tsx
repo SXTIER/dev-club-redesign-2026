@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   AlertCircle,
   ArrowUpRight,
@@ -76,6 +76,14 @@ export function InquiriesManager() {
   const [selectedInquiryId, setSelectedInquiryId] = useState<string | null>(
     () => inquiries[0]?.id ?? null,
   );
+  const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
+  const detailPanelRef = useRef<HTMLDivElement>(null);
+  const lastInboxButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (window.innerWidth >= 1280 || !mobileDetailOpen) return;
+    detailPanelRef.current?.focus();
+  }, [mobileDetailOpen]);
 
   // Tag editor state
   const [addingTag, setAddingTag] = useState(false);
@@ -395,7 +403,7 @@ export function InquiriesManager() {
         <div
           role="tablist"
           aria-label="Inquiries and FAQ Bank sections"
-          className="inline-flex flex-wrap items-center gap-3"
+          className="grid w-full grid-cols-2 sm:w-auto sm:flex items-center gap-2 sm:gap-3"
         >
           <button
             id={inquiriesTabId}
@@ -405,7 +413,7 @@ export function InquiriesManager() {
             aria-controls={inquiriesPanelId}
             onClick={() => setActiveTab("inquiries")}
             className={[
-              "h-11 px-4 sm:px-5 rounded-[5px] text-sm sm:text-base transition-colors cursor-pointer whitespace-nowrap",
+              "min-h-11 min-w-0 px-2 sm:px-5 rounded-[5px] text-sm sm:text-base transition-colors cursor-pointer",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]",
               activeTab === "inquiries"
                 ? "bg-[#0038E1] text-white font-medium"
@@ -423,7 +431,7 @@ export function InquiriesManager() {
             aria-controls={faqBankPanelId}
             onClick={() => setActiveTab("faq-bank")}
             className={[
-              "h-11 px-4 sm:px-5 rounded-[5px] text-sm sm:text-base transition-colors cursor-pointer whitespace-nowrap",
+              "min-h-11 min-w-0 px-2 sm:px-5 rounded-[5px] text-sm sm:text-base transition-colors cursor-pointer",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]",
               activeTab === "faq-bank"
                 ? "bg-[#0038E1] text-white font-medium"
@@ -492,9 +500,10 @@ export function InquiriesManager() {
                     onClick={() => {
                       setStatusFilter(pill.key);
                       setInboxPage(1);
+                      setMobileDetailOpen(false);
                     }}
                     className={[
-                      "h-10 px-3.5 rounded-[5px] text-sm transition-colors cursor-pointer whitespace-nowrap",
+                      "min-h-11 px-3.5 rounded-[5px] text-sm transition-colors cursor-pointer whitespace-nowrap",
                       active
                         ? "bg-[#0038E1] text-white font-medium"
                         : "bg-white border border-[#A1A7B4] text-[#0038E1] hover:bg-[#F4F5F7]",
@@ -518,6 +527,7 @@ export function InquiriesManager() {
                   onChange={(event) => {
                     setInquirySearch(event.target.value);
                     setInboxPage(1);
+                    setMobileDetailOpen(false);
                   }}
                   aria-label="Search inquiries"
                   placeholder="Search questions, email, or tag..."
@@ -551,9 +561,9 @@ export function InquiriesManager() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
               {/* Left Inbox List */}
-              <div className="lg:col-span-5 bg-white border border-[#A1A7B4] rounded-[16px] overflow-hidden min-w-0">
+              <div className={`${mobileDetailOpen ? "hidden xl:block" : ""} xl:col-span-5 bg-white border border-[#A1A7B4] rounded-[16px] overflow-hidden min-w-0`}>
                 <div className="px-5 py-4 border-b border-[#E2E8F0] flex items-center justify-between gap-2">
                   <h2 className="text-lg sm:text-[22px] font-medium text-[#1C1B1F]">
                     Recent questions
@@ -570,9 +580,11 @@ export function InquiriesManager() {
                       <button
                         key={item.id}
                         type="button"
-                        onClick={() => {
+                        onClick={(event) => {
+                          lastInboxButtonRef.current = event.currentTarget;
                           setSelectedInquiryId(item.id);
                           setAddingTag(false);
+                          setMobileDetailOpen(true);
                         }}
                         aria-current={isSelected ? "true" : undefined}
                         className={[
@@ -583,7 +595,7 @@ export function InquiriesManager() {
                         ].join(" ")}
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <p className="text-sm sm:text-base font-medium text-[#1C1B1F] line-clamp-2">
+                          <p className="min-w-0 text-sm sm:text-base font-medium text-[#1C1B1F] line-clamp-2 [overflow-wrap:anywhere]">
                             {item.question}
                           </p>
                           <Badge
@@ -622,12 +634,26 @@ export function InquiriesManager() {
 
               {/* Right Active Detail Panel */}
               <div
+                ref={detailPanelRef}
+                tabIndex={-1}
                 data-testid="inquiry-detail-panel"
-                className="lg:col-span-7 bg-white border border-[#A1A7B4] rounded-[16px] p-5 sm:p-6 space-y-5 min-w-0"
+                className={`${mobileDetailOpen ? "" : "hidden xl:block"} xl:col-span-7 bg-white border border-[#A1A7B4] rounded-[16px] p-4 sm:p-6 space-y-5 min-w-0 scroll-mt-24 focus:outline-none`}
               >
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileDetailOpen(false);
+                    requestAnimationFrame(() => {
+                      lastInboxButtonRef.current?.focus({ preventScroll: true });
+                    });
+                  }}
+                  className="xl:hidden inline-flex min-h-11 items-center rounded-[5px] border border-[#A1A7B4] px-3 text-sm font-medium text-[#0038E1] hover:bg-[#F4F5F7] focus-visible:outline-2 focus-visible:outline-[#0038E1]"
+                >
+                  ← Back to questions
+                </button>
                 {selectedInquiry ? (
                   <>
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                    <div className="flex flex-col 2xl:flex-row 2xl:items-start justify-between gap-3">
                       <div className="min-w-0 space-y-1.5">
                         <h3 className="text-xl sm:text-[24px] font-medium text-[#1C1B1F] leading-snug break-words">
                           {selectedInquiry.question}
@@ -664,15 +690,15 @@ export function InquiriesManager() {
                         {selectedInquiry.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-[5px] border border-[#A1A7B4] bg-white text-sm text-[#0038E1]"
+                            className="inline-flex items-center gap-1 min-h-11 max-w-full pl-3 rounded-[5px] border border-[#A1A7B4] bg-white text-sm text-[#0038E1]"
                           >
-                            <span>{tag}</span>
+                            <span className="min-w-0 [overflow-wrap:anywhere]">{tag}</span>
                             <button
                               type="button"
                               disabled={updatingTags}
                               aria-label={`Remove tag ${tag}`}
                               onClick={() => void handleRemoveTag(tag)}
-                              className="text-[#4A5565] hover:text-[#B41B00] cursor-pointer disabled:opacity-50"
+                              className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center text-[#4A5565] hover:text-[#B41B00] cursor-pointer disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-[#0038E1]"
                             >
                               <X className="w-3.5 h-3.5" aria-hidden="true" />
                             </button>
@@ -680,7 +706,7 @@ export function InquiriesManager() {
                         ))}
 
                         {addingTag ? (
-                          <div className="inline-flex flex-wrap items-center gap-1.5">
+                          <div className="inline-flex max-w-full flex-wrap items-center gap-1.5">
                             <input
                               type="text"
                               value={newTagInput}
@@ -698,7 +724,7 @@ export function InquiriesManager() {
                               }}
                               aria-label="New tag name"
                               placeholder="Tag name..."
-                              className="h-9 px-2.5 rounded-[5px] border border-[#0038E1] bg-white text-sm text-[#1C1B1F] focus:outline-none"
+                              className="h-11 min-w-0 w-full sm:w-auto px-2.5 rounded-[5px] border border-[#0038E1] bg-white text-sm text-[#1C1B1F] focus:outline-none"
                             />
                             <Button
                               type="button"
@@ -726,7 +752,7 @@ export function InquiriesManager() {
                           <button
                             type="button"
                             onClick={() => setAddingTag(true)}
-                            className="inline-flex items-center h-9 px-3 rounded-[5px] border border-[#A1A7B4] bg-white text-sm font-medium text-[#0038E1] hover:bg-[#F4F5F7] cursor-pointer"
+                            className="inline-flex items-center min-h-11 px-3 rounded-[5px] border border-[#A1A7B4] bg-white text-sm font-medium text-[#0038E1] hover:bg-[#F4F5F7] cursor-pointer"
                           >
                             + Add Tag
                           </button>
@@ -764,7 +790,7 @@ export function InquiriesManager() {
 
                     {/* Actions */}
                     <div className="pt-2 space-y-3">
-                      <div className="flex flex-wrap items-center gap-3">
+                      <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
                         <Button
                           type="button"
                           variant="primary"
@@ -856,7 +882,7 @@ export function InquiriesManager() {
                   setFaqCategoryFilter(event.target.value);
                   setFaqPage(1);
                 }}
-                className="h-11 px-3.5 rounded-[5px] border border-[#A1A7B4] bg-white text-sm sm:text-base text-[#0038E1] font-medium focus:outline-none focus:border-[#0038E1] cursor-pointer"
+                className="h-11 min-w-0 max-w-full px-3.5 rounded-[5px] border border-[#A1A7B4] bg-white text-sm sm:text-base text-[#0038E1] font-medium focus:outline-none focus:border-[#0038E1] cursor-pointer"
               >
                 <option value="all">All categories</option>
                 {faqCategories.map((cat) => (
@@ -885,10 +911,10 @@ export function InquiriesManager() {
               </div>
             ) : (
               <>
-                {/* Desktop Table (>= 1024px) */}
+                {/* Desktop Table (>= 1280px) */}
                 <div
                   data-testid="faq-bank-desktop-table"
-                  className="hidden lg:block overflow-x-auto"
+                  className="hidden xl:block min-w-0 overflow-x-auto"
                 >
                   <table className="w-full border-collapse text-left">
                     <thead>
@@ -1007,10 +1033,10 @@ export function InquiriesManager() {
                   </table>
                 </div>
 
-                {/* Mobile Stacked Cards (< 1024px) */}
+                {/* Mobile Stacked Cards (< 1280px) */}
                 <div
                   data-testid="faq-bank-mobile-cards"
-                  className="lg:hidden divide-y divide-[#E2E8F0]"
+                  className="xl:hidden divide-y divide-[#E2E8F0]"
                 >
                   {pagedFaqBank.map((item) => {
                     const isPromoting = promotingId === item.id;
@@ -1079,7 +1105,7 @@ export function InquiriesManager() {
                             type="button"
                             aria-label={`Delete ${item.question}`}
                             onClick={() => setDeleteFaqTarget(item)}
-                            className="inline-flex items-center gap-1 h-9 px-2.5 text-sm font-medium text-[#B41B00] hover:bg-[#FAAF98]/30 rounded-[5px] transition-colors cursor-pointer ml-auto"
+                            className="inline-flex items-center gap-1 min-h-11 px-2.5 text-sm font-medium text-[#B41B00] hover:bg-[#FAAF98]/30 rounded-[5px] transition-colors cursor-pointer ml-auto focus-visible:outline-2 focus-visible:outline-[#0038E1]"
                           >
                             <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
                             Delete

@@ -297,13 +297,13 @@ export function OverviewDashboard() {
           data-testid="latest-recruitment"
           className="bg-[#FFFFFF] border border-[#E2E8F0] rounded-[16px] overflow-hidden"
         >
-          <div className="px-6 py-5 border-b border-[#E2E8F0] flex items-center justify-between gap-4">
+          <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-[#E2E8F0] flex flex-col min-[480px]:flex-row min-[480px]:items-center justify-between gap-1 sm:gap-4">
             <h2 className="text-xl sm:text-[23px] font-medium text-[#1C1B1F]">
               Latest Recruitment
             </h2>
             <Link
               href="/admin/recruitment"
-              className="text-base font-normal text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4 shrink-0"
+              className="inline-flex min-h-11 items-center text-sm sm:text-base font-normal text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4 shrink-0"
             >
               View all ({totalApplications}) →
             </Link>
@@ -359,13 +359,13 @@ export function OverviewDashboard() {
           data-testid="latest-questions"
           className="bg-[#FFFFFF] border border-[#E2E8F0] rounded-[16px] overflow-hidden"
         >
-          <div className="px-6 py-5 border-b border-[#E2E8F0] flex items-center justify-between gap-4">
+          <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-[#E2E8F0] flex flex-col min-[480px]:flex-row min-[480px]:items-center justify-between gap-1 sm:gap-4">
             <h2 className="text-xl sm:text-[23px] font-medium text-[#1C1B1F]">
               Latest Questions
             </h2>
             <Link
               href="/admin/inquiries"
-              className="text-base font-normal text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4 shrink-0"
+              className="inline-flex min-h-11 items-center text-sm sm:text-base font-normal text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4 shrink-0"
             >
               View all ({totalInquiries}) →
             </Link>
@@ -400,7 +400,7 @@ export function OverviewDashboard() {
                     </Badge>
                     <Link
                       href="/admin/inquiries"
-                      className="text-sm text-[#0038E1] hover:text-[#002BAA] underline underline-offset-4 whitespace-nowrap"
+                      className="inline-flex min-h-11 items-center text-sm text-[#0038E1] hover:text-[#002BAA] underline underline-offset-4 whitespace-nowrap"
                     >
                       Reply via email →
                     </Link>

@@ -244,7 +244,7 @@ export function AdminLoginView() {
                             showPassword ? "Hide password" : "Show password"
                           }
                           onClick={() => setShowPassword((prev) => !prev)}
-                          className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 inline-flex items-center justify-center text-[#1C1B1F]/70 hover:text-[#1C1B1F] cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0038E1]"
+                          className="absolute right-0.5 top-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center text-[#1C1B1F]/70 hover:text-[#1C1B1F] cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0038E1]"
                         >
                           {showPassword ? (
                             <Eye className="w-4 h-4" aria-hidden="true" />
@@ -303,7 +303,7 @@ export function AdminLoginView() {
                           onClick={() =>
                             setShowConfirmPassword((prev) => !prev)
                           }
-                          className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 inline-flex items-center justify-center text-[#1C1B1F]/70 hover:text-[#1C1B1F] cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0038E1]"
+                          className="absolute right-0.5 top-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center text-[#1C1B1F]/70 hover:text-[#1C1B1F] cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0038E1]"
                         >
                           {showConfirmPassword ? (
                             <Eye className="w-4 h-4" aria-hidden="true" />
@@ -323,7 +323,7 @@ export function AdminLoginView() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="h-[42px] min-w-[180px] px-8 bg-[#A9E041] text-[#1C1B1F] text-[15px] font-normal rounded-r-[60px] rounded-l-none hover:bg-[#97CE32] active:bg-[#86BC24] transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+                        className="h-12 w-full sm:w-auto min-w-[180px] px-8 bg-[#A9E041] text-[#1C1B1F] text-[15px] font-normal rounded-r-[60px] rounded-l-none hover:bg-[#97CE32] active:bg-[#86BC24] transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
                       >
                         {isSubmitting ? "Signing in..." : "Submit"}
                       </button>

@@ -21,7 +21,7 @@ export function EventDetailModal({ event, onClose }: EventDetailModalProps) {
       subtitle={event?.subtitle}
       maxWidthClass="max-w-2xl"
       footer={
-        <div className="flex justify-end">
+        <div className="flex justify-end [&>button]:w-full sm:[&>button]:w-auto">
           <Button type="button" variant="secondary" onClick={onClose}>
             Close
           </Button>
@@ -43,7 +43,7 @@ export function EventDetailModal({ event, onClose }: EventDetailModalProps) {
             <Badge tone={event.category === "Event" ? "info" : "teal"}>
               {event.category}
             </Badge>
-            <span className="inline-flex items-center font-mono text-xs font-medium text-dark-gray bg-canvas-muted border border-border px-2.5 py-1">
+            <span className="inline-flex max-w-full items-center font-mono text-xs font-medium text-dark-gray bg-canvas-muted border border-border px-2.5 py-1 break-words">
               {event.marker}
             </span>
           </div>
@@ -54,11 +54,11 @@ export function EventDetailModal({ event, onClose }: EventDetailModalProps) {
                 className="w-4 h-4 mt-0.5 shrink-0 text-primary"
                 aria-hidden="true"
               />
-              <div>
+              <div className="min-w-0">
                 <p className="text-xs font-semibold uppercase tracking-wide text-gray">
                   Date & Time
                 </p>
-                <p className="mt-0.5 font-mono text-sm text-ink">
+                <p className="mt-0.5 font-mono text-sm text-ink break-words">
                   {event.dateLabel}
                 </p>
               </div>
@@ -69,16 +69,16 @@ export function EventDetailModal({ event, onClose }: EventDetailModalProps) {
                 className="w-4 h-4 mt-0.5 shrink-0 text-primary"
                 aria-hidden="true"
               />
-              <div>
+              <div className="min-w-0">
                 <p className="text-xs font-semibold uppercase tracking-wide text-gray">
                   Location
                 </p>
-                <p className="mt-0.5 text-sm text-ink">{event.location}</p>
+                <p className="mt-0.5 text-sm text-ink break-words">{event.location}</p>
               </div>
             </div>
           </div>
 
-          <p className="text-base leading-relaxed text-ink whitespace-pre-line">
+          <p className="text-base leading-relaxed text-ink whitespace-pre-line break-words">
             {event.description}
           </p>
         </div>

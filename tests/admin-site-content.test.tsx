@@ -259,16 +259,16 @@ describe("Admin Site Content (/admin/site-content)", () => {
       await user.click(addRoleBtns[0]);
       const beforeRec = await services.content.getSection("recruitment");
       const nextIdx = beforeRec.projectsTeamRoles.length + 1;
-      await user.type(
+      await user.click(
         screen.getByLabelText(new RegExp(`Projects Team Roles Title ${nextIdx}`, "i")),
-        "DevOps",
       );
-      await user.type(
+      await user.paste("DevOps");
+      await user.click(
         screen.getByLabelText(
           new RegExp(`Projects Team Roles Description ${nextIdx}`, "i"),
         ),
-        "CI/CD",
       );
+      await user.paste("CI/CD");
 
       await user.click(screen.getByRole("button", { name: /Save Changes/i }));
       await waitFor(() =>
@@ -291,16 +291,16 @@ describe("Admin Site Content (/admin/site-content)", () => {
 
       const beforeLegal = await services.content.getSection("legal");
       const clauseIdx = beforeLegal.privacyPolicy.th.sections.length + 1;
-      await user.type(
+      await user.click(
         screen.getByLabelText(new RegExp(`Clause ${clauseIdx} Heading`, "i")),
-        "Extra",
       );
-      await user.type(
+      await user.paste("Extra");
+      await user.click(
         screen.getByLabelText(
           new RegExp(`^Clause ${clauseIdx} Paragraph 1$`, "i"),
         ),
-        "Detail",
       );
+      await user.paste("Detail");
 
       await user.click(screen.getByRole("button", { name: /Save Changes/i }));
       await waitFor(() =>

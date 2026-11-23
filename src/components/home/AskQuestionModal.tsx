@@ -163,7 +163,7 @@ export function AskQuestionModal({ open, onClose }: AskQuestionModalProps) {
             </p>
           </div>
 
-          <div className="pt-2 flex flex-wrap justify-end gap-3">
+          <div className="pt-2 flex flex-col sm:flex-row sm:flex-wrap justify-end gap-3">
             <Button type="button" variant="secondary" onClick={resetForm}>
               Ask another question
             </Button>
@@ -216,7 +216,7 @@ export function AskQuestionModal({ open, onClose }: AskQuestionModalProps) {
                 }
               }}
               className={[
-                "w-full min-h-[112px] rounded-lg border bg-white px-3 py-2.5 text-[15px] text-ink placeholder:text-gray focus:outline-2 focus:outline-offset-0 focus:outline-primary",
+                "w-full min-h-[112px] rounded-lg border bg-white px-3 py-2.5 text-base sm:text-[15px] text-ink placeholder:text-gray focus:outline-2 focus:outline-offset-0 focus:outline-primary",
                 errors.question ? "border-[#FB4A2A]" : "border-[#CBD5E1]",
               ].join(" ")}
             />
@@ -265,7 +265,7 @@ export function AskQuestionModal({ open, onClose }: AskQuestionModalProps) {
                 }
               }}
               className={[
-                "w-full min-h-[48px] rounded-lg border bg-white px-3 py-2.5 font-mono text-[15px] text-ink placeholder:text-gray focus:outline-2 focus:outline-offset-0 focus:outline-primary",
+                "w-full min-h-[48px] rounded-lg border bg-white px-3 py-2.5 font-mono text-base sm:text-[15px] text-ink placeholder:text-gray focus:outline-2 focus:outline-offset-0 focus:outline-primary",
                 errors.senderEmail ? "border-[#FB4A2A]" : "border-[#CBD5E1]",
               ].join(" ")}
             />
@@ -299,7 +299,7 @@ export function AskQuestionModal({ open, onClose }: AskQuestionModalProps) {
                 }
               }}
               className={[
-                "w-full min-h-[48px] rounded-lg border bg-white px-3 py-2.5 text-[15px] text-ink focus:outline-2 focus:outline-offset-0 focus:outline-primary",
+                "w-full min-h-[48px] rounded-lg border bg-white px-3 py-2.5 text-base sm:text-[15px] text-ink focus:outline-2 focus:outline-offset-0 focus:outline-primary",
                 errors.category ? "border-[#FB4A2A]" : "border-[#CBD5E1]",
               ].join(" ")}
             >
@@ -317,7 +317,7 @@ export function AskQuestionModal({ open, onClose }: AskQuestionModalProps) {
           </div>
 
           <div className="pt-1 space-y-1.5">
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-3 rounded-lg border border-[#D6D9E3] bg-[#F5F5FA] p-3">
               <input
                 ref={consentRef}
                 id={consentId}
@@ -336,13 +336,13 @@ export function AskQuestionModal({ open, onClose }: AskQuestionModalProps) {
                 }}
                 className="mt-1 h-5 w-5 shrink-0 accent-[#0038E1] rounded border-2 border-[#0038E1] cursor-pointer"
               />
-              <div className="text-sm leading-relaxed text-dark-gray">
-                <label htmlFor={consentId} className="cursor-pointer">
+              <div className="min-w-0 text-sm leading-relaxed text-dark-gray break-words">
+                <label htmlFor={consentId} className="inline-flex min-h-11 items-center cursor-pointer">
                   {askModal.consentLabel}
                 </label>{" "}
                 <Link
                   href="/privacy-policy"
-                  className="text-[#0038E1] font-medium underline underline-offset-4 hover:text-[#002BAA]"
+                  className="inline-flex min-h-11 items-center text-[#0038E1] font-medium underline underline-offset-4 hover:text-[#002BAA]"
                 >
                   {askModal.privacyLinkLabel}
                 </Link>
@@ -359,7 +359,7 @@ export function AskQuestionModal({ open, onClose }: AskQuestionModalProps) {
             ) : null}
           </div>
 
-          <div className="pt-2 flex flex-wrap items-center justify-end gap-3">
+          <div className="pt-2 flex flex-col-reverse sm:flex-row sm:flex-wrap sm:items-center justify-end gap-3">
             <Button
               type="button"
               variant="secondary"

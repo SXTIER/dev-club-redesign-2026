@@ -2,7 +2,7 @@
 
 import { useId, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import Link from "next/link";
-import { AlertCircle, CheckCircle2, FileText, FileUp, X } from "lucide-react";
+import { AlertCircle, CheckCircle2, ChevronDown, FileText, FileUp, X } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { useAppData } from "@/context/AppDataContext";
@@ -111,6 +111,7 @@ export default function RecruitmentOpenedForm({
 
   const cvInputRef = useRef<HTMLInputElement>(null);
   const formTopRef = useRef<HTMLDivElement>(null);
+  const [stepsOpen, setStepsOpen] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -396,15 +397,15 @@ export default function RecruitmentOpenedForm({
         <div>
           <Link
             href="/"
-            className="inline-flex items-center text-[14px] text-[#001C26] underline underline-offset-4 hover:text-[#0038E1] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]"
+            className="inline-flex min-h-11 items-center text-sm text-[#001C26] underline underline-offset-4 hover:text-[#0038E1] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0038E1]"
           >
             {openedCopy.backLinkLabel}
           </Link>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-10 items-start">
+        <div className="mt-4 sm:mt-6 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 xl:gap-10 items-start">
           {/* Left Sticky Onboarding Column */}
-          <aside className="lg:col-span-5 lg:sticky lg:top-24 relative overflow-hidden rounded-[20px] bg-[#0038E1] text-white p-6 sm:p-8 xl:p-10">
+          <aside className="min-w-0 lg:col-span-5 lg:sticky lg:top-24 relative overflow-hidden rounded-[16px] sm:rounded-[20px] bg-[#0038E1] text-white p-5 sm:p-8 xl:p-10">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0"
@@ -421,7 +422,7 @@ export default function RecruitmentOpenedForm({
             </div>
 
             <div className="relative z-10">
-              <p className="text-3xl sm:text-4xl xl:text-[46px] font-normal leading-[1.12] whitespace-pre-line text-white">
+              <p className="text-[28px] sm:text-4xl xl:text-[46px] font-normal leading-[1.12] sm:whitespace-pre-line text-white">
                 {openedCopy.sidebarHeadline}
               </p>
 
@@ -429,11 +430,24 @@ export default function RecruitmentOpenedForm({
                 {openedCopy.sidebarDescription}
               </p>
 
-              <div className="my-6 border-t border-[#D6DBE0]/70" />
+              <button
+                type="button"
+                aria-expanded={stepsOpen}
+                aria-controls={`${baseId}-steps`}
+                onClick={() => setStepsOpen((open) => !open)}
+                className="mt-4 flex min-h-11 w-full items-center justify-between gap-3 border-t border-white/30 pt-3 text-left text-sm font-medium text-white lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Application steps
+                <ChevronDown className={`h-5 w-5 shrink-0 transition-transform ${stepsOpen ? "rotate-180" : ""}`} aria-hidden="true" />
+              </button>
+              <div className="hidden lg:block my-6 border-t border-[#D6DBE0]/40" />
 
-              <ol className="space-y-5">
+              <ol
+                id={`${baseId}-steps`}
+                className={`${stepsOpen ? "grid" : "hidden lg:grid"} mt-4 lg:mt-0 grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4 lg:gap-5`}
+              >
                 {openedCopy.steps.map((step) => (
-                  <li key={step.number} className="flex items-start gap-4">
+                  <li key={step.number} className="flex sm:flex-col lg:flex-row items-start gap-2 lg:gap-4">
                     <span className="text-base font-semibold text-[#A9E041] shrink-0 pt-0.5">
                       {step.number}
                     </span>
@@ -452,7 +466,7 @@ export default function RecruitmentOpenedForm({
           </aside>
 
           {/* Right Form / Receipt Column */}
-          <div className="lg:col-span-7 bg-white border border-[#E2E8F0] rounded-[16px] lg:rounded-[20px] p-5 sm:p-7 lg:p-8">
+          <div className="min-w-0 lg:col-span-7 bg-white border border-[#E2E8F0] rounded-[16px] lg:rounded-[20px] p-4 sm:p-7 lg:p-8">
             {receipt ? (
               <section
                 aria-labelledby="receipt-heading"
@@ -477,7 +491,7 @@ export default function RecruitmentOpenedForm({
                   </p>
                 </div>
 
-                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-[12px] border border-[#E2E8F0] bg-[#F8FAFC] p-5 text-sm">
+                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-[12px] border border-[#E2E8F0] bg-[#F8FAFC] p-4 sm:p-5 text-sm [overflow-wrap:anywhere]">
                   <div>
                     <dt className="text-[#757E91] font-medium">
                       Application ID
@@ -1340,13 +1354,13 @@ export default function RecruitmentOpenedForm({
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 shrink-0">
+                        <div className="flex flex-wrap items-center gap-2 sm:shrink-0">
                           {cvFile ? (
                             <button
                               type="button"
                               onClick={handleRemoveCv}
                               aria-label="Remove CV"
-                              className="inline-flex items-center gap-1 h-[40px] px-3 rounded-[10px] border border-[#E2E8F0] text-sm text-[#B41B00] hover:bg-[#FAAF98]/25 transition-colors cursor-pointer"
+                              className="inline-flex items-center gap-1 min-h-11 px-3 rounded-[10px] border border-[#E2E8F0] text-sm text-[#B41B00] hover:bg-[#FAAF98]/25 transition-colors cursor-pointer"
                             >
                               <X className="w-4 h-4" aria-hidden="true" />
                               <span>Remove</span>
@@ -1355,7 +1369,7 @@ export default function RecruitmentOpenedForm({
                           <button
                             type="button"
                             onClick={() => cvInputRef.current?.click()}
-                            className="inline-flex items-center justify-center h-[42px] px-5 rounded-[10px] border border-[#A1A7B4] bg-white text-[15px] text-[#4A5565] underline underline-offset-4 hover:border-[#0038E1] hover:text-[#0038E1] transition-colors cursor-pointer"
+                            className="inline-flex items-center justify-center min-h-11 px-4 py-2 rounded-[10px] border border-[#A1A7B4] bg-white text-[15px] text-[#4A5565] underline underline-offset-4 hover:border-[#0038E1] hover:text-[#0038E1] transition-colors cursor-pointer"
                           >
                             {motivationCopy.fields.cv.buttonLabel}
                           </button>

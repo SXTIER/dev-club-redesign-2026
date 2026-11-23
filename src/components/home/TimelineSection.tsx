@@ -52,7 +52,7 @@ export function TimelineSection() {
           <div className="relative mt-8 lg:mt-10">
             <div
               aria-hidden="true"
-              className="hidden md:block absolute left-[13px] top-6 bottom-6 w-[2px] bg-[#1C1B1F]/25"
+              className="absolute left-[4px] md:left-[13px] top-6 bottom-6 w-[2px] bg-[#1C1B1F]/20"
             />
 
             <ol className="space-y-4">
@@ -64,32 +64,31 @@ export function TimelineSection() {
                 return (
                   <li
                     key={item.id}
-                    className="relative md:pl-10 flex items-stretch"
+                    className="relative pl-5 md:pl-10 flex min-w-0 items-stretch"
                   >
                     <span
                       aria-hidden="true"
-                      className="hidden md:flex absolute left-[4px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] rounded-full bg-[#A9E041] border-2 border-[#1C1B1F]"
+                      className="absolute left-0 md:left-[4px] top-7 md:top-1/2 md:-translate-y-1/2 w-[10px] h-[10px] md:w-[20px] md:h-[20px] rounded-full bg-[#A9E041] border-2 border-[#1C1B1F]"
                     />
 
                     <div
-                      onClick={() => setSelectedEvent(item)}
-                      className="w-full bg-[#F5F5FA] border border-[#A1A7B4] hover:border-[#0038E1] rounded-[16px] sm:rounded-[20px] p-4 sm:p-5 lg:p-6 transition-colors cursor-pointer grid grid-cols-1 lg:grid-cols-[190px_1fr_auto] gap-4 lg:gap-6 items-start lg:items-center"
+                      className="relative min-w-0 w-full bg-[#F5F5FA] border border-[#A1A7B4] hover:border-[#0038E1] focus-within:border-[#0038E1] rounded-[16px] sm:rounded-[20px] p-4 sm:p-5 lg:p-6 transition-colors grid grid-cols-1 lg:grid-cols-[190px_1fr_auto] gap-3 sm:gap-4 lg:gap-6 items-start lg:items-center"
                     >
-                      <div className="min-w-0 flex flex-row lg:flex-col items-center lg:items-start justify-between lg:justify-center gap-2 lg:gap-2">
-                        <span className="text-xs font-semibold text-[#1C1B1F] bg-white border border-[#D6D9E3] px-2.5 py-0.5 rounded">
+                      <div className="min-w-0 flex flex-wrap lg:flex-col items-center lg:items-start justify-between lg:justify-center gap-2">
+                        <span className="shrink-0 text-xs font-semibold text-[#1C1B1F] bg-white border border-[#D6D9E3] px-2.5 py-0.5 rounded">
                           {indexLabel}
                         </span>
-                        <p className="flex items-center gap-1.5 text-sm font-medium text-[#4A5565]">
+                        <p className="min-w-0 flex items-start gap-1.5 text-xs sm:text-sm font-medium text-[#4A5565] break-words">
                           <Calendar
-                            className="w-3.5 h-3.5 shrink-0 text-[#0038E1]"
+                            className="mt-0.5 w-3.5 h-3.5 shrink-0 text-[#0038E1]"
                             aria-hidden="true"
                           />
-                          <span>{item.dateLabel}</span>
+                          <span className="min-w-0">{item.dateLabel}</span>
                         </p>
                       </div>
 
                       <div className="min-w-0">
-                        <h3 className="text-lg sm:text-xl lg:text-[22px] font-medium leading-snug text-[#1C1B1F]">
+                        <h3 className="text-lg sm:text-xl lg:text-[22px] font-medium leading-snug text-[#1C1B1F] break-words">
                           {item.title}
                         </h3>
                         <div
@@ -97,20 +96,19 @@ export function TimelineSection() {
                           className="mt-2 w-[52px] h-[4px]"
                           style={{ backgroundColor: accentColor }}
                         />
-                        <p className="mt-2.5 text-sm sm:text-[15px] leading-[24px] text-[#4A5565]">
+                        <p className="mt-2.5 text-sm sm:text-[15px] leading-[24px] text-[#4A5565] break-words">
                           {item.subtitle}
                         </p>
                       </div>
 
-                      <div className="flex items-center lg:justify-end shrink-0">
+                      <div className="flex min-w-0 items-center lg:justify-end">
                         <Button
                           type="button"
                           variant="secondary"
                           size="sm"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            setSelectedEvent(item);
-                          }}
+                          className="min-h-11 w-full sm:w-auto whitespace-normal after:absolute after:inset-0 after:rounded-[inherit] after:content-['']"
+                          aria-label={`View details: ${item.title}`}
+                          onClick={() => setSelectedEvent(item)}
                         >
                           View Details
                         </Button>

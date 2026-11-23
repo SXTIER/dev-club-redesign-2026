@@ -10,7 +10,7 @@ export function LocationSection() {
   return (
     <section id="location" className="scroll-mt-28 w-full bg-[#F5F5FA]">
       <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2">
-        <div className="px-5 sm:px-8 lg:pl-12 xl:pl-16 lg:pr-10 py-10 lg:py-16 flex flex-col justify-center items-start">
+        <div className="min-w-0 px-5 sm:px-8 lg:pl-12 xl:pl-16 lg:pr-10 pt-10 pb-6 lg:py-16 flex flex-col justify-center items-start">
           <p className="text-[13px] font-medium leading-[20px] text-[#0038E1]">
             {location.eyebrow}
           </p>
@@ -19,7 +19,7 @@ export function LocationSection() {
             {location.heading}
           </h2>
 
-          <p className="mt-4 lg:mt-6 text-2xl sm:text-3xl xl:text-[38px] font-normal leading-tight xl:leading-[48px] text-[#1C1B1F]">
+          <p className="mt-4 lg:mt-6 text-2xl sm:text-3xl xl:text-[38px] font-normal leading-tight xl:leading-[48px] text-[#1C1B1F] break-words">
             {location.campusName}
           </p>
 
@@ -27,7 +27,7 @@ export function LocationSection() {
             href={location.mapUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2.5 h-[46px] sm:h-[52px] px-5 bg-white border-2 border-[#D6D9E3] hover:border-[#0038E1] text-[15px] sm:text-[16px] font-medium text-[#1C1B1F] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
+            className="mt-5 lg:mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2.5 min-h-[48px] sm:min-h-[52px] px-5 py-3 bg-white border-2 border-[#D6D9E3] hover:border-[#0038E1] text-[15px] sm:text-[16px] text-center font-medium text-[#1C1B1F] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]"
           >
             <span aria-hidden="true" className="w-4 h-4 shrink-0 inline-flex">
               <ContentImage
@@ -45,7 +45,7 @@ export function LocationSection() {
           </p>
         </div>
 
-        <div className="relative h-[240px] sm:h-[320px] lg:h-auto lg:min-h-[400px] w-full overflow-hidden bg-[#E4E4E7]">
+        <div className="relative mx-5 mb-10 sm:mx-8 lg:mx-0 lg:mb-0 h-[200px] sm:h-[280px] lg:h-auto lg:min-h-[400px] overflow-hidden rounded-2xl lg:rounded-none bg-[#E4E4E7]">
           <ContentImage
             asset={location.image}
             className="w-full h-full lg:absolute lg:inset-0 object-cover block"

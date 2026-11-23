@@ -271,7 +271,7 @@ export function RecruitmentManager() {
             disabled={togglingOpen}
             onClick={() => void handleToggleRecruitmentOpen()}
             className={[
-              "relative inline-flex h-8 w-14 shrink-0 items-center rounded-full border-2 transition-colors cursor-pointer disabled:opacity-50",
+              "relative inline-flex h-11 w-[68px] shrink-0 items-center rounded-full border-2 transition-colors cursor-pointer disabled:opacity-50",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]",
               recruitment.isOpen
                 ? "bg-[#0038E1] border-[#001C26]"
@@ -280,8 +280,8 @@ export function RecruitmentManager() {
           >
             <span
               className={[
-                "inline-block h-6 w-6 rounded-full bg-white shadow transition-transform",
-                recruitment.isOpen ? "translate-x-6" : "translate-x-0.5",
+                "inline-block h-8 w-8 rounded-full bg-white shadow transition-transform",
+                recruitment.isOpen ? "translate-x-7" : "translate-x-0.5",
               ].join(" ")}
             />
           </button>
@@ -379,11 +379,26 @@ export function RecruitmentManager() {
 
       {/* Filter Bar: Status Pills + Dynamic Role Select + Search + Export CSV */}
       <div className="space-y-3">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <div className="flex flex-col 2xl:flex-row 2xl:items-center justify-between gap-3">
+          <select
+            aria-label="Filter applications by status"
+            value={statusFilter}
+            onChange={(event) => {
+              setStatusFilter(event.target.value as StatusFilterKey);
+              setCurrentPage(1);
+            }}
+            className="sm:hidden w-full min-w-0 h-11 px-3 rounded-[5px] border border-[#A1A7B4] bg-white text-base font-medium text-[#0038E1] focus:outline-2 focus:outline-[#0038E1]"
+          >
+            {statusPills.map((pill) => (
+              <option key={pill.key} value={pill.key}>
+                {pill.label} ({pill.count})
+              </option>
+            ))}
+          </select>
           <div
             role="group"
             aria-label="Filter applications by status"
-            className="flex flex-wrap items-center gap-2"
+            className="hidden sm:flex flex-wrap items-center gap-2"
           >
             {statusPills.map((pill) => {
               const active = statusFilter === pill.key;
@@ -397,7 +412,7 @@ export function RecruitmentManager() {
                     setCurrentPage(1);
                   }}
                   className={[
-                    "h-10 px-3.5 rounded-[5px] text-sm transition-colors cursor-pointer whitespace-nowrap",
+                    "h-11 px-3.5 rounded-[5px] text-sm transition-colors cursor-pointer whitespace-nowrap",
                     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0038E1]",
                     active
                       ? "bg-[#0038E1] text-white font-medium"
@@ -411,7 +426,7 @@ export function RecruitmentManager() {
           </div>
 
           <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
-            <div className="relative flex-1 sm:w-72">
+            <div className="relative min-w-0 flex-1 sm:basis-64">
               <Search
                 className="w-4 h-4 text-[#757E91] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
                 aria-hidden="true"
@@ -436,7 +451,7 @@ export function RecruitmentManager() {
                 setRoleFilter(event.target.value);
                 setCurrentPage(1);
               }}
-              className="h-11 px-3.5 rounded-[5px] border border-[#A1A7B4] bg-white text-sm text-[#0038E1] font-medium focus:outline-none focus:border-[#0038E1] cursor-pointer"
+              className="h-11 min-w-0 w-full sm:w-auto sm:max-w-72 px-3.5 rounded-[5px] border border-[#A1A7B4] bg-white text-sm text-[#0038E1] font-medium focus:outline-none focus:border-[#0038E1] cursor-pointer"
             >
               <option value="all">Position: All positions</option>
               {roleOptions.map((roleTitle) => (
@@ -460,7 +475,7 @@ export function RecruitmentManager() {
         </div>
       </div>
 
-      {/* Applications Table (Desktop >= 1024px) & Stacked Cards (Mobile < 1024px) */}
+      {/* Applications Table (Desktop >= 1280px) & Stacked Cards (Mobile < 1280px) */}
       <div className="bg-white border border-[#A1A7B4] rounded-[16px] overflow-hidden">
         <div className="px-5 sm:px-6 py-4 border-b border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <h2 className="text-lg sm:text-[22px] font-medium text-[#1C1B1F]">
@@ -483,10 +498,10 @@ export function RecruitmentManager() {
           </div>
         ) : (
           <>
-            {/* Desktop Table (>= 1024px) */}
+            {/* Desktop Table (>= 1280px) */}
             <div
               data-testid="recruitment-desktop-table"
-              className="hidden lg:block overflow-x-auto"
+              className="hidden xl:block min-w-0 overflow-x-auto"
             >
               <table className="w-full border-collapse text-left">
                 <thead>
@@ -601,10 +616,10 @@ export function RecruitmentManager() {
               </table>
             </div>
 
-            {/* Mobile & Tablet Stacked Cards (< 1024px) */}
+            {/* Mobile & Tablet Stacked Cards (< 1280px) */}
             <div
               data-testid="recruitment-mobile-cards"
-              className="lg:hidden divide-y divide-[#E2E8F0]"
+              className="xl:hidden divide-y divide-[#E2E8F0]"
             >
               {pagedApplications.map((app) => (
                 <article key={app.id} className="p-4 space-y-3 min-w-0">
@@ -631,11 +646,11 @@ export function RecruitmentManager() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-1.5 min-w-0">
-                    <Badge tone="neutral" className="rounded-[5px]">
+                    <Badge tone="neutral" className="rounded-[5px] max-w-full whitespace-normal [overflow-wrap:anywhere]">
                       {app.roleLabel}
                     </Badge>
                     {app.customRole ? (
-                      <Badge tone="info" className="rounded-[5px]">
+                      <Badge tone="info" className="rounded-[5px] max-w-full whitespace-normal [overflow-wrap:anywhere]">
                         {app.customRole}
                       </Badge>
                     ) : null}
@@ -664,7 +679,7 @@ export function RecruitmentManager() {
                     <button
                       type="button"
                       onClick={() => setViewingAppId(app.id)}
-                      className="text-sm font-medium text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4 cursor-pointer whitespace-nowrap"
+                      className="inline-flex min-h-11 items-center px-2 text-sm font-medium text-[#0038E1] hover:text-[#002BAA] hover:underline underline-offset-4 cursor-pointer whitespace-nowrap focus-visible:outline-2 focus-visible:outline-[#0038E1]"
                     >
                       View Form →
                     </button>

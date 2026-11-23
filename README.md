@@ -106,6 +106,20 @@ npm run build
 npm run start
 ```
 
+### Testing from a phone
+
+Run `npm run dev -- --hostname 0.0.0.0`, connect your phone to the same Wi-Fi, and open `http://<PC-IPv4>:3000` (find the Wi-Fi IPv4 address with `ipconfig` on Windows). Allow Node.js through Windows Firewall on private networks if prompted.
+
+`next.config.ts` allows the machine's current non-loopback IPv4 addresses as development origins so Next.js hydration and live reload work over LAN or VPN. Restart the dev server after switching networks or changing IP addresses, then reload the phone's page. Arbitrary external origins remain blocked; this setting does not change production behavior.
+
+### Responsive UI
+
+- Public and admin navigation switch to compact menus below `1280px`; menus support keyboard focus, Escape, and scroll restoration when resizing.
+- Homepage sections use compact mobile cards. Admin events and recruitment use cards through tablet widths, with mobile filter dropdowns.
+- Recruitment instructions collapse on smaller screens. The mobile inquiry inbox opens one question at a time with a back action.
+- Dialogs become scrollable bottom sheets on phones, with safe-area spacing and keyboard focus containment. Website-copy fields retain their full-screen mobile editor.
+- Mobile form controls use at least `16px` text to avoid iOS focus zoom; shared buttons use touch-friendly minimum heights.
+
 ## 4. Python backend
 
 The backend lives in `backend/` and matches the existing HTTP adapter under `/api/v1`. It uses FastAPI, SQLite, and persistent local uploads. Public content, event and media manifests are seeded from `src/content/` once; demo applicant/inquiry records are **not** imported.
