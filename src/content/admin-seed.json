@@ -247,20 +247,20 @@
   "signinMemes": [
     {
       "id": "media-signin-meme-1",
-      "src": "/images/figma/signin-meme-1.png",
+      "src": "/images/figma/signin-meme-1.jpg",
       "alt": "MUICT Dev Club coding meme slide 1",
       "caption": "When the build passes on the first try before Demo Day"
     },
     {
-      "id": "media-doge-typing",
-      "src": "/images/figma/doge-typing.png",
-      "alt": "Doge furiously typing code at midnight",
+      "id": "media-signin-meme-2",
+      "src": "/images/figma/signin-meme-2.mp4",
+      "alt": "MUICT Dev Club coding meme video 2",
       "caption": "Committee shipping hotfixes at 23:59 before recruitment opens"
     },
     {
-      "id": "media-signin-doge-avatar",
-      "src": "/images/figma/signin-doge-avatar.png",
-      "alt": "Admin Doge checking pull requests",
+      "id": "media-signin-meme-3",
+      "src": "/images/figma/signin-meme-3.mp4",
+      "alt": "MUICT Dev Club coding meme video 3",
       "caption": "Reviewing 60 recruitment applications with extra coffee"
     }
   ]

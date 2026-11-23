@@ -9,7 +9,7 @@ export function HeroSection() {
   const { hero } = home;
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#0038E1] text-white">
+    <section className="relative w-full min-h-[calc(100dvh-4rem)] lg:min-h-0 flex flex-col justify-center overflow-hidden bg-[#0038E1] text-white">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-black/10" />
         <div
@@ -22,15 +22,23 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 lg:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] items-center gap-6 sm:gap-8 lg:gap-8">
-          <div className="min-w-0 flex flex-col items-start">
-            <p className="max-w-full text-[11px] sm:text-sm lg:text-[15px] font-medium leading-[20px] sm:leading-[22px] tracking-wide text-white/85 break-words">
-              {hero.eyebrow}
-            </p>
+      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 py-10 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] items-center gap-6 sm:gap-8 lg:gap-x-8 lg:gap-y-0">
+          <p className="order-1 lg:col-start-1 lg:row-start-1 max-w-full text-[11px] sm:text-sm lg:text-[15px] font-medium leading-[20px] sm:leading-[22px] tracking-wide text-white/85 break-words">
+            {hero.eyebrow}
+          </p>
 
-            <div className="mt-5 sm:mt-8 lg:mt-12 flex min-w-0 max-w-full flex-col items-start">
-              <div className="ml-1 sm:ml-4 w-[52px] h-[52px] sm:w-[72px] sm:h-[72px] lg:w-[96px] lg:h-[96px]">
+          <div className="order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2 flex min-w-0 items-center justify-center lg:justify-end">
+            <ContentImage
+              asset={hero.heroArtwork}
+              priority
+              className="w-full max-w-[330px] sm:max-w-[380px] lg:max-w-[440px] xl:max-w-[500px] h-auto object-contain"
+            />
+          </div>
+
+          <div className="order-3 lg:col-start-1 lg:row-start-2 lg:mt-12 min-w-0 flex flex-col items-start">
+            <div className="flex min-w-0 max-w-full flex-col items-start">
+              <div className="hidden lg:block ml-4 lg:w-[96px] lg:h-[96px]">
                 <ContentImage
                   asset={hero.mascotImage}
                   priority
@@ -38,7 +46,7 @@ export function HeroSection() {
                 />
               </div>
 
-              <h1 className="mt-3 sm:mt-4 text-[clamp(2rem,7.6vw,2.75rem)] sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[62px] font-medium leading-[1.12] lg:leading-[1.15] tracking-tight lg:tracking-normal text-white break-words text-balance">
+              <h1 className="lg:mt-4 text-[clamp(2rem,7.6vw,2.75rem)] sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[62px] font-medium leading-[1.12] lg:leading-[1.15] tracking-tight lg:tracking-normal text-white break-words text-balance">
                 {hero.headline}
               </h1>
             </div>
@@ -53,14 +61,6 @@ export function HeroSection() {
             >
               {hero.ctaLabel}
             </Link>
-          </div>
-
-          <div className="flex min-w-0 items-center justify-center lg:justify-end">
-            <ContentImage
-              asset={hero.heroArtwork}
-              priority
-              className="w-full max-w-[240px] max-h-[180px] sm:max-w-[320px] sm:max-h-[240px] lg:max-w-[440px] lg:max-h-none xl:max-w-[500px] h-auto object-contain"
-            />
           </div>
         </div>
       </div>

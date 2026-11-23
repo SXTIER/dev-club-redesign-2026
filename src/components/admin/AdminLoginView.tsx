@@ -351,11 +351,24 @@ export function AdminLoginView() {
                   </button>
 
                   <div className="flex-1 min-w-0 flex items-center justify-center">
-                    <ContentImage
-                      asset={currentSlide}
-                      className="w-full max-h-[420px] sm:max-h-[540px] object-contain"
-                      priority
-                    />
+                    {/\.(mp4|webm|mov)(\?.*)?$/i.test(currentSlide.src) ? (
+                      <video
+                        key={currentSlide.src}
+                        src={currentSlide.src}
+                        aria-label={currentSlide.alt}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full max-h-[420px] sm:max-h-[540px] object-contain"
+                      />
+                    ) : (
+                      <ContentImage
+                        asset={currentSlide}
+                        className="w-full max-h-[420px] sm:max-h-[540px] object-contain"
+                        priority
+                      />
+                    )}
                   </div>
 
                   <button
