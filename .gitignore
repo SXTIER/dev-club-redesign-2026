@@ -24,3 +24,10 @@ coverage/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Python backend runtime
+backend/.venv/
+backend/data/
+__pycache__/
+.pytest_cache/
+*.pyc

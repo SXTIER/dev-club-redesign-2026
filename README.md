@@ -6,7 +6,7 @@
 
 ## 1. สรุปความคืบหน้าโครงการ (Task Status Report สำหรับ PM)
 
-สถานะปัจจุบัน: **Frontend & Mock Integration เสร็จสมบูรณ์ 100% (พร้อมเชื่อมต่อ Backend API)**
+สถานะปัจจุบัน: **Frontend พร้อม Python FastAPI backend (`backend/`); เชื่อมต่อผ่าน HTTP adapter ได้**
 
 ### 1.1 Tech Stack & Infrastructure
 - **Framework:** Next.js `16.4.6` (App Router + Turbopack)
@@ -64,11 +64,11 @@
 
 | หมวด (Service) | Method & Path | สิทธิ์ | หน้าที่ |
 | :--- | :--- | :--- | :--- |
-| **1. Auth** | `POST /auth/login`<br>`POST /auth/logout`<br>`GET /auth/session` | Public<br>Admin<br>Admin | ล็อกอินผู้ดูแลระบบ (รองรับทั้ง `HttpOnly` Cookie และ `Bearer JWT`), ล็อกเอาต์ และเช็ก Session ปัจจุบัน |
+| **1. Auth** | `POST /auth/login`<br>`POST /auth/logout`<br>`GET /auth/me` | Public<br>Public/Admin<br>Admin | ล็อกอินด้วยบัญชีที่ provision ไว้, HttpOnly session cookie, ล็อกเอาต์ และเช็ก Session ปัจจุบัน |
 | **2. Site Content** | `GET /content/{section}`<br>`PUT /content/{section}`<br>`POST /content/reset` | Public<br>Admin<br>Admin | อ่าน/บันทึกข้อมูล JSON ทั้ง 4 ส่วน (`site`, `home`, `recruitment`, `legal`) และรีเซ็ตค่าเริ่มต้น |
 | **3. Media Library** | `GET /media`<br>`POST /media`<br>`PATCH /media/{assetId}/slot`<br>`DELETE /media/{assetId}` | Public<br>Admin<br>Admin<br>Admin | ดึงรายการไฟล์, อัปโหลดรูป/SVG (`multipart/form-data`), ผูกรูปเข้ากับ Slot บนเว็บ และลบไฟล์ (คืน `409 ASSET_IN_USE` หากไฟล์ถูกใช้อยู่) |
 | **4. Events** | `GET /events`<br>`POST /events`<br>`PATCH /events/{id}`<br>`DELETE /events/{id}` | Public/Admin<br>Admin<br>Admin<br>Admin | ดึงรายการกิจกรรม, สร้าง/แก้ไขกิจกรรมพร้อมอัปโหลดภาพปก (`payload` + `cover`) และลบกิจกรรม |
-| **5. Inquiries & FAQ Bank** | `GET /inquiries`<br>`POST /inquiries`<br>`POST /inquiries/{id}/reply`<br>`PATCH /inquiries/{id}/tags`<br>`GET /faq-bank`<br>`POST /faq-bank`<br>`PATCH /faq-bank/{id}`<br>`DELETE /faq-bank/{id}`<br>`POST /faq-bank/{id}/promote` | Admin<br>Public<br>Admin<br>Admin<br>Admin<br>Admin<br>Admin<br>Admin<br>Admin | รับคำถามจากหน้าเว็บ, ตอบกลับอีเมล, จัดการแท็ก, จัดการคลังคำถาม FAQ Bank และ Promote คำถามขึ้นหน้า Home |
+| **5. Inquiries & FAQ Bank** | `GET /inquiries`<br>`POST /inquiries`<br>`POST /inquiries/{id}/reply`<br>`PATCH /inquiries/{id}/tags`<br>`GET /faq-bank`<br>`POST /faq-bank`<br>`PATCH /faq-bank/{id}`<br>`DELETE /faq-bank/{id}`<br>`POST /faq-bank/{id}/copy-to-home` | Admin ยกเว้น public submit | รับคำถาม, ส่งอีเมลจริงผ่าน SMTP, จัดการ FAQ Bank และคัดลอกขึ้นหน้า Home |
 | **6. Recruitment** | `GET /recruitment/applications`<br>`POST /recruitment/applications`<br>`PATCH /recruitment/applications/{id}/status`<br>`PATCH /recruitment/status`<br>`GET /recruitment/applications/{id}/cv` | Admin<br>Public<br>Admin<br>Admin<br>Admin | ส่งใบสมัครพร้อมไฟล์ CV (`payload` + `cv`), ดึงรายชื่อผู้สมัคร, เปลี่ยนสถานะผู้สมัคร, เปิด/ปิดรับสมัคร และขอลิงก์เปิด/ดาวน์โหลดไฟล์ CV |
 
 ---
@@ -119,3 +119,44 @@ Run `npm run dev -- --hostname 0.0.0.0`, connect your phone to the same Wi-Fi, a
 - Recruitment instructions collapse on smaller screens. The mobile inquiry inbox opens one question at a time with a back action.
 - Dialogs become scrollable bottom sheets on phones, with safe-area spacing and keyboard focus containment. Website-copy fields retain their full-screen mobile editor.
 - Mobile form controls use at least `16px` text to avoid iOS focus zoom; shared buttons use touch-friendly minimum heights.
+
+## 4. Python backend
+
+The backend lives in `backend/` and matches the existing HTTP adapter under `/api/v1`. It uses FastAPI, SQLite, and persistent local uploads. Public content, event and media manifests are seeded from `src/content/` once; demo applicant/inquiry records are **not** imported.
+
+### Setup (Python 3.12+)
+
+Run from the repository root. On Windows:
+
+```powershell
+python -m venv backend/.venv
+backend/.venv/Scripts/python.exe -m pip install -r backend/requirements-dev.txt
+Copy-Item backend/.env.example backend/.env
+backend/.venv/Scripts/python.exe -m backend.app create-admin admin@muictdev.club
+backend/.venv/Scripts/python.exe -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+On macOS/Linux, use `backend/.venv/bin/python` instead and `cp` for copying files. The provisioning command prompts for a password of at least 12 characters; running it again changes the password and revokes existing sessions. There are no default administrator credentials or public account-registration endpoints.
+
+In a second terminal, copy the root `.env.example` to `.env.local` and run `npm run dev`. The example selects API mode with the same-origin Next.js proxy:
+
+```env
+NEXT_PUBLIC_DATA_MODE=api
+NEXT_PUBLIC_API_BASE_URL=/api/backend
+BACKEND_INTERNAL_URL=http://127.0.0.1:8000/api/v1
+```
+
+Restart Next.js after changing environment values. To use only the original mock frontend, set `NEXT_PUBLIC_DATA_MODE=mock`.
+
+- Frontend: `http://localhost:3000`; admin login: `/admin/login`.
+- API documentation: `http://127.0.0.1:8000/docs`; health: `/api/v1/health`.
+- Tests: `backend/.venv/Scripts/python.exe -m pytest backend/tests -q`.
+- Data: `backend/data/devclub.sqlite3`, `backend/data/uploads/`, and the download-signing key. These and virtual environments are ignored by Git. Back up the **entire** data directory, including the key; content reset restores only the four content documents, not applications, events, correspondence, or files.
+
+### Email and deployment
+
+Configure `DEVCLUB_SMTP_HOST`, `DEVCLUB_SMTP_PORT`, `DEVCLUB_MAIL_FROM` and optional SMTP credentials/TLS in `backend/.env`. Local development can use a local SMTP capture service such as Mailpit on port 1025. Without SMTP configured, replying returns `503` and does not mark an inquiry answered; failed SMTP delivery returns `502`. Successful replies record SMTP acceptance, not guaranteed final inbox delivery.
+
+API administration uses hashed-password authentication and revocable, expiring HttpOnly cookies. Private application/CV/inquiry/FAQ reads require authentication; CV links expire after five minutes by default. Public event reads never return drafts. Uploads are capped at 10 MB, images are inspected, SVGs are restricted to inert geometry, and private CVs are not exposed through a static directory. Use trusted documents only: PDF/DOCX validation is not antivirus scanning.
+
+For deployment, run the Python API separately from Vercel with a persistent disk for SQLite/uploads, keep its listening port private behind a reverse proxy, use HTTPS and `DEVCLUB_COOKIE_SECURE=true`, and set `DEVCLUB_ALLOWED_ORIGINS` to a JSON array of the actual frontend origins. The default allows only `http://localhost:3000` and `http://127.0.0.1:3000`; phone/network previews need their exact frontend origin added. `DEVCLUB_PUBLIC_API_BASE` defaults to `/api/backend` so file URLs use the same proxy; set an absolute public API URL only for a direct cross-origin deployment. Do not expose the database, environment file, or signing key. Add edge rate limits for public submissions and scheduled backups before public launch.

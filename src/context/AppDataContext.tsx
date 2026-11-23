@@ -449,7 +449,7 @@ export function AppDataProvider({
         async login(input) {
           const nextSession = await rawServices.auth.login(input);
           if (mountedRef.current) setSession(nextSession);
-          await refreshAdminData();
+          await Promise.all([refreshAdminData(), refreshEvents()]);
           return nextSession;
         },
         async logout() {
@@ -462,6 +462,7 @@ export function AppDataProvider({
               setFaqBank([]);
             }
           }
+          await refreshEvents();
         },
         async getSession() {
           const current = await rawServices.auth.getSession();
